@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "canva-workspace-assistant": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@canva/cli@latest",
+        "mcp"
+      ],
+      "env": {
+        "CANVA_CLIENT_ID": "${CANVA_CLIENT_ID}",
+        "CANVA_CLIENT_SECRET": "${CANVA_CLIENT_SECRET}"
+      }
+    },
+    "canva-custom-tools": {
+      "command": "node",
+      "args": ["dist/index.js"],
+      "env": {
+        "CANVA_CLIENT_ID": "${CANVA_CLIENT_ID}",
+        "CANVA_CLIENT_SECRET": "${CANVA_CLIENT_SECRET}"
+      }
+    }
+  }
+}
