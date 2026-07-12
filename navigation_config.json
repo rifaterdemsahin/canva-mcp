@@ -47,6 +47,7 @@
     {"label": "4. Formula", "url": "4_Formula/README.md"},
     {"label": "   ├─ Lower Third MCP Spec", "url": "4_Formula/lower_third_mcp_spec.md"},
     {"label": "   ├─ Architecture Course MCP Spec", "url": "4_Formula/architecture_course_mcp_spec.md"},
+    {"label": "   ├─ Voiceover Presentation API Spec", "url": "4_Formula/voiceover_presentation_api_spec.md"},
     {"label": "   ├─ Implementation", "url": "4_Formula/implementation.md"},
     {"label": "   ├─ Specs", "url": "4_Formula/specs.md"},
     {"label": "   ├─ Canva Credentials Guide", "url": "4_Formula/canva_credentials.md"},

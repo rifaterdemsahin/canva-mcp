@@ -119,3 +119,23 @@
 **Follow-up**
 - Manual step still open for the user: Elements → L (line tool) → snap lines between shapes/text to draw the cross-slide AI data pipeline connectors.
 - If a future task needs deterministic shape fidelity (not just "on theme"), revisit the deferred alternative in SPEC-016: generate icon images + `upload-asset-from-url` + `insert_fill`.
+
+---
+
+## 🔄 Retrospective — Voiceover-to-Presentation API (2026-07-12)
+
+**Milestone:** Objective 8 delivered — `5_Symbols/presentation-api/` (SPEC-018), a reusable API that turns `{ title, voiceover }` into a queued, then agent-generated, Canva presentation. Live-verified with design `DAHPMbFhUJE`.
+
+**What went well**
+- Scanning the existing `5_Symbols/mcp-server` Canva client *before* designing the API surfaced the real constraint (no REST equivalent to `generate-design-structured`) early enough to design around it honestly, instead of discovering it mid-implementation.
+- Surfacing that constraint to the user as a direct multiple-choice question, before writing any code, got a fast, clear decision ("I run it manually") that shaped the entire architecture correctly on the first attempt.
+- Writing real unit tests against the *actual* voiceover script — not a simplified synthetic fixture — caught 3 genuine bugs (a quote-matching false positive, a sentence-splitter that silently dropped text around "CLAUDE.md", and a `RegExp.lastIndex` reset gotcha) before any of them shipped. All three would have been invisible from code review alone; only running the tests (and a standalone debug script to see actual output) revealed them.
+
+**What was learned**
+- "Do X in the background" is not automatically achievable just because X is possible interactively — when X requires a capability that only exists inside an authenticated agent session (here, the Canva MCP connector), "background" has to mean a job queue serviced by an agent, not a headless script. This is the same class of finding as the shape/connector gaps in SPEC-015/016/017, applied to a different layer (execution model, not design-element capability).
+- Regex-based text parsing has sharp, easy-to-get-wrong edges around: quote-delimiter ambiguity with contractions, character-exclusion classes that can't represent "pass through a non-boundary occurrence of an excluded character," and `lastIndex` state after a global regex's final failed match. All three bit this parser on the first implementation attempt despite a careful design write-up beforehand — the design being well-reasoned did not substitute for actually running it.
+- When candidate `generate-design-structured` outputs don't exactly match the approved outline's page count, picking the closest-count candidate is a workable heuristic — but "closest" ties should favor the direction that preserves more named structure (over-splitting) over the direction that merges/loses it, since merging is harder to detect and fix after the fact.
+
+**Follow-up**
+- Job store is a local JSON file (v1) — migrate to Supabase if/when this needs multi-user or persistent-beyond-localhost use, per SPEC-018's explicit v2 note.
+- No auth layer yet — flagged in the spec as a boundary that must be addressed before any deployment beyond `127.0.0.1`.

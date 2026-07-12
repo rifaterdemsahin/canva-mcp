@@ -63,6 +63,19 @@ MCP servers `canva-cli` and `canva-custom-tools` added to `kilo.json`. User need
 | TSK-031 | Editing transaction: `format_text` each slide header (28px bold, spec color, spec alignment), commit | Symbols Agent (tool chain) | 4/4 ops succeeded, transaction committed | [x] |
 | TSK-032 | Verify via `get-design`/thumbnails, remind user of manual connector steps, update `logic.md`, run smoke tests, commit+push | Test + Semblance Agent | `updated_at` bumped (1783870762 > 1783870697); 5 thumbnails rendered; logic.md row 6 added | [x] |
 
+## Phase 8: Voiceover-to-Presentation API (Done)
+
+> SPEC-018 in `4_Formula/voiceover_presentation_api_spec.md`. Objective 8 in `okrs.md`. Key constraint: Canva's AI design generation is MCP-connector-exclusive (no public REST equivalent) — the "background" execution is a job queue serviced by an agent running the real MCP chain interactively, not an autonomous script. User confirmed this model ("I run it manually"). Delivered as `5_Symbols/presentation-api/`, verified live with design `DAHPMbFhUJE`.
+
+| ID | Task | Agent | Coordination | Done |
+|----|------|-------|-------------|------|
+| TSK-034 | Scan existing `5_Symbols/mcp-server` Canva client; confirm no REST equivalent to `generate-design-structured` exists | Environment Agent | Confirmed: `createDesign()` only calls plain `POST /v1/designs` (blank design) | [x] |
+| TSK-035 | Write SPEC-018 (job-queue architecture, deterministic parser, executor model) | Formula Agent | Gate before code — user confirmed executor model via direct question | [x] |
+| TSK-036 | Build voiceover→outline parser (`5_Symbols/presentation-api/src/parser.ts`) + unit tests against the comic-deck script | Symbols Agent | 11/11 tests passing; 3 real bugs found (quote-matching, sentence-splitter dropping text, `lastIndex` reset) and fixed by the tests before shipping | [x] |
+| TSK-037 | Build job store (local JSON) + plain-`http` API (`POST`/`GET`/`PATCH /api/presentations`) | Symbols Agent | No Express — kept dependency-free, consistent with `mcp-server`'s style | [x] |
+| TSK-038 | Build `complete-job` CLI helper for writing back agent-run MCP results | Symbols Agent | Pure deterministic code — no MCP call, writes the job store directly | [x] |
+| TSK-039 | Live end-to-end test: real `POST`, agent-run MCP chain, `complete-job`, verify via `get-design` | Test Agent | Job `46593a64-89e1-456f-9052-664e7fc391c7` → design `DAHPMbFhUJE` (11 pages) → `get-design` confirmed live | [x] |
+
 ## Phase 4: Testing & Deployment (Pending)
 
 | ID | Task | Agent | Coordination | Done |

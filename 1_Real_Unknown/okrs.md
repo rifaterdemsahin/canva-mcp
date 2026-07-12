@@ -51,6 +51,25 @@
 - **KR 6.3:** Each slide header formatted to spec (28px bold, specified color, specified alignment) via `format_text`, transaction committed ✅ all 4 `format_text` ops succeeded; "column" placement approximated via text alignment (start/center/end) rather than frame relocation, to avoid overlapping the AI-generated artwork
 - **KR 6.4:** Layout verified via `get-design` (`updated_at` 1783870762 > `created_at` 1783870697) with thumbnails + edit URL rendered for review ✅; manual connector steps (Elements → L → snap) communicated to the user as an accepted limitation, not a bug
 
+## 🎯 Objective 7: Reusable native shape components for the Claude AI Architect course (SPEC-017)
+*A Canva App delivers true native, editable shape elements (not AI-interpreted layout, not raster images) that the user can drop into any course deck — closing the gap SPEC-016 accepted as a tradeoff.*
+
+> **Status:** In progress. Full plan in **[SPEC-017 → `4_Formula/architecture_components_app_spec.md`](../4_Formula/architecture_components_app_spec.md)**.
+
+- **KR 7.1:** A demo presentation showcasing the 4 reusable components (Shield/Hexagon/Cylinder/Octagon) is created via the CLI Canva MCP and opened for the user — design ID and edit URL returned
+- **KR 7.2:** The existing `lower-third-text` Canva App is extended with 4 native-shape insert buttons (`addElementAtPoint({ type: "shape" })`), each with hand-authored SVG paths and the exact course hex colors — reused rather than duplicated, per SPEC-014's app scaffold
+- **KR 7.3:** User confirms each shape renders correctly as a native, editable Canva element after manually previewing the app and clicking each button on the demo deck
+
+## 🎯 Objective 8: Voiceover-to-Presentation API (SPEC-018) ✅
+*A reusable local API turns { title, voiceover } into a queued Canva-generation job, generalizing the manual process used for the Coordinator/Sub-Agents comic deck.*
+
+> **✅ Delivered 2026-07-12** — `5_Symbols/presentation-api/`, live-verified end-to-end with design `DAHPMbFhUJE`. Full plan + test evidence in **[SPEC-018 → `4_Formula/voiceover_presentation_api_spec.md`](../4_Formula/voiceover_presentation_api_spec.md)**.
+
+- **KR 8.1:** `POST /api/presentations { title, voiceover }` deterministically parses the voiceover into a `request-outline-review`-ready outline (Act/Panel headings, quoted dialogue) and returns a `pending` job immediately ✅ verified live against the real Coordinator/Sub-Agents script
+- **KR 8.2:** An executor (agent-run, not the API process itself — Canva's AI design generation is MCP-connector-exclusive) services pending jobs via the real MCP tool chain and writes back `design_id`/`edit_url` ✅ `npm run complete-job` CLI, exercised live
+- **KR 8.3:** `GET /api/presentations/:job_id` returns job status/result; parser has unit tests reproducing the comic-deck's 8-section breakdown ✅ 11/11 unit tests passing (3 real bugs found and fixed by the tests before shipping — see SPEC-018 verification section)
+- **KR 8.4:** One live end-to-end run produces a real Canva design, verified via `get-design` ✅ design `DAHPMbFhUJE`, 11 pages, edit URL https://www.canva.com/d/koayZBYCG9Sqbwi
+
 ---
 
 ## 🧪 Outcome Tracking & Validation

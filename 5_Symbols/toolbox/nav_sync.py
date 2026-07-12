@@ -57,6 +57,7 @@ MENU = [
     ("4. Formula", "4_Formula/README.md"),
     ("   ├─ Lower Third MCP Spec", "4_Formula/lower_third_mcp_spec.md"),
     ("   ├─ Architecture Course MCP Spec", "4_Formula/architecture_course_mcp_spec.md"),
+    ("   ├─ Voiceover Presentation API Spec", "4_Formula/voiceover_presentation_api_spec.md"),
     ("   ├─ Implementation", "4_Formula/implementation.md"),
     ("   ├─ Specs", "4_Formula/specs.md"),
     ("   ├─ Canva Credentials Guide", "4_Formula/canva_credentials.md"),

@@ -1,0 +1,20 @@
+{
+  "name": "presentation-api",
+  "version": "1.0.0",
+  "description": "SPEC-018: voiceover-to-Canva-outline API and job queue. See 4_Formula/voiceover_presentation_api_spec.md.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/src/server.js",
+    "dev": "tsx watch src/server.ts",
+    "test": "tsx --test src/__tests__/*.test.ts",
+    "complete-job": "tsx src/completeJob.ts",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

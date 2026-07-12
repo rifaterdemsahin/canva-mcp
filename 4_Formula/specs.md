@@ -211,6 +211,17 @@
 - **Related Files:** `1_Real_Unknown/okrs.md` (Objective 6), `1_Real_Unknown/tasks.md` (Phase 6), `4_Formula/architecture_course_mcp_spec.md`, `7_Testing_Known/architecture_course_shape_deck_flow.md` (end-to-end flow doc), `2_Environment/canva_capability_research.md` (external research: real native-shape path exists via Apps SDK `addElementAtPoint`, not used here)
 - **Last Updated:** 2026-07-12
 
+### SPEC-018: Voiceover-to-Presentation API
+
+- **Status:** ✅ Verified (2026-07-12) — live run produced design `DAHPMbFhUJE`; full spec + test evidence: [`voiceover_presentation_api_spec.md`](voiceover_presentation_api_spec.md)
+- **Description:** `POST /api/presentations { title, voiceover }` parses a voiceover script into a Canva outline and queues a generation job; an agent (this session or a scheduled cloud agent) services the queue via the MCP connector, since Canva's AI outline-to-design generation is connector-exclusive (no public REST equivalent).
+- **Key Behaviors:**
+  - **[CONSTRAINT CONFIRMED]** No headless server can call Canva's AI design generation directly — `generate-design-structured` only exists inside the MCP-connected agent context. The Connect REST API's `POST /v1/designs` (used by the existing `5_Symbols/mcp-server`) only creates blank designs.
+  - Deterministic voiceover→outline parser (Act/Panel heading detection, quoted-dialogue extraction) — no LLM call, unit-testable.
+  - Job queue (local JSON store v1) decouples request acceptance from Canva generation.
+- **Related Files:** `1_Real_Unknown/okrs.md` (Objective 8), `5_Symbols/presentation-api/`
+- **Last Updated:** 2026-07-12
+
 ---
 
 ## Spec Template
