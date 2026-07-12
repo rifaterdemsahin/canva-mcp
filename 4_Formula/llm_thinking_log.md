@@ -845,3 +845,37 @@ This log documents the thinking phase summaries and reasoning processes of the L
 - All 3 OKRs substantially met; Phase 4 tasks remaining are the final formalities.
 - Risk R-007 (smoke test gate in CI) is the only remaining active risk of concern — downgraded but not resolved.
 - Root-level duplicate of MCP server code identified for cleanup.
+
+---
+
+## 📅 2026-07-12 — Lower Third Text Element Addition (Multi-Stage Flow)
+
+### 📥 Input / Task
+- User request: Create a Canva presentation, add lower third text "tuncer karaarslan" with fade-in animation.
+- Two iterations: first created presentation `DAHPLpF7E9E` via REST API; second iteration added "lower third text" app via Apps SDK for element placement.
+
+### 💭 Thinking & Reasoning Process
+1. **API Capability Discovery:** Scanned the Canva Connect REST API (`api.canva.com/rest/v1`) and Canva Apps SDK (`@canva/design`) to map capabilities:
+   - **REST API:** Design CRUD (`POST /v1/designs`, `GET /v1/designs`), exports, autofill brand templates, asset management. No element-level manipulation, no animation endpoints.
+   - **Apps SDK:** `addElementAtPoint()`, `addNativeElement()`, `getCurrentPageContext()`, `getDefaultPageDimensions()`. No animation API.
+   - **Key boundary:** REST API = external integration (create/manage/export designs from outside Canva); Apps SDK = in-editor plugin (modify content inside the Canva editor). These are separate development tracks with different capabilities.
+2. **Two-Phase Approach Decision:**
+   - Phase 1: Use the existing Canva Connect REST API (via custom MCP tools or direct `curl`) to create the presentation — fast, no new infra needed.
+   - Phase 2: Build a Canva App with the Apps SDK to add the lower third text element. This requires: scaffolding via `@canva/cli apps create`, modifying `app.tsx`, registering in Developer Portal, starting a dev server.
+3. **Animation Limitation Acknowledged:** Neither the REST API nor the Apps SDK expose animation control. The fade-in animation must be applied manually in the Canva editor (Select element → Animate → Entrance → Fade). This is a documented platform limitation.
+4. **App Implementation:**
+   - Used `@canva/cli apps create "lower-third-text" --template=hello_world --distribution=public` → App ID `AAHAADEb9zw`
+   - Modified `src/intents/design_editor/app.tsx`: replaced demo with `addElementAtPoint({ type: "text", top: pageHeight - 120, left: (pageWidth - width) / 2, width: pageWidth * 0.6, children: ["tuncer karaarslan"] })`
+   - Added status feedback state, `getCurrentPageContext()` for dynamic page dimension reading
+   - Dev server running on `localhost:8080`; requires user to set Development URL in Developer Portal
+5. **App Registration Issue:** First attempt with `--distribution=private` failed (requires Canva Enterprise). Switched to `--distribution=public`. Second attempt failed because folder already existed (from local `--offline` creation). Workaround: rename folder, create registered app, copy modified code in, delete temp.
+
+### 📤 Outcomes & Decisions
+- **Design created:** `DAHPLpF7E9E` ("Tuncer Karaarslan", presentation, 1 page)
+- **Canva App created:** `AAHAADEb9zw` ("lower-third-text", public, hello_world template, dev server on localhost:8080)
+- **Code written:** `5_Symbols/lower-third-text/src/intents/design_editor/app.tsx` — lower third adder with dynamic positioning
+- **Documentation produced:** `7_Testing_Known/canva_lower_third_flow.md` (7-stage flow), `SPEC-014` in `4_Formula/specs.md`, logic entries in `7_Testing_Known/logic.md`
+- **Capability boundary documented:** REST API ↔ Apps SDK gap matrix; animation = manual only
+- **Remaining manual step:** User must configure Development URL in Developer Portal, preview the app in the design, click "Add Lower Third", then manually apply Fade animation in the editor.
+
+## 📅 2026-07-12 — Canva App Dev Server Running

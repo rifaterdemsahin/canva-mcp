@@ -170,6 +170,24 @@
 - **Related Files:** `3_Simulation/canva_cli_*.jpg`, `3_Simulation/carousel_config.json`, `2_Environment/mcp.md`, `2_Environment/canva_connection.md`
 - **Last Updated:** 2026-07-12
 
+### SPEC-014: Canva Design Element Addition via Apps SDK
+
+- **Status:** Active
+- **Description:** Programmatic addition of text elements (e.g., lower thirds) to a Canva design requires a two-phase approach: (1) create the design via the Connect REST API (`POST /v1/designs`), (2) add elements via a Canva App built with the Apps SDK (`addElementAtPoint`). The REST API alone cannot add individual elements; the Apps SDK cannot create/export designs or apply animations. Animations (e.g., fade-in) remain a manual editor-only step — no programmatic API exists for them.
+- **Key Behaviors:**
+  - **Phase 1 — REST API:** `POST /v1/designs` with `design_type: { type: "preset", name: "presentation" }` and a title. Returns `designId`, `editUrl`, `viewUrl`. Requires `design:content:write` scope and a valid OAuth access token.
+  - **Phase 2 — Apps SDK:** A Canva App (intent: `design_editor`) calls `addElementAtPoint({ type: "text", top, left, width, children: [...] })` to place text at a calculated lower-third position. Requires `getCurrentPageContext()` to read page dimensions.
+  - **App manifest requirements:** `canva:design:content:read` and `canva:design:content:write` permissions; `design_editor` intent enrolled.
+  - **Development workflow:** App created via `@canva/cli apps create`, dev server on `localhost:8080`, registered in Developer Portal, previewed inside the Canva editor.
+  - **Animation limitation:** No SDK or REST API exists for applying entrance/exit animations. User must apply them manually in the Canva editor (Select element → Animate → Entrance → Fade).
+  - **Lower third positioning formula:** `top = pageHeight - 120`, `left = (pageWidth - pageWidth * 0.6) / 2`, `width = pageWidth * 0.6`.
+  - **Capability boundary table** (see `7_Testing_Known/canva_lower_third_flow.md` for full matrix):
+    - REST API: design CRUD ✅, element addition ❌, animation ❌
+    - Apps SDK: element addition ✅, animation ❌, design CRUD ❌
+    - Canva Editor: all ✅, programmatic ❌
+- **Related Files:** `5_Symbols/lower-third-text/src/intents/design_editor/app.tsx`, `5_Symbols/lower-third-text/canva-app.json`, `7_Testing_Known/canva_lower_third_flow.md`, `4_Formula/canva_credentials.md`
+- **Last Updated:** 2026-07-12
+
 ---
 
 ## Spec Template

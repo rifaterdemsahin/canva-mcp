@@ -13,6 +13,9 @@
 | Connect API integration | `OC-AZ9VpNJiU0ps` (named "mcp") |
 | Integration config URL | https://www.canva.com/developers/integrations/connect-api/OC-AZ9VpNJiU0ps/configuration |
 | Canva App ID | `AAHAAN3AO5Y` (for Canva App development, separate from Connect API) |
+| **Canva Apps Portal** | https://www.canva.com/developers/apps (view/manage all Canva Apps) |
+| **Lower Third App** | `AAHAADEb9zw` — Adds lower third text to designs (dev server: `localhost:8080`) |
+| **Lower Third App Portal** | https://www.canva.com/developers/app/AAHAADEb9zw (configure Development URL, preview) |
 | **Team admin — apps & integrations** | https://www.canva.com/settings/apps-and-integrations (whitelist integrations here) |
 | Team user / team id | `oUY2J_eG6r3vrq3Xgjpnx4` / `oBY2JwxsYlLtBhWzZ7vKlY` (from `/rest/v1/users/me`) |
 | Key Vault | `dp-kv-deliverypilot` (existing — never create a new vault) |
@@ -53,6 +56,28 @@ When an OAuth consent screen shows **"Access Restricted by Team Admin"** (seen f
 4. **Switch accounts** (last resort) — authorize with a personal Canva account outside the restricted Team; note the integration then acts on the personal account, not PEXABO's team assets.
 
 For this project, option 2 was used on 2026-07-12 for both integrations — journeys captured as `canva_oauth_01`–`04` and `canva_cli_01`–`03` in `3_Simulation/`.
+
+## Canva Apps SDK Development
+
+### Apps Portal
+- **URL:** https://www.canva.com/developers/apps — lists all registered Canva Apps and their IDs.
+- Individual app configuration at `https://www.canva.com/developers/app/{APP_ID}`.
+
+### Lower Third Text App (`AAHAADEb9zw`)
+- **Purpose:** Adds a positioned text element ("tuncer karaarslan") to the current Canva design page.
+- **Source:** `5_Symbols/lower-third-text/src/intents/design_editor/app.tsx`
+- **Dev server:** `http://localhost:8080` (`npm start` in `5_Symbols/lower-third-text/`)
+- **Permissions:** `canva:design:content:read`, `canva:design:content:write`
+- **Intent:** `design_editor` (side panel app inside Canva editor)
+- **Configure:** Set **Development URL** to `http://localhost:8080` in the Developer Portal, then click **Preview**.
+- **Test design:** `DAHPLpF7E9E` — https://www.canva.com/design/DAHPLpF7E9E/zf6S_nB9QXo9oFGszWuvHQ/edit
+
+### Canva Apps vs Connect API
+| Layer | URL | Purpose | This Project |
+|-------|-----|---------|-------------|
+| **Developer Portal** | https://www.canva.com/developers/ | Entry point for both tracks | `info@pexabo.com` |
+| **Apps Portal** | https://www.canva.com/developers/apps | Manage Canva Apps (Apps SDK) | `AAHAADEb9zw` (lower third) |
+| **Integrations** | https://www.canva.com/developers/integrations/connect-api/ | Manage Connect API integrations | `OC-AZ9VpNJiU0ps` (mcp) |
 
 ## Verification
 
