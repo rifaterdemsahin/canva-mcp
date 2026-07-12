@@ -4,8 +4,8 @@
 > Latest run overwrites this file; one report per test run.
 
 ## Run Info
-- **Date:** 2026-07-12 09:51
-- **Trigger:** canva mcp activation
+- **Date:** 2026-07-12 13:48
+- **Trigger:** carousel + CLI journey + integration review
 - **Mode:** Local filesystem
 - **Tester:** smoke_test.py (automated)
 - **Verdict:** ✅ ALL PASS

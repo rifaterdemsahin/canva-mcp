@@ -126,6 +126,17 @@ canva-mcp/
 4. Start with `1_Real_Unknown/` — define your problem
 5. Let AI agents guide you through each stage
 
+## 🎠 Simulation Gallery
+
+The home page carousel auto-plays the real screenshots of the Canva connection journey, loaded from [`3_Simulation/carousel_config.json`](3_Simulation/carousel_config.json):
+
+- **Connector OAuth (7 steps)** — team-admin restriction → admin whitelists the AI Connector → consent → PKCE auth-code callback (`3_Simulation/canva_oauth_01`–`07`)
+- **Canva CLI login (3 steps)** — CLI blocked by team admin → admin whitelists Canva CLI → "Successfully logged in to Canva CLI" (`3_Simulation/canva_cli_01`–`03`)
+
+See it live on [the project home page](https://rifaterdemsahin.github.io/canva-mcp/) · full step-by-step narration in [`3_Simulation/image_prompts.md`](3_Simulation/image_prompts.md) · workflow in [`3_Simulation/design_workflow.md`](3_Simulation/design_workflow.md).
+
+The Connect API integration (`OC-AZ9VpNJiU0ps`) is **submitted for Canva review** (in queue since 2026-07-12) — status tracked in [`2_Environment/mcp.md`](2_Environment/mcp.md).
+
 ## Links
 
 - **GitHub Pages:** [https://rifaterdemsahin.github.io/canva-mcp/](https://rifaterdemsahin.github.io/canva-mcp/)

@@ -152,9 +152,22 @@
   - **Admin restriction:** Team admin must whitelist the integration in Settings → Permissions → Apps & Integrations before the "Allow" button becomes active
   - **auth.html** handles: PKCE generation, redirect, callback code display, manual token exchange (user pastes client_secret from vault)
   - **7 screenshots** document each step: restriction → admin fix → landing → consent → callback
-  - **Carousel** in `index.html` displays all 7 images sequentially via `carousel_config.json`
+  - **Carousel** in `index.html` displays every simulation screenshot (7 OAuth + 3 CLI) via `3_Simulation/carousel_config.json`
   - Token exchange requires Basic Auth (`client_id:client_secret`) — auto-exchange fails without the secret, manual fallback provided
 - **Related Files:** `auth.html`, `3_Simulation/carousel_config.json`, `3_Simulation/canva_oauth_*.jpg`, `3_Simulation/image_prompts.md`, `4_Formula/canva_credentials.md`
+- **Last Updated:** 2026-07-12
+
+---
+
+### SPEC-013: Canva CLI Login & Integration Review Submission
+- **Status:** Active
+- **Description:** Authenticate the native Canva CLI (`npx @canva/cli@latest login`) as `info@pexabo.com` and submit the Connect API integration (`OC-AZ9VpNJiU0ps`, named "mcp") for Canva's review. The CLI login journey is captured in 3 screenshots in `3_Simulation/` (`canva_cli_01`–`03`).
+- **Key Behaviors:**
+  - **Admin restriction (same pattern as SPEC-012):** the Canva CLI integration must be whitelisted by the team admin in Settings → Apps and integrations → Manage integrations before its OAuth "Allow" button activates
+  - **CLI scopes:** read apps; create/modify/delete apps; read user profile
+  - **Login success** lands on canva.dev with next-step commands (`canva apps create`, `canva apps list`); the token is cached locally by the CLI — never committed
+  - **Integration review:** submitted 2026-07-12 via the developer portal submission page — status **In review** ("passed our initial check and is now in the queue"); status recorded in `2_Environment/mcp.md`
+- **Related Files:** `3_Simulation/canva_cli_*.jpg`, `3_Simulation/carousel_config.json`, `2_Environment/mcp.md`, `2_Environment/canva_connection.md`
 - **Last Updated:** 2026-07-12
 
 ---

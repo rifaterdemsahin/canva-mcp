@@ -60,6 +60,21 @@ The Model Context Protocol (MCP) is an open standard for connecting agents to ex
 | Fly.io | | | | | ✓ | | |
 | Qdrant | | | | | ✓ | | |
 
+## Canva Connect Integration — Review Status
+
+The project's Canva Connect API integration (**`OC-AZ9VpNJiU0ps`**, named "mcp", owned by `info@pexabo.com`) was **submitted for Canva's review on 2026-07-12**.
+
+| Item | Value |
+|---|---|
+| Submission page | https://www.canva.com/developers/integrations/connect-api/OC-AZ9VpNJiU0ps/submission |
+| Status | 🟡 **In review** — "passed our initial check and is now in the queue" |
+| Submitted | 2026-07-12 |
+| Review sections completed | Configuration · Scopes · Authentication · Return navigation |
+| While in review | Integration keeps working for the Pexabo team; public availability follows approval |
+| Spec | `4_Formula/specs.md` → SPEC-013 |
+
+Update this table when Canva's review verdict arrives (approved / changes requested).
+
 ## Adding a New MCP Server
 
 1. Identify the external service the agent needs to access

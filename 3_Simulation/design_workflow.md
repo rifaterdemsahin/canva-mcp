@@ -46,6 +46,9 @@ Already runs and answers `tools/list` with 2 custom tools. ✅ Verified 2026-07-
 ├── canva_oauth_05_auth_landing.jpg          # auth.html start page
 ├── canva_oauth_06_consent_granted.jpg       # Scopes approved
 ├── canva_oauth_07_auth_code_callback.jpg    # PKCE auth code received
+├── canva_cli_01_access_restricted.jpg       # CLI OAuth blocked by team admin
+├── canva_cli_02_allow_cli_integration.jpg   # Admin whitelists Canva CLI
+├── canva_cli_03_login_success.jpg           # CLI login success (canva.dev)
 ├── canva_mcp_architecture_flow.png          # Two-server architecture diagram (pending)
 ├── canva_tool_list.png                      # Side-by-side tool list (pending)
 ├── agentic_workflow.svg                     # Agent workflow diagram
@@ -64,5 +67,6 @@ Already runs and answers `tools/list` with 2 custom tools. ✅ Verified 2026-07-
 | Design File | Spec Reference |
 |-------------|---------------|
 | `canva_oauth_01`–`07` (screenshots) | `SPEC-012` — Canva OAuth PKCE Flow |
+| `canva_cli_01`–`03` (screenshots) | `SPEC-013` — Canva CLI Login & Integration Review |
 | `canva_mcp_architecture_flow.png` | `SPEC-008` — MCP server lifecycle |
 | `canva_tool_list.png` | `SPEC-009` — Custom tool spec |

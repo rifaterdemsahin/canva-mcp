@@ -45,6 +45,24 @@ These are **actual screenshots** captured during the Canva OAuth PKCE flow, not 
 
 ---
 
+## Canva CLI Login Journey (Captured 2026-07-12)
+
+The Canva CLI (`npx @canva/cli@latest login`) needed its own admin whitelist before the OAuth consent could complete — same restriction pattern as the AI Connector, fixed the same way:
+
+### CLI 1. Access Restricted (`canva_cli_01_access_restricted.jpg`)
+- **What it shows:** OAuth consent for **Canva CLI** blocked — "Access Restricted by Team Admin", Allow button disabled. Requested scopes: read apps; create/modify/delete apps; read profile.
+- **Source:** Canva OAuth consent page, signed in as `info@pexabo.com`
+
+### CLI 2. Admin Allows the Integration (`canva_cli_02_allow_cli_integration.jpg`)
+- **What it shows:** Admin settings → Apps and integrations → **Manage integrations** modal, searching "cli" and ticking **Canva CLI** to whitelist it for the team.
+- **Source:** canva.com/settings/apps-and-integrations
+
+### CLI 3. Login Success (`canva_cli_03_login_success.jpg`)
+- **What it shows:** canva.dev success page — "Successfully logged in to Canva CLI. You can close this window and return to your terminal." with next-step commands (`canva apps create`, `canva apps list`, `canva --help`).
+- **Result:** The native Canva CLI MCP (`npm run mcp`) now runs authenticated as `info@pexabo.com`.
+
+---
+
 ## Prompt-Generated Assets (Future)
 
 These placeholder entries describe AI-generated architecture diagrams that can be created when visual assets are needed:
@@ -61,5 +79,6 @@ These placeholder entries describe AI-generated architecture diagrams that can b
 
 ## Guidelines
 1. Screenshots are captured at actual resolution (no cropping beyond the relevant UI area)
-2. File naming: `canva_oauth_NN_descriptive_name.jpg` where NN is the step number
+2. File naming: `canva_oauth_NN_descriptive_name.jpg` / `canva_cli_NN_descriptive_name.jpg` where NN is the step number
 3. All screenshots use the actual Pexabo account (`info@pexabo.com`) and Canva Connect API integration (`OC-AZ9VpNJiU0ps`)
+4. Every captured screenshot gets a slide in `carousel_config.json` so it appears on the site home page

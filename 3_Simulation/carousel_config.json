@@ -27,6 +27,18 @@
     {
       "url": "3_Simulation/canva_oauth_07_auth_code_callback.jpg",
       "caption": "Step 7: Auth Code Callback — PKCE Complete"
+    },
+    {
+      "url": "3_Simulation/canva_cli_01_access_restricted.jpg",
+      "caption": "Canva CLI 1/3: Access Restricted by Team Admin"
+    },
+    {
+      "url": "3_Simulation/canva_cli_02_allow_cli_integration.jpg",
+      "caption": "Canva CLI 2/3: Admin Allows the Canva CLI Integration"
+    },
+    {
+      "url": "3_Simulation/canva_cli_03_login_success.jpg",
+      "caption": "Canva CLI 3/3: Successfully Logged In to Canva CLI"
     }
   ]
 }

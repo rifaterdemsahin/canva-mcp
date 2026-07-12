@@ -934,7 +934,7 @@
       dots = document.querySelectorAll(".carousel-dot");
     }
 
-    fetch("carousel_config.json?" + Date.now())
+    fetch("3_Simulation/carousel_config.json?" + Date.now())
       .then(r => r.json())
       .then(cfg => {
         buildCarousel(cfg.images);

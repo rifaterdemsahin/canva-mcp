@@ -17,19 +17,21 @@ This folder holds **visual representations** of what the project will look like 
 
 | File | Description |
 |------|-------------|
-| `mockup_index.png` | Homepage mockup |
-| `mockup_navigation.png` | Navigation menu mockup |
-| `flow_user_journey.md` | User journey flow diagram |
-| `carousel_config.json` | Image list for the auto-updating carousel |
-| `design_workflow.md` | Design-first workflow — create images before code |
+| `canva_oauth_01`–`07_*.jpg` | Connector OAuth journey — admin restriction → whitelist → consent → PKCE callback |
+| `canva_cli_01`–`03_*.jpg` | Canva CLI login journey — restriction → admin whitelists CLI → login success |
+| `agentic_workflow.svg` | 7-agent workflow diagram |
+| `carousel_config.json` | Slide list (url + caption) for the home-page carousel |
+| `design_workflow.md` | Design-first workflow — assets, checklist, spec mapping |
+| `image_prompts.md` | Step-by-step narration of every captured screenshot |
 
 ## Image Carousel
 
-The carousel on `index.html` automatically includes any image added to this folder. Supported formats: `.png`, `.jpg`, `.gif`, `.webp`.
+The carousel on `index.html` loads its slides from `3_Simulation/carousel_config.json`. Supported formats: `.png`, `.jpg`, `.gif`, `.webp`.
 
 To add a new slide:
-1. Drop the image into `3_Simulation/`
-2. Commit and push — the carousel updates automatically ✨
+1. Drop the image into `3_Simulation/` with a descriptive name
+2. Add a `{ "url": "3_Simulation/<file>", "caption": "…" }` entry to `carousel_config.json`
+3. Commit and push — the carousel updates on deploy ✨
 
 ## Rules
 
