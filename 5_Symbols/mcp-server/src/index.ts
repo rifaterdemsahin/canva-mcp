@@ -8,7 +8,7 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { generateDesignBrief } from "../tools/design-brief.js";
 import { stageAssets } from "../tools/asset-stager.js";
-import { uploadAssetsToCanva } from "../tools/canva-api.js";
+import { uploadAssetsToCanva, createDesign } from "../tools/canva-api.js";
 
 const server = new Server(
   {
@@ -81,6 +81,26 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
           },
         },
         required: ["assetGroup", "urls"],
+      },
+    },
+    {
+      name: "create_design",
+      description:
+        "Create a new Canva design (doc, whiteboard, or presentation) in the connected workspace. Returns the design ID and edit/view URLs. Requires CANVA_ACCESS_TOKEN in the environment.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          title: {
+            type: "string",
+            description: "Title for the new design",
+          },
+          designType: {
+            type: "string",
+            enum: ["doc", "whiteboard", "presentation"],
+            description: "Preset design type (default: doc)",
+          },
+        },
+        required: ["title"],
       },
     },
     {
@@ -185,6 +205,33 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           `Failed to stage assets: ${(error as Error).message}`
         );
       }
+    }
+
+    case "create_design": {
+      const { title, designType } = request.params.arguments as {
+        title: string;
+        designType?: string;
+      };
+      if (typeof title !== "string" || !title.trim()) {
+        throw new McpError(
+          ErrorCode.InvalidParams,
+          "create_design requires a non-empty 'title' (string)"
+        );
+      }
+      const token = process.env.CANVA_ACCESS_TOKEN;
+      if (!token) {
+        throw new McpError(
+          ErrorCode.InternalError,
+          "CANVA_ACCESS_TOKEN not set. Run the OAuth PKCE flow via auth.html and add the token to .env"
+        );
+      }
+      const created = await createDesign(title, token, designType ?? "doc");
+      if (!created.success) {
+        throw new McpError(ErrorCode.InternalError, `Create design failed: ${created.error}`);
+      }
+      return {
+        content: [{ type: "text", text: JSON.stringify(created, null, 2) }],
+      };
     }
 
     case "upload_assets": {

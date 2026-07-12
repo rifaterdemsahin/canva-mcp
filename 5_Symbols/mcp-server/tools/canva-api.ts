@@ -14,6 +14,51 @@ export interface UploadManifest {
   }>;
 }
 
+export interface CreateDesignResult {
+  success: boolean;
+  designId?: string;
+  title?: string;
+  editUrl?: string;
+  viewUrl?: string;
+  error?: string;
+}
+
+export async function createDesign(
+  title: string,
+  accessToken: string,
+  designType: string = "doc"
+): Promise<CreateDesignResult> {
+  try {
+    const res = await fetch("https://api.canva.com/rest/v1/designs", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        design_type: { type: "preset", name: designType },
+        title,
+      }),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      return { success: false, title, error: `HTTP ${res.status}: ${errText}` };
+    }
+
+    const data = await res.json();
+    return {
+      success: true,
+      designId: data.design?.id,
+      title: data.design?.title ?? title,
+      editUrl: data.design?.urls?.edit_url,
+      viewUrl: data.design?.urls?.view_url,
+    };
+  } catch (err) {
+    return { success: false, title, error: (err as Error).message };
+  }
+}
+
 export async function uploadAssetsToCanva(
   manifest: UploadManifest,
   accessToken: string

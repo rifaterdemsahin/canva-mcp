@@ -14,7 +14,8 @@
   - **KR 1.3 — Custom workspace assistant:** `python3 5_Symbols/toolbox/mcp_e2e_test.py` → 4/4 (initialize, tools/list, `generate_design_brief`, `stage_assets`). ✅ 2026-07-12
   - **KR 1.1 — claude.ai Canva connector as `info@pexabo.com`:** ✅ Full PKCE OAuth flow completed — authorization code exchanged for access token using client secret from vault. Claude connected via connector; Kilo/DeepSeek MCP config added to `kilo.json` (needs local `npx @canva/cli@latest login` for CLI auth). Access token saved to `auth.html` localStorage.
   - **KR 1.4 — Vault credentials:** `canva-mcp-CANVA-CLIENT-ID=OC-AZ9VpNJiU0ps` and `canva-mcp-CANVA-CLIENT-SECRET` stored in `dp-kv-deliverypilot` ✅. Connect API integration "mcp" created at https://www.canva.com/developers/integrations/connect-api/OC-AZ9VpNJiU0ps/configuration.
-- **Result:** ✅ Full OAuth PKCE flow complete — access token obtained. Both MCP servers run and answer. Kilo MCP config added (needs local `npx @canva/cli@latest login` for CLI auth).
+  - **🏆 Live document creation (closes the loop):** local CLI (`npm run canva:create`) called `POST /rest/v1/designs` with the `.env` access token and **created design `DAHPLbvLyIw`** — *"Pexabo Canva MCP — First Document from Local CLI"* — in the Pexabo workspace (team user `oUY2J_eG6r3vrq3Xgjpnx4`, team `oBY2JwxsYlLtBhWzZ7vKlY`; `whoami` verified HTTP 200). Same capability exposed as the `create_design` MCP tool. ✅ 2026-07-12
+- **Result:** ✅ Fully validated — OAuth complete, both MCP servers answer, and a real Canva document was created in the workspace from the local CLI.
 - **Date Validated:** 2026-07-12
 
 ---

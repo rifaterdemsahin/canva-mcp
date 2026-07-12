@@ -23,14 +23,25 @@ Three ways to attach the `info@pexabo.com` account, in order of preference:
 
 Details and current connection status: [`2_Environment/canva_connection.md`](../2_Environment/canva_connection.md)
 
-## 🧩 Step 2 — Configure the MCP host
+## 🧩 Step 2 — Local secrets: the `.env` contract
 
-Copy [`5_Symbols/mcp-server/mcp-config.json`](../5_Symbols/mcp-server/mcp-config.json) into your MCP host (Claude Desktop / Cursor / VS Code) and export the two env vars from the vault:
+The working secrets file is **`5_Symbols/mcp-server/.env`** — gitignored (root `.gitignore` ignores `.env` at every level), never committed. `​.env.example` (root and `5_Symbols/mcp-server/`) documents the keys with placeholders:
+
+| Key | Source | Used by |
+|---|---|---|
+| `CANVA_CLIENT_ID` | Vault: `secrets.sh get canva-mcp-CANVA-CLIENT-ID` | Token exchange, MCP host config |
+| `CANVA_CLIENT_SECRET` | Vault: `secrets.sh get canva-mcp-CANVA-CLIENT-SECRET` | Token exchange (Basic Auth) |
+| `CANVA_ACCESS_TOKEN` | OAuth PKCE flow via `auth.html` (expires ~4h) | `canva:create`, `canva:whoami`, `create_design` + `upload_assets` MCP tools |
+
+Set it up:
 
 ```bash
-export CANVA_CLIENT_ID=$(5_Symbols/toolbox/secrets.sh get canva-mcp-CANVA-CLIENT-ID)
-export CANVA_CLIENT_SECRET=$(5_Symbols/toolbox/secrets.sh get canva-mcp-CANVA-CLIENT-SECRET)
+cd 5_Symbols/mcp-server
+cp .env.example .env
+# fill CANVA_CLIENT_ID / CANVA_CLIENT_SECRET from the vault, CANVA_ACCESS_TOKEN from auth.html
 ```
+
+For MCP hosts (Claude Desktop / Cursor / VS Code), copy [`mcp-config.json`](../5_Symbols/mcp-server/mcp-config.json) and export the same vars.
 
 ## ▶️ Step 3 — Run it
 
@@ -47,13 +58,28 @@ Verify with the e2e check (also run by the Test Agent):
 python3 5_Symbols/toolbox/mcp_e2e_test.py
 ```
 
-## 📈 Step 4 — Use it
+## 📄 Step 4 — Create a Canva document from the local CLI
+
+`src/cli.ts` drives the Connect API directly with the `.env` secrets (`node --env-file=.env`):
+
+```bash
+cd 5_Symbols/mcp-server
+npm run canva:whoami                                    # verify the token → team_user ids
+npm run canva:create -- --title "My Document"           # create a Canva doc
+npm run canva:create -- --title "Board" --type whiteboard
+```
+
+**Proven working 2026-07-12:** created design `DAHPLbvLyIw` — *"Pexabo Canva MCP — First Document from Local CLI"* — in the `info@pexabo.com` workspace (evidence in [`7_Testing_Known/validation_report.md`](../7_Testing_Known/validation_report.md)). The same capability is exposed as the **`create_design`** MCP tool.
+
+If the token has expired (HTTP 401), re-run the PKCE flow on [`auth.html`](../auth.html) and update `CANVA_ACCESS_TOKEN` in `.env`.
+
+## 📈 Step 5 — Use it
 
 Typical flow once connected:
 
 1. Ask the MCP host to **`generate_design_brief`** for a client engagement (structured brief → Canva Design Kit format).
 2. **`stage_assets`** with the engagement's image URLs → JSON asset manifest.
-3. Feed the manifest to the native Canva MCP to upload brand assets into the `info@pexabo.com` workspace.
+3. **`upload_assets`** / **`create_design`** push the work into the `info@pexabo.com` workspace.
 4. Iterate designs in Canva; export via the native MCP tools.
 
 ## ✅ Definition of Done

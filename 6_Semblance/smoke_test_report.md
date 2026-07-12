@@ -4,8 +4,8 @@
 > Latest run overwrites this file; one report per test run.
 
 ## Run Info
-- **Date:** 2026-07-12 13:48
-- **Trigger:** carousel + CLI journey + integration review
+- **Date:** 2026-07-12 14:17
+- **Trigger:** local CLI create-design + env contract
 - **Mode:** Local filesystem
 - **Tester:** smoke_test.py (automated)
 - **Verdict:** ✅ ALL PASS

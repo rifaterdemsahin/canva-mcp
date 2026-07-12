@@ -34,6 +34,8 @@ MCP servers `canva-cli` and `canva-custom-tools` added to `kilo.json`. User need
 | TSK-009 | Wire `stage_assets` manifest to the Canva CLI MCP for actual upload | Symbols Agent | Environment provides Canva app credentials from Key Vault → Symbols implements → Test validates end-to-end | [x] |
 | TSK-010 | Store real Canva app credentials in `dp-kv-deliverypilot` (replace placeholders) | Environment Agent | [x] |
 | TSK-018 | Verify `stage_assets` manifest matches Canva `POST /v1/brand-assets` schema | Test Agent | Formula specs the schema → Test validates output | [x] |
+| TSK-019 | Define local `.env` contract (`.env` gitignored, `.env.example` keys, vault + PKCE token sources) | Formula Agent | Formula specs the contract in `implementation.md` → Environment fills `.env` from vault + auth.html | [x] |
+| TSK-020 | Create a Canva document from the local CLI — `npm run canva:create` → design `DAHPLbvLyIw` in Pexabo workspace; `create_design` MCP tool added | Symbols Agent | Formula specs → Symbols implements `cli.ts` + `createDesign()` → Test verifies live (validation_report.md) | [x] |
 
 ## Phase 4: Testing & Deployment (Pending)
 

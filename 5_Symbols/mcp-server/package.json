@@ -9,6 +9,8 @@
     "start": "node dist/src/index.js",
     "dev": "tsx watch src/index.ts",
     "mcp": "npx -y @canva/cli@latest mcp",
+    "canva:whoami": "node --env-file=.env dist/src/cli.js whoami",
+    "canva:create": "node --env-file=.env dist/src/cli.js create-design",
     "clean": "rm -rf dist"
   },
   "dependencies": {

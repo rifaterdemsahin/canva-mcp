@@ -804,3 +804,18 @@ This log documents the thinking phase summaries and reasoning processes of the L
 - Custom MCP server: WORKS (4/4 e2e). Native Canva CLI MCP: WORKS (tools/list OK, no login needed for developer tools).
 - KR 1.1 (account-authenticated live call as info@pexabo.com) requires the user to run `/mcp` → "claude.ai Canva" OAuth — cannot be done by the agent.
 - Evidence recorded in `7_Testing_Known/validation_report.md`.
+
+## 📅 2026-07-12 — Local .env Contract + Create a Canva Document from the CLI
+
+### 📥 Input / Task
+- Formalize `.env` / `.env.example` / `.gitignore` handling; local implementation holds the necessary secrets (Formula Agent). Create/update and run the local CLI to create a Canva document.
+
+### 💭 Thinking & Reasoning Process
+1. **Formula Agent** — defined the `.env` contract in `4_Formula/implementation.md`: `CANVA_CLIENT_ID`/`SECRET` from vault `dp-kv-deliverypilot`, `CANVA_ACCESS_TOKEN` from the auth.html PKCE flow (~4h expiry). Both `.env.example` files updated; working `.env` verified gitignored.
+2. **Symbols Agent** — added `createDesign()` to `tools/canva-api.ts` (POST /rest/v1/designs, preset doc/whiteboard/presentation), a local CLI `src/cli.ts` (`whoami`, `create-design`) run via `node --env-file=.env`, npm scripts `canva:whoami` / `canva:create`, and a `create_design` MCP tool with InvalidParams guards.
+3. **Test Agent** — `whoami` → HTTP 200 (team user oUY2J_eG6r3vrq3Xgjpnx4); `npm run canva:create` → **design DAHPLbvLyIw created** in the Pexabo workspace with edit/view URLs. Evidence in validation_report.md.
+4. **Environment Agent** — recorded the team-admin apps page (https://www.canva.com/settings/apps-and-integrations) and the "Access Restricted by Team Admin" explanation + 4 fix options in `2_Environment/canva_connection.md`.
+
+### 📤 Outcomes & Decisions
+- The project goal is proven end-to-end: local CLI → Connect API → real Canva document in the `info@pexabo.com` workspace.
+- Access tokens stay in the local `.env` only (short-lived); long-lived credentials stay in the vault.
