@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canva MCP Auth — Pexabo</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0f0f1a; color: #e2e8f0; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(6,182,212,0.1));
+    border: 1px solid rgba(139,92,246,0.3); border-radius: 16px;
+    padding: 2.5rem; max-width: 520px; width: 90%;
+    backdrop-filter: blur(12px); box-shadow: 0 0 40px rgba(139,92,246,0.15);
+  }
+  h1 { font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+  h1 span { background: linear-gradient(135deg, #8b5cf6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .badge { 
+    font-size: 0.7rem; background: rgba(6,182,212,0.2); color: #06b6d4;
+    padding: 0.15rem 0.5rem; border-radius: 999px; border: 1px solid rgba(6,182,212,0.3);
+  }
+  p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.5; }
+  .section { margin-bottom: 1.5rem; }
+  .section label { display: block; font-size: 0.8rem; color: #64748b; margin-bottom: 0.3rem; }
+  .section code {
+    display: block; background: #1a1a2e; padding: 0.6rem 0.8rem; border-radius: 8px;
+    font-size: 0.8rem; word-break: break-all; border: 1px solid #1e293b;
+  }
+  .section code.success { border-color: #10b981; color: #6ee7b7; }
+  .section code.error { border-color: #ef4444; color: #fca5a5; }
+  .section code.info { border-color: #3b82f6; color: #93c5fd; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: linear-gradient(135deg, #8b5cf6, #06b6d4); color: #fff;
+    border: none; padding: 0.75rem 1.5rem; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 600; cursor: pointer; text-decoration: none;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn.secondary { background: #1e293b; color: #94a3b8; }
+  .btn.secondary:hover { background: #334155; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .hidden { display: none; }
+  .step { font-size: 0.85rem; color: #64748b; margin-top: 1rem; }
+  .step a { color: #8b5cf6; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1><span>Canva MCP</span> <span class="badge">Pexabo</span></h1>
+  <p>OAuth callback handler for the Canva Connect API integration. Receives the authorization code and completes the PKCE flow.</p>
+
+  <div id="status"></div>
+  <div id="connect" class="hidden">
+    <div class="actions">
+      <button class="btn" id="connectBtn">Connect to Canva</button>
+    </div>
+    <div class="step">
+      Opens Canva's authorization page as <strong>info@pexabo.com</strong>.<br>
+      Redirect URI: <code style="display:inline;padding:0.1rem 0.3rem;font-size:0.75rem">https://rifaterdemsahin.github.io/canva-mcp/auth.html</code>
+    </div>
+  </div>
+  <div id="callback" class="hidden">
+    <div class="section">
+      <label>AUTHORIZATION CODE</label>
+      <code id="authCode" class="success"></code>
+    </div>
+    <div class="section">
+      <label>STATE</label>
+      <code id="oauthState" class="info"></code>
+    </div>
+    <div class="actions">
+      <button class="btn" id="copyCodeBtn">Copy Code</button>
+      <button class="btn secondary" id="reconnectBtn">Re-authorize</button>
+    </div>
+    <div class="step">
+      Use this code with your PKCE code_verifier to exchange for tokens.<br>
+      See <a href="https://www.canva.com/developers/integrations/connect-api/OC-AZ9VpNJiU0ps/authentication" target="_blank">Canva auth docs</a>.
+    </div>
+  </div>
+</div>
+
+<script>
+const CLIENT_ID = 'OC-AZ9VpNJiU0ps';
+const REDIRECT_URI = 'https://rifaterdemsahin.github.io/canva-mcp/auth.html';
+const SCOPE = 'design:content:read asset:read folder:permission:read design:permission:read design:content:write folder:read brandtemplate:content:write app:read app:write folder:write folder:permission:write asset:write brandtemplate:content:read brandtemplate:meta:read comment:read design:permission:write comment:write';
+
+function base64URLEncode(buffer) {
+  return btoa(String.fromCharCode(...new Uint8Array(buffer)))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+async function generatePKCE() {
+  const verifier = base64URLEncode(crypto.getRandomValues(new Uint8Array(64)));
+  const challenge = base64URLEncode(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)));
+  return { verifier, challenge };
+}
+
+function show(id) {
+  document.querySelectorAll('#status, #connect, #callback').forEach(el => el.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+async function connect() {
+  const pkce = await generatePKCE();
+  sessionStorage.setItem('canva_code_verifier', pkce.verifier);
+  const params = new URLSearchParams({
+    code_challenge_method: 's256',
+    response_type: 'code',
+    client_id: CLIENT_ID,
+    redirect_uri: REDIRECT_URI,
+    scope: SCOPE,
+    code_challenge: pkce.challenge
+  });
+  window.location.href = `https://www.canva.com/api/oauth/authorize?${params}`;
+}
+
+async function init() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const state = params.get('state');
+
+  if (code) {
+    document.getElementById('authCode').textContent = code;
+    document.getElementById('oauthState').textContent = state || '(none)';
+    show('callback');
+  } else {
+    show('connect');
+  }
+}
+
+document.getElementById('connectBtn').addEventListener('click', connect);
+document.getElementById('reconnectBtn').addEventListener('click', () => { sessionStorage.removeItem('canva_code_verifier'); connect(); });
+document.getElementById('copyCodeBtn').addEventListener('click', () => {
+  const code = document.getElementById('authCode').textContent;
+  navigator.clipboard.writeText(code).catch(() => {});
+  document.getElementById('copyCodeBtn').textContent = 'Copied!';
+  setTimeout(() => { document.getElementById('copyCodeBtn').textContent = 'Copy Code'; }, 2000);
+});
+
+init();
+</script>
+</body>
+</html>
