@@ -188,6 +188,18 @@
 - **Related Files:** `5_Symbols/lower-third-text/src/intents/design_editor/app.tsx`, `5_Symbols/lower-third-text/canva-app.json`, `7_Testing_Known/canva_lower_third_flow.md`, `4_Formula/canva_credentials.md`
 - **Last Updated:** 2026-07-12
 
+### SPEC-015: Presentation + Lower Third via claude.ai Canva MCP (Retry of SPEC-014)
+
+- **Status:** Active
+- **Description:** Retry of the lower-third flow using the claude.ai Canva MCP connector available inside the Claude Code CLI session. This replaces the SPEC-014 Apps SDK phase: the presentation is *generated with the lower-third text already in the slide content*, then MCP editing operations reposition and format it into a lower third. No Apps SDK, no dev server, no Developer Portal step.
+- **Key Behaviors:**
+  - **Phase 1 — Generate:** `request-outline-review` (1-slide outline containing the text "tuncer karaarslan") → `generate-design-structured` (design_type `presentation`). Returns a new design ID + edit URL. KR 5.1.
+  - **Phase 2 — Position:** `start-editing-transaction` → locate the text element → `position_element` (bottom band: top ≈ pageHeight − 120–180), `resize_element` (width ≈ 60% page width), `format_text` (center) → `commit-editing-transaction`. KR 5.2. Note: `position_element`/`resize_element` are only valid on fixed (non-responsive) pages — presentations qualify.
+  - **Phase 3 — Animation boundary:** `perform-editing-operations` has NO animation operation (op set: update_title, replace_text, update_fill, insert_fill, delete_element, find_and_replace_text, position_element, resize_element, format_text, update_autofill_field). If no path exists, confirm via the Canva `help` MCP tool and document the official manual steps. KR 5.3.
+  - **Capability delta vs SPEC-014:** MCP editing transactions CAN reposition/resize/format existing elements externally (Apps SDK no longer required for this), but CANNOT insert new standalone text elements (only media via `insert_fill`) and CANNOT apply animations.
+- **Related Files:** `1_Real_Unknown/okrs.md` (Objective 5), `7_Testing_Known/canva_lower_third_flow.md`, `7_Testing_Known/logic.md`
+- **Last Updated:** 2026-07-12
+
 ---
 
 ## Spec Template
