@@ -1,12 +1,16 @@
 {
   "images": [
     {
-      "url": "3_Simulation/mockup_index.png",
-      "caption": "Homepage Mockup"
+      "url": "3_Simulation/canva_mcp_architecture_flow.png",
+      "caption": "Canva MCP Two-Server Architecture"
     },
     {
-      "url": "3_Simulation/mockup_navigation.png",
-      "caption": "Navigation Drawer Mockup"
+      "url": "3_Simulation/canva_oauth_flow.png",
+      "caption": "Canva OAuth Connection Flow"
+    },
+    {
+      "url": "3_Simulation/canva_tool_list.png",
+      "caption": "MCP Tool List — Native vs Custom"
     }
   ]
 }

@@ -17,5 +17,17 @@
       "test": "#3b82f6",
       "semblance": "#ec4899"
     }
+  },
+  "mcp": {
+    "canva-cli": {
+      "type": "local",
+      "command": ["npx", "-y", "@canva/cli@latest", "mcp"],
+      "enabled": true
+    },
+    "canva-custom-tools": {
+      "type": "local",
+      "command": ["node", "5_Symbols/mcp-server/dist/src/index.js"],
+      "enabled": true
+    }
   }
 }

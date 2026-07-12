@@ -54,6 +54,7 @@ MENU = [
     ("4. Formula", "4_Formula/README.md"),
     ("   ├─ Implementation", "4_Formula/implementation.md"),
     ("   ├─ Specs", "4_Formula/specs.md"),
+    ("   ├─ Canva Credentials Guide", "4_Formula/canva_credentials.md"),
     ("   ├─ Decisions", "4_Formula/decisions.md"),
     ("   ├─ LLM Thinking Log", "4_Formula/llm_thinking_log.md"),
     ("   ├─ DSL", "4_Formula/dsl.md"),

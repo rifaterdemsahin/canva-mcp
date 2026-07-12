@@ -132,6 +132,17 @@
 - **Related Files:** `agents.md`, `claude.md`, `gemini.md`, `copilot.md`, `kilocode.md`, `.github/workflows/static.yml`, `5_Symbols/toolbox/smoke_test.py`
 - **Last Updated:** 2026-07-12
 
+### SPEC-011: Canva App Credentials in Azure Key Vault
+- **Status:** Active
+- **Description:** Canva OAuth client credentials (Client ID `AAHAAN3AO5Y` + Client Secret) stored in the existing Azure Key Vault `dp-kv-deliverypilot` under secret names `canva-mcp-CANVA-CLIENT-ID` and `canva-mcp-CANVA-CLIENT-SECRET`. Never committed to git.
+- **Key Behaviors:**
+  - Secrets are set via `5_Symbols/toolbox/secrets.sh set` — never via manual `az keyvault secret set` without the wrapper script
+  - Client ID is known (`AAHAAN3AO5Y`); Client Secret must be obtained from the Canva Developer Portal at https://www.canva.com/developers/
+  - After storing, the Canva CLI must authenticate locally via `npx @canva/cli@latest login` (OAuth token cached per machine)
+  - Both the native CLI MCP (`canva-cli`) and custom MCP (`canva-custom-tools`) are configured in `kilo.json` for Kilo/DeepSeek agent access
+- **Related Files:** `4_Formula/canva_credentials.md`, `2_Environment/canva_connection.md`, `kilo.json`, `5_Symbols/toolbox/secrets.sh`
+- **Last Updated:** 2026-07-12
+
 ---
 
 ## Spec Template

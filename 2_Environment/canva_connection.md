@@ -7,11 +7,14 @@
 ## Account
 
 | Item | Value |
-|---|---|
+|---|---|---|
 | Canva account | `info@pexabo.com` (Pexabo) |
 | Developer portal | https://www.canva.com/developers/ (sign in as the account above) |
+| Connect API integration | `OC-AZ9VpNJiU0ps` (named "mcp") |
+| Integration config URL | https://www.canva.com/developers/integrations/connect-api/OC-AZ9VpNJiU0ps/configuration |
+| Canva App ID | `AAHAAN3AO5Y` (for Canva App development, separate from Connect API) |
 | Key Vault | `dp-kv-deliverypilot` (existing — never create a new vault) |
-| Vault secrets | `canva-mcp-CANVA-CLIENT-ID`, `canva-mcp-CANVA-CLIENT-SECRET` |
+| Vault secrets | `canva-mcp-CANVA-CLIENT-ID=OC-AZ9VpNJiU0ps`, `canva-mcp-CANVA-CLIENT-SECRET` (stored ✅) |
 
 ## Connection paths
 
@@ -26,13 +29,12 @@ cd 5_Symbols/mcp-server && npm run mcp
 ```
 - Token is cached by the CLI locally; never commit it.
 
-### 3. Developer app credentials (API integrations)
-- Create/select the app under the Pexabo account in the developer portal.
-- Store credentials in the vault (placeholders are pre-seeded — replace with real values):
-```bash
-5_Symbols/toolbox/secrets.sh set canva-mcp-CANVA-CLIENT-ID "<real client id>"
-5_Symbols/toolbox/secrets.sh set canva-mcp-CANVA-CLIENT-SECRET "<real client secret>"
-```
+### 3. Connect API integration credentials (OAuth)
+- Created Connect API integration named "mcp" under the Pexabo account.
+- Integration config: https://www.canva.com/developers/integrations/connect-api/OC-AZ9VpNJiU0ps/configuration
+- Credentials stored in vault (✅ done 2026-07-12):
+  - `canva-mcp-CANVA-CLIENT-ID` = `OC-AZ9VpNJiU0ps`
+  - `canva-mcp-CANVA-CLIENT-SECRET` = stored in vault
 
 ## Verification
 

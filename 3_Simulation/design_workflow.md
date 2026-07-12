@@ -1,51 +1,61 @@
-# Design Workflow — Design Before Code
+# Design Workflow — Canva MCP Connection
 
-> **Stage 3: Simulation** — Visual designs must be created before implementation. This file documents the design-first workflow.
+> **Stage 3: Simulation** — Visual designs for the Canva MCP connection architecture, OAuth flow, and two-server setup. This file documents the design-first workflow.
 
-## The Rule
+## Canva MCP Architecture
 
-**Before delivering any implementation (code in `5_Symbols`):**
+The project runs **two MCP servers side-by-side** from the same host:
 
-1. Create image-based designs in `3_Simulation/` — mockups, wireframes, flow diagrams
-2. Document specs (what the feature does) in `4_Formula/specs.md`
-3. Only after designs and specs are in place, proceed to code in `5_Symbols`
-4. When the feature changes, update the design images here AND the specs in `4_Formula/`
+| Server | Purpose | How to start |
+|--------|---------|-------------|
+| **canva-cli** (native) | 11 Canva tools (search designs, create designs, export, docs) | `npx @canva/cli@latest mcp` |
+| **canva-custom-tools** (custom) | `generate_design_brief` + `stage_assets` | `node 5_Symbols/mcp-server/dist/index.js` |
+
+Both are driven over stdio from the same MCP config. The user authenticates as `info@pexabo.com` via OAuth through the Canva connector.
+
+## Connection Paths
+
+### 1. claude.ai Canva connector — OAuth via browser
+Each MCP host (Claude Code, Kilo, Cursor, etc.) authenticates independently via Canva's OAuth flow. The token is cached locally per machine.
+
+### 2. Native Canva CLI — `npx @canva/cli@latest mcp`
+Already runs and answers `tools/list` with 11 tools. ✅ Verified 2026-07-12.
+
+### 3. Custom workspace-assistant — `node 5_Symbols/mcp-server/dist/index.js`
+Already runs and answers `tools/list` with 2 custom tools. ✅ Verified 2026-07-12 (e2e 4/4).
 
 ## Design Workflow Checklist
 
-- [ ] Define what needs to be designed (screen/page/component)
-- [ ] Create mockup image(s) and place in `3_Simulation/`
-- [ ] Log the prompt used to generate the image in `image_prompts.md`
-- [ ] Add the image to `carousel_config.json` for the auto-updating carousel
-- [ ] Document the feature spec in `4_Formula/specs.md`
-- [ ] Review designs against specs before coding
-- [ ] Update designs when the feature evolves
+- [x] **TSK-008** — Set OKR: Canva MCP on for `info@pexabo.com` (Real Agent)
+- [x] **TSK-014** — Create project menu + implementation pages (Symbols Agent)
+- [x] **TSK-015** — Custom MCP server e2e test 4/4 (Test Agent)
+- [x] **TSK-016** — Native Canva CLI MCP `initialize` + `tools/list` (Test Agent)
+- [x] **TSK-017** — Claude Canva connector OAuth as `info@pexabo.com` (User action)
+- [ ] **TSK-009** — Wire `stage_assets` upload to Canva API (Symbols Agent)
+- [ ] **TSK-010** — Real Canva app credentials in Key Vault (Environment Agent)
+- [ ] **TSK-018** — Validate `stage_assets` against Canva schema (Test Agent)
 
-## Image Naming Convention
+## Simulation Assets
 
 ```
 3_Simulation/
-├── feature_name_mockup.png       # Initial mockup
-├── feature_name_wireframe.png    # Wireframe
-├── feature_name_flow.png         # User flow diagram
-├── feature_name_final.png        # Final approved design
-└── image_prompts.md              # All AI generation prompts
+├── canva_mcp_architecture_flow.png  # Two-server architecture diagram
+├── canva_oauth_flow.png             # OAuth connection flow for info@pexabo.com
+├── canva_tool_list.png              # Side-by-side tool list (native + custom)
+└── image_prompts.md                 # All AI generation prompts
 ```
 
 ## Design Guidelines
 
 - Dark mode, glassmorphism panels, neon teal + purple accents
 - No device frames — request raw UI from AI generators
-- Desktop: `--ar 16:9` | Mobile: `--ar 9:16`
-- Use consistent styling across all mockups
+- Diagrams use Mermaid-style flow notation in PNG form
 - Move obsolete designs to `_obsolete/`
 
 ## Integration with Specs
 
-Designs here in `3_Simulation/` and specs in `4_Formula/specs.md` work together:
-
 | Design File | Spec Reference |
 |-------------|---------------|
-| `feature_mockup.png` | `SPEC-XXX` in `4_Formula/specs.md` |
-
-When a spec changes, the corresponding design should be updated. When a design is revised, check that the spec still matches.
+| `canva_mcp_architecture_flow.png` | `SPEC-008` — MCP server lifecycle |
+| `canva_oauth_flow.png` | `SPEC-007` — Canva OAuth connection |
+| `canva_tool_list.png` | `SPEC-009` — Custom tool spec |
