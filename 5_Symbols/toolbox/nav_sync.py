@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
-"""Regenerate the debugMenu in navigation_config.json, index.html, and
-5_Symbols/markdown_renderer.html from the single MENU list below (SPEC-001).
-Edit MENU, run this script, then run smoke_test.py to validate."""
+"""Regenerate the projectMenu and debugMenu in navigation_config.json, index.html,
+and 5_Symbols/markdown_renderer.html from the single PROJECT_MENU/MENU lists below
+(SPEC-001). Edit the lists, run this script, then run smoke_test.py to validate."""
 import json, re, sys
 
 import os
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+RENDER = "5_Symbols/markdown_renderer.html?file="
+PROJECT_MENU = [
+    ("Home", "index.html"),
+    ("Implementation", RENDER + "4_Formula/implementation.md"),
+    ("Canva Connection", RENDER + "2_Environment/canva_connection.md"),
+    ("MCP Server", RENDER + "5_Symbols/mcp_server.md"),
+    ("OKRs", RENDER + "1_Real_Unknown/okrs.md"),
+]
 
 MENU = [
     ("1. Real Unknown", "1_Real_Unknown/README.md"),
@@ -35,6 +44,7 @@ MENU = [
     ("   ├─ Axiom (Logs)", "2_Environment/axiom.md"),
     ("   ├─ GitHub Agent", "2_Environment/github_agent.md"),
     ("   ├─ MCP Servers", "2_Environment/mcp.md"),
+    ("   ├─ Canva Connection", "2_Environment/canva_connection.md"),
     ("   ├─ Superskills", "2_Environment/superskills.md"),
     ("   ├─ LLM Tools", "2_Environment/llm_tools.md"),
     ("   ├─ Navigation", "2_Environment/navigation.md"),
@@ -42,6 +52,7 @@ MENU = [
     ("   ├─ Design Workflow", "3_Simulation/design_workflow.md"),
     ("   ├─ Image Prompts", "3_Simulation/image_prompts.md"),
     ("4. Formula", "4_Formula/README.md"),
+    ("   ├─ Implementation", "4_Formula/implementation.md"),
     ("   ├─ Specs", "4_Formula/specs.md"),
     ("   ├─ Decisions", "4_Formula/decisions.md"),
     ("   ├─ LLM Thinking Log", "4_Formula/llm_thinking_log.md"),
@@ -78,6 +89,7 @@ MENU = [
 # 1. navigation_config.json
 cfg_path = f"{ROOT}/navigation_config.json"
 cfg = json.load(open(cfg_path))
+cfg["projectMenu"] = [{"label": l, "url": u} for l, u in PROJECT_MENU]
 cfg["debugMenu"] = [{"label": l, "url": u} for l, u in MENU]
 lines = ['{', '  "projectMenu": [']
 lines += [f'    {json.dumps(e, ensure_ascii=False)},' for e in cfg["projectMenu"]]
@@ -90,17 +102,20 @@ open(cfg_path, "w").write("\n".join(lines))
 json.load(open(cfg_path))  # validate
 
 # 2 & 3. HTML fallback arrays
-js_lines = ",\n".join(
-    f'        {{ label: {json.dumps(l, ensure_ascii=False)}, url: {json.dumps(u, ensure_ascii=False)} }}'
-    for l, u in MENU
-)
-block = f"debugMenu: [\n{js_lines}\n      ]"
-pat = re.compile(r"debugMenu: \[.*?\n      \]", re.DOTALL)
+def js_block(name, entries):
+    js_lines = ",\n".join(
+        f'        {{ label: {json.dumps(l, ensure_ascii=False)}, url: {json.dumps(u, ensure_ascii=False)} }}'
+        for l, u in entries
+    )
+    return f"{name}: [\n{js_lines}\n      ]"
+
 for f in ("index.html", "5_Symbols/markdown_renderer.html"):
     p = f"{ROOT}/{f}"
     s = open(p).read()
-    s2, n = pat.subn(block, s)
-    assert n == 1, f"{f}: expected 1 debugMenu block, found {n}"
-    open(p, "w").write(s2)
+    for name, entries in (("projectMenu", PROJECT_MENU), ("debugMenu", MENU)):
+        pat = re.compile(name + r": \[.*?\n      \]", re.DOTALL)
+        s, n = pat.subn(js_block(name, entries), s)
+        assert n == 1, f"{f}: expected 1 {name} block, found {n}"
+    open(p, "w").write(s)
 
-print("Synced", len(MENU), "debug menu entries across 3 sources.")
+print("Synced", len(PROJECT_MENU), "project +", len(MENU), "debug menu entries across 3 sources.")

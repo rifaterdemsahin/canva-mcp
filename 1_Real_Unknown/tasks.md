@@ -19,13 +19,18 @@
 | TSK-006 | Wire secrets to existing Azure Key Vault `dp-kv-deliverypilot` (`secrets.sh` + docs) | Environment Agent | [x] |
 | TSK-007 | Rebuild navigation menus and pass smoke tests | Test Agent | Symbols runs `nav_sync.py` → Test Agent runs `smoke_test.py` | [x] |
 
-## Phase 3: Canva Integration (In Progress)
+## Phase 3: Turn On the Canva MCP — Pexabo account (In Progress)
 
 | ID | Task | Agent | Coordination | Done |
 |----|------|-------|-------------|------|
-| TSK-008 | Verify `stage_assets` manifest matches Canva `POST /v1/brand-assets` schema | Test Agent | Formula specs the schema → Test validates output | [ ] |
+| TSK-008 | Set the goal in OKRs: Canva MCP on for `info@pexabo.com` | Real Agent | [x] |
+| TSK-014 | Create project menu + implementation pages (Implementation, Canva Connection, MCP Server, OKRs) | Symbols Agent | Formula writes `implementation.md` → Environment writes `canva_connection.md` → Symbols syncs menus via `nav_sync.py` | [x] |
+| TSK-015 | Run custom MCP server till it works — `mcp_e2e_test.py` 4/4 (found + fixed stage_assets validation bug) | Test Agent | Test finds error → Semblance logs → Symbols fixes → Test verifies | [x] |
+| TSK-016 | Run native Canva CLI MCP — `initialize` + `tools/list` (11 tools) over stdio | Test Agent | [x] |
+| TSK-017 | Authenticate claude.ai Canva connector as `info@pexabo.com` (`/mcp` → OAuth) and record a live workspace tool call | Real Agent | **User action required** — OAuth cannot be done by agents; Test Agent records evidence in validation_report.md after | [~] |
 | TSK-009 | Wire `stage_assets` manifest to the Canva CLI MCP for actual upload | Symbols Agent | Environment provides Canva app credentials from Key Vault → Symbols implements → Test validates end-to-end | [ ] |
 | TSK-010 | Store real Canva app credentials in `dp-kv-deliverypilot` (replace placeholders) | Environment Agent | [ ] |
+| TSK-018 | Verify `stage_assets` manifest matches Canva `POST /v1/brand-assets` schema | Test Agent | Formula specs the schema → Test validates output | [ ] |
 
 ## Phase 4: Testing & Deployment (Pending)
 

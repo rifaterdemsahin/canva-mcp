@@ -786,3 +786,21 @@ This log documents the thinking phase summaries and reasoning processes of the L
 ### 📤 Outcomes & Decisions
 - SPEC-002 revised (renderer in `5_Symbols`, root-relative `?file=`, derived edit URL); SPEC-010 added (template consumption); smoke gate wired into `static.yml`.
 - All moves executed with `git mv`; references fixed; local + cloud smoke tests green before completion.
+
+## 📅 2026-07-12 — Turn On the Canva MCP (Pexabo account) + Project Menu & Implementation Pages
+
+### 📥 Input / Task
+- Goal set by user: use the Canva MCP with the `info@pexabo.com` account ("turn it on"), create the project menu and project implementation pages, set the goal in OKRs, run it till it works.
+
+### 💭 Thinking & Reasoning Process
+1. **Real Agent** — rewrote `1_Real_Unknown/okrs.md` around three objectives: (1) Canva MCP on for Pexabo, (2) project menu + implementation pages live, (3) custom tools proven end-to-end. Updated `tasks.md`.
+2. **Environment Agent** — documented the account and all three connection paths in `2_Environment/canva_connection.md` (claude.ai connector via `/mcp`, Canva CLI login, developer-app credentials from Key Vault `dp-kv-deliverypilot`).
+3. **Formula Agent** — wrote the implementation guide `4_Formula/implementation.md` (connect → configure host → run → use).
+4. **Symbols Agent** — extended `nav_sync.py` to own the projectMenu (previously hand-edited in 3 places); new project menu: Home / Implementation / Canva Connection / MCP Server / OKRs. Added `mcp_e2e_test.py` to the toolbox. Hardened `src/index.ts` with InvalidParams guards.
+5. **Test Agent** — e2e run found `stage_assets` failing on missing args (raw TypeError as InternalError); after fix: 4/4 checks pass. Native Canva CLI MCP probed over stdio: initialize + tools/list → 11 tools. Smoke tests 10/10.
+6. **Semblance Agent** — error + fix logged in `6_Semblance/error.log` / `fix.log`.
+
+### 📤 Outcomes & Decisions
+- Custom MCP server: WORKS (4/4 e2e). Native Canva CLI MCP: WORKS (tools/list OK, no login needed for developer tools).
+- KR 1.1 (account-authenticated live call as info@pexabo.com) requires the user to run `/mcp` → "claude.ai Canva" OAuth — cannot be done by the agent.
+- Evidence recorded in `7_Testing_Known/validation_report.md`.

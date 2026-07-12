@@ -96,6 +96,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           deliverables?: string[];
           tone?: string;
         };
+      if (typeof clientName !== "string" || typeof description !== "string") {
+        throw new McpError(
+          ErrorCode.InvalidParams,
+          "generate_design_brief requires 'clientName' (string) and 'description' (string)"
+        );
+      }
       try {
         const brief = generateDesignBrief({
           clientName,
@@ -126,6 +132,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         urls: string[];
         tags?: string[];
       };
+      if (typeof assetGroup !== "string" || !Array.isArray(urls)) {
+        throw new McpError(
+          ErrorCode.InvalidParams,
+          "stage_assets requires 'assetGroup' (string) and 'urls' (string array)"
+        );
+      }
       try {
         const manifest = stageAssets({ assetGroup, urls, tags });
         return {

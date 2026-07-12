@@ -120,3 +120,13 @@ Replace the codes the necessary folders and fix the broken links > commit push >
 ```
 
 Outcome: canva-mcp PoC restructured onto the delivery-pilot-template 7-stage framework; MCP server code moved to `5_Symbols/mcp-server/`; secrets wired to the existing Azure Key Vault `dp-kv-deliverypilot`.
+
+---
+
+## Canva MCP Activation Prompt (2026-07-12)
+
+```
+the goal of this this project is to use the canva mcp> create the project menu and project implementation pages where i use the canva mcp with my info@pexabo.co account and lets turn it on use the agents set this in objective and key results > run it till it works
+```
+
+Outcome: OKRs rewritten around the Canva-MCP-on-for-Pexabo goal; project menu now links Implementation / Canva Connection / MCP Server / OKRs; both MCP servers verified running (custom 4/4 e2e, native CLI tools/list OK); claude.ai Canva connector OAuth pending user action. Note: account email is info@pexabo.com (the .co in the prompt is a typo).

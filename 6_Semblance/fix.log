@@ -42,3 +42,4 @@ Lesson captured in lessons_learned.md
 | Error Date | Stage | Error Summary | Fix Status |
 |------------|-------|---------------|------------|
 | 2026-07-12 | SETUP | Initialization | APPLIED |
+[2026-07-12] [5_Symbols] [VERIFIED] — Added InvalidParams guards to generate_design_brief and stage_assets handlers in src/index.ts; e2e test corrected to schema argument names (assetGroup/urls, clientName/description). mcp_e2e_test.py now passes 4/4.

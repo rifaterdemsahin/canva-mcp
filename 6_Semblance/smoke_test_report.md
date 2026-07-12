@@ -4,9 +4,9 @@
 > Latest run overwrites this file; one report per test run.
 
 ## Run Info
-- **Date:** 2026-07-12 09:33
-- **Trigger:** post-deploy validation
-- **Mode:** Cloud (https://rifaterdemsahin.github.io/canva-mcp/)
+- **Date:** 2026-07-12 09:51
+- **Trigger:** canva mcp activation
+- **Mode:** Local filesystem
 - **Tester:** smoke_test.py (automated)
 - **Verdict:** ✅ ALL PASS
 
@@ -23,7 +23,6 @@
 | Social Links | ✅ Pass | — |
 | README Pages URL | ✅ Pass | — |
 | Secrets Scan | ✅ Pass | — |
-| Deployed Site Reachable | ✅ Pass | HTTP 200 |
 
 ## Failures
 
