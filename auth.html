@@ -67,6 +67,9 @@
       Redirect URI: <code style="display:inline;padding:0.1rem 0.3rem;font-size:0.75rem">https://rifaterdemsahin.github.io/canva-mcp/auth.html</code>
     </div>
   </div>
+  <div id="exchanging" class="hidden">
+    <p>Exchanging authorization code for tokens...</p>
+  </div>
   <div id="callback" class="hidden">
     <div class="section">
       <label>AUTHORIZATION CODE</label>
@@ -76,14 +79,20 @@
       <label>STATE</label>
       <code id="oauthState" class="info"></code>
     </div>
+    <div class="section" id="tokenSection" class="hidden">
+      <label>ACCESS TOKEN</label>
+      <code id="accessToken" class="success" style="font-size:0.7rem;max-height:80px;overflow-y:auto"></code>
+    </div>
+    <div class="section" id="refreshSection" class="hidden">
+      <label>REFRESH TOKEN</label>
+      <code id="refreshToken" class="info" style="font-size:0.7rem;max-height:80px;overflow-y:auto"></code>
+    </div>
     <div class="actions">
       <button class="btn" id="copyCodeBtn">Copy Code</button>
+      <button class="btn" id="copyTokenBtn" disabled>Copy Token</button>
       <button class="btn secondary" id="reconnectBtn">Re-authorize</button>
     </div>
-    <div class="step">
-      Use this code with your PKCE code_verifier to exchange for tokens.<br>
-      See <a href="https://www.canva.com/developers/integrations/connect-api/OC-AZ9VpNJiU0ps/authentication" target="_blank">Canva auth docs</a>.
-    </div>
+    <div class="step" id="exchangeStatus"></div>
   </div>
 </div>
 
@@ -122,15 +131,58 @@ async function connect() {
   window.location.href = `https://www.canva.com/api/oauth/authorize?${params}`;
 }
 
+async function exchangeCode(code, verifier) {
+  const body = new URLSearchParams({
+    grant_type: 'authorization_code',
+    code,
+    code_verifier: verifier,
+    redirect_uri: REDIRECT_URI,
+    client_id: CLIENT_ID
+  });
+
+  const res = await fetch('https://api.canva.com/rest/v1/oauth/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Token exchange failed (${res.status}): ${err}`);
+  }
+  return res.json();
+}
+
 async function init() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
-  const state = params.get('state');
 
   if (code) {
     document.getElementById('authCode').textContent = code;
-    document.getElementById('oauthState').textContent = state || '(none)';
     show('callback');
+
+    const verifier = sessionStorage.getItem('canva_code_verifier');
+    if (verifier) {
+      document.getElementById('exchangeStatus').textContent = 'Exchanging code for tokens...';
+      try {
+        const tokens = await exchangeCode(code, verifier);
+        sessionStorage.removeItem('canva_code_verifier');
+        localStorage.setItem('canva_access_token', tokens.access_token);
+        localStorage.setItem('canva_refresh_token', tokens.refresh_token || '');
+        localStorage.setItem('canva_token_expires_at', String(Date.now() + (tokens.expires_in || 3600) * 1000));
+
+        document.getElementById('accessToken').textContent = tokens.access_token;
+        document.getElementById('refreshToken').textContent = tokens.refresh_token || '(none)';
+        document.getElementById('tokenSection').classList.remove('hidden');
+        document.getElementById('refreshSection').classList.remove('hidden');
+        document.getElementById('exchangeStatus').textContent = '✅ Token exchange successful. Tokens saved to localStorage.';
+        document.getElementById('copyTokenBtn').disabled = false;
+      } catch (err) {
+        document.getElementById('exchangeStatus').textContent = `❌ ${err.message}`;
+      }
+    } else {
+      document.getElementById('exchangeStatus').textContent = '⚠️ No PKCE code_verifier found in sessionStorage. Re-authorize to get a fresh code.';
+    }
   } else {
     show('connect');
   }
@@ -143,6 +195,12 @@ document.getElementById('copyCodeBtn').addEventListener('click', () => {
   navigator.clipboard.writeText(code).catch(() => {});
   document.getElementById('copyCodeBtn').textContent = 'Copied!';
   setTimeout(() => { document.getElementById('copyCodeBtn').textContent = 'Copy Code'; }, 2000);
+});
+document.getElementById('copyTokenBtn').addEventListener('click', () => {
+  const token = document.getElementById('accessToken').textContent;
+  navigator.clipboard.writeText(token).catch(() => {});
+  document.getElementById('copyTokenBtn').textContent = 'Copied!';
+  setTimeout(() => { document.getElementById('copyTokenBtn').textContent = 'Copy Token'; }, 2000);
 });
 
 init();
