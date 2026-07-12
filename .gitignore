@@ -1,4 +1,25 @@
-node_modules/
-dist/
+# Local env files
 .env
-*.log
+.env.local
+.env.*.local
+
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Vector DB storage / local caches
+qdrant_storage/
+.ollama/
+.claude/*
+!.claude/skills/
+!4_Formula/.claude/
+!4_Formula/.claude/**
+.antigravitycli/
+
+# Build output
+dist/

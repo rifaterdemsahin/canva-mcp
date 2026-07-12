@@ -14,7 +14,7 @@
     },
     "canva-custom-tools": {
       "command": "node",
-      "args": ["dist/index.js"],
+      "args": ["5_Symbols/mcp-server/dist/index.js"],
       "env": {
         "CANVA_CLIENT_ID": "${CANVA_CLIENT_ID}",
         "CANVA_CLIENT_SECRET": "${CANVA_CLIENT_SECRET}"
