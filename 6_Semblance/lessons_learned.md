@@ -73,3 +73,10 @@
 - A parallel push race (R-001) occurred mid-cycle when `static.yml` landed on the remote — resolved with `git pull --rebase`, exactly as the documented mitigation prescribes. The mitigation works; keep pushes sequential.
 - The deploy workflow (`static.yml`) still deploys unconditionally — wiring the smoke runner in as a gate is the single remaining step to close R-007.
 - Lesson: local-only testing gave a false "all green" — the folder-link bug was only visible against the deployed site. Always run both modes, as the Test Agent rule requires.
+
+## 2026-07-12 — API-created Canva designs and where they "hide"
+
+- **Lesson:** A successful `POST /rest/v1/designs` doesn't put the design in canva.com's Home "Recents" rail — that rail shows editor-opened designs. Look in Projects or use the permanent `canva.com/design/<ID>/…` URL.
+- **Lesson:** The `edit_url`/`view_url` in the API response are expiring JWT links (`/api/design/…`); capture the permanent design URL after first open, or add `design:meta:read` scope to list designs on demand.
+- **Lesson:** Grant read-back scopes (`design:meta:read`, `profile:read`) alongside write scopes from the start — write-only tokens make success look like failure.
+- **Applied:** `6_Semblance/canva_document_visibility.md` documents the full gap analysis; `npm run canva:list` added for programmatic verification once scopes are extended.

@@ -46,12 +46,22 @@ https://www.canva.com/developers/integrations/connect-api/OC-AZ9VpNJiU0ps/config
 ### 4. The returned edit/view URLs expire
 The `https://www.canva.com/api/design/…` links carry an expiring JWT. Clicking an **old** link fails, reinforcing the "it was never created" impression. Open them soon after creation, or find the design via Projects/search instead.
 
+## ✅ RESOLVED (2026-07-12)
+
+**User confirmed the document is visible and editable** at its permanent URL:
+https://www.canva.com/design/DAHPLSNTDOc/YHaqbJSFQfr9mC7JPnOwqg/edit
+
+The design existed all along — root causes #1 (Home "Recents" doesn't surface never-opened API designs) and #4 (the expiring `/api/design/…` links) explain the confusion. Note the difference:
+
+| Link type | Example | Lifetime |
+|---|---|---|
+| API response `edit_url` | `canva.com/api/design/eyJhbGci…/edit` | Expires (JWT) — open promptly |
+| Permanent design URL | `canva.com/design/DAHPLSNTDOc/…/edit` | Stable — bookmark this |
+
 ## Resolution checklist
 
-- [ ] canva.com → correct profile (`info@pexabo.com`, PEXABO team) → **Projects → Designs** → search "Pexabo"
-- [ ] Add `design:meta:read profile:read` scopes → re-consent → refresh `.env` token
-- [ ] `npm run canva:list` (new CLI command) returns the created designs → record in `7_Testing_Known/validation_report.md`
-- [ ] If still invisible under the right profile: check whether the integration's "In review" status limits design visibility for the team, and raise a Canva support ticket from the submission page
+- [x] Document visible on canva.com (confirmed by user at the permanent URL above)
+- [ ] Add `design:meta:read profile:read` scopes → re-consent → refresh `.env` token (nice-to-have: enables `npm run canva:list` programmatic verification)
 
 ## Cross-references
 
