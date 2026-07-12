@@ -7,7 +7,7 @@
 ## 🎯 Objective 1: Turn on the Canva MCP for the Pexabo workspace and use it for real work
 *The Canva MCP runs connected to the `info@pexabo.com` Canva account and serves design workflows from MCP hosts.*
 
-- **KR 1.1:** Canva MCP authenticated against the `info@pexabo.com` account — connection verified by a successful live tool call (e.g., listing designs) ✅ Claude connected; Kilo/DeepSeek MCP config added to `kilo.json`
+- **KR 1.1:** Canva MCP authenticated against the `info@pexabo.com` account — connection verified by a successful live tool call (e.g., listing designs) ✅ Claude connected; Kilo/DeepSeek MCP config added to `kilo.json`; OAuth PKCE flow completed — access token obtained ✅
 - **KR 1.2:** Native `@canva/cli` MCP server (`npm run mcp`) starts and answers `tools/list` — 100% of runs
 - **KR 1.3:** Custom workspace-assistant server answers `initialize` + `tools/list` + `tools/call` over stdio with both custom tools — verified by the automated e2e check ✅ (see `7_Testing_Known/validation_report.md`)
 - **KR 1.4:** Canva app credentials for Pexabo stored in Key Vault `dp-kv-deliverypilot` (`canva-mcp-CANVA-CLIENT-ID=OC-AZ9VpNJiU0ps` / `-SECRET`) with real values — no secrets in git ✅

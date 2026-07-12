@@ -12,9 +12,9 @@
 - **Evidence:**
   - **KR 1.2 — Native Canva CLI MCP:** `npx @canva/cli@latest mcp` (CLI v2.6.1) answered `initialize` (`Canva CLI MCP Server 0.0.1-beta.1`) and `tools/list` with 11 tools (Connect docs, Apps SDK docs, UI Kit catalog, app creation/migration instructions). ✅ 2026-07-12
   - **KR 1.3 — Custom workspace assistant:** `python3 5_Symbols/toolbox/mcp_e2e_test.py` → 4/4 (initialize, tools/list, `generate_design_brief`, `stage_assets`). ✅ 2026-07-12
-  - **KR 1.1 — claude.ai Canva connector as `info@pexabo.com`:** ✅ Connected — user completed OAuth via claude.ai → Canva connector, confirmed "Connected to Canva". Live workspace tool call available. Kilo/DeepSeek MCP config added to `kilo.json` (needs local `npx @canva/cli@latest login`).
+  - **KR 1.1 — claude.ai Canva connector as `info@pexabo.com`:** ✅ Full PKCE OAuth flow completed — authorization code exchanged for access token using client secret from vault. Claude connected via connector; Kilo/DeepSeek MCP config added to `kilo.json` (needs local `npx @canva/cli@latest login` for CLI auth). Access token saved to `auth.html` localStorage.
   - **KR 1.4 — Vault credentials:** `canva-mcp-CANVA-CLIENT-ID=OC-AZ9VpNJiU0ps` and `canva-mcp-CANVA-CLIENT-SECRET` stored in `dp-kv-deliverypilot` ✅. Connect API integration "mcp" created at https://www.canva.com/developers/integrations/connect-api/OC-AZ9VpNJiU0ps/configuration.
-- **Result:** ✅ Claude connected; both servers run and answer. Kilo MCP config added (needs local `npx @canva/cli@latest login` for CLI auth).
+- **Result:** ✅ Full OAuth PKCE flow complete — access token obtained. Both MCP servers run and answer. Kilo MCP config added (needs local `npx @canva/cli@latest login` for CLI auth).
 - **Date Validated:** 2026-07-12
 
 ---
@@ -49,5 +49,5 @@
 ## 🏁 Final Sign-off
 - **Prepared By:** Test Agent (Claude, agentic run)
 - **Validation Date:** 2026-07-12
-- **Overall Status:** 🟢 Go for PoC — KR 1.1 (Claude OAuth) ✅; Kilo MCP config added, pending local `npx @canva/cli@latest login`
+- **Overall Status:** 🟢 Go for PoC — All 4 KRs for Objective 1 complete: KRs 1.1–1.4 ✅. Next: TSK-009 (wire stage_assets upload), TSK-018 (schema validation), local `npx @canva/cli@latest login` for Kilo.
 - **Comments/Notes:** Re-run `python3 5_Symbols/toolbox/mcp_e2e_test.py` and the smoke suite after every change to the server or navigation.
