@@ -77,6 +77,7 @@
     {"label": "   ├─ Sanity Data Source", "url": "7_Testing_Known/sanity_check_report.md"},
     {"label": "   ├─ Lower Third Flow", "url": "7_Testing_Known/canva_lower_third_flow.md"},
     {"label": "   ├─ Architecture Course Shape Deck Flow", "url": "7_Testing_Known/architecture_course_shape_deck_flow.md"},
+    {"label": "   ├─ Coordinator/Sub-Agents Comic Flow", "url": "7_Testing_Known/coordinator_subagents_comic_flow.md"},
     {"label": "   ├─ Design DAHPLiS4suo Steps", "url": "7_Testing_Known/canva_design_DAHPLiS4suo_steps.md"},
     {"label": "---", "url": "divider"},
     {"label": "agents.md", "url": "agents.md"},
