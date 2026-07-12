@@ -84,6 +84,7 @@ MENU = [
     ("   ├─ Validation Report", "7_Testing_Known/validation_report.md"),
     ("   ├─ Sanity Data Source", "7_Testing_Known/sanity_check_report.md"),
     ("   ├─ Lower Third Flow", "7_Testing_Known/canva_lower_third_flow.md"),
+    ("   ├─ Design DAHPLiS4suo Steps", "7_Testing_Known/canva_design_DAHPLiS4suo_steps.md"),
     ("---", "divider"),
     ("agents.md", "agents.md"),
     ("claude.md", "claude.md"),
