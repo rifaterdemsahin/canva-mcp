@@ -54,11 +54,11 @@
 ## 🎯 Objective 7: Reusable native shape components for the Claude AI Architect course (SPEC-017)
 *A Canva App delivers true native, editable shape elements (not AI-interpreted layout, not raster images) that the user can drop into any course deck — closing the gap SPEC-016 accepted as a tradeoff.*
 
-> **Status:** In progress. Full plan in **[SPEC-017 → `4_Formula/architecture_components_app_spec.md`](../4_Formula/architecture_components_app_spec.md)**.
+> **Status:** Code delivered 2026-07-12; KR 7.3 needs the user's manual verification pass (no CLI/API path exists to click an app's button from outside the editor). Full plan in **[SPEC-017 → `4_Formula/architecture_components_app_spec.md`](../4_Formula/architecture_components_app_spec.md)**.
 
-- **KR 7.1:** A demo presentation showcasing the 4 reusable components (Shield/Hexagon/Cylinder/Octagon) is created via the CLI Canva MCP and opened for the user — design ID and edit URL returned
-- **KR 7.2:** The existing `lower-third-text` Canva App is extended with 4 native-shape insert buttons (`addElementAtPoint({ type: "shape" })`), each with hand-authored SVG paths and the exact course hex colors — reused rather than duplicated, per SPEC-014's app scaffold
-- **KR 7.3:** User confirms each shape renders correctly as a native, editable Canva element after manually previewing the app and clicking each button on the demo deck
+- **KR 7.1:** A demo presentation showcasing the 4 reusable components (Shield/Hexagon/Cylinder/Octagon) is created via the CLI Canva MCP and opened for the user — design ID and edit URL returned ✅ design `DAHPLyaJNJ8`, edit URL https://www.canva.com/d/NzrcdLRkdh4dT1k
+- **KR 7.2:** The existing `lower-third-text` Canva App is extended with 4 native-shape insert buttons (`addElementAtPoint({ type: "shape" })`), each with hand-authored SVG paths and the exact course hex colors — reused rather than duplicated, per SPEC-014's app scaffold ✅ shipped, typechecked clean against `@canva/design`'s actual type declarations
+- **KR 7.3:** User confirms each shape renders correctly as a native, editable Canva element after manually previewing the app and clicking each button on the demo deck — ⏳ pending (manual steps documented in SPEC-017)
 
 ## 🎯 Objective 8: Voiceover-to-Presentation API (SPEC-018) ✅
 *A reusable local API turns { title, voiceover } into a queued Canva-generation job, generalizing the manual process used for the Coordinator/Sub-Agents comic deck.*

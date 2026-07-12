@@ -973,3 +973,20 @@ This log documents the thinking phase summaries and reasoning processes of the L
 - **KR 8.1–8.4 ✅** all delivered and live-verified — `5_Symbols/presentation-api/`, design `DAHPMbFhUJE`.
 - **Architecture decision validated:** the job-queue + agent-run-executor model (not a headless script) was the only honest way to fulfill "do the MCP call in the background," and the user confirmed this explicitly before any code was written — avoided building something that would have failed at runtime with no valid path to Canva's AI generation.
 - **Process note:** writing real unit tests against real input (not skipping straight to "looks right by inspection") caught 3 shipped-would-be-broken bugs in the parser. The manual mental trace of the regex behavior was wrong on the first attempt; only running the actual test suite (and a standalone debug script) surfaced the true behavior.
+
+---
+
+## 📅 2026-07-12 — SPEC-017 Closeout (resumed after mid-task redirect)
+
+### 📥 Input / Task
+- User asked to complete the commit+push for the SPEC-017 shape-component app work that was left uncommitted when they redirected mid-session to SPEC-018, and to provide usage guide documentation for what's been built.
+
+### 💭 Thinking & Reasoning Process
+1. Re-verified the app code was still sound: `npx tsc --noEmit` showed the same 2 errors as before the change (`DOCS_URL` export, `TypographyTone` union) — re-confirmed via `git stash`/`git stash pop` that both are pre-existing and untouched by this diff, not something silently broken during the interruption.
+2. Filled in SPEC-017's "Delivery Notes" honestly: distinguished what's actually verified (typecheck against the real `@canva/design` type declarations, not just public docs) from what isn't (visual shape rendering — requires a human in the Canva editor, no CLI/API path exists, same boundary as SPEC-014).
+3. Backfilled the Phase 7 task table in `tasks.md` (never added when the work was interrupted) and updated Objective 7's KRs with an honest status — 7.1/7.2 done, 7.3 explicitly left pending pending user action, not marked complete when it isn't.
+4. Registered the spec in `nav_sync.py` (was orphaned per the smoke test all session).
+
+### 📤 Outcomes & Decisions
+- SPEC-017 status: code shipped, cross-referenced in `specs.md`, Phase 7 tasks recorded, KR 7.3 explicitly open pending the user's manual verification pass.
+- Writing a combined "how to use this" guide next, covering both SPEC-017 (shape components) and SPEC-018 (voiceover API), since both are freshly-delivered, hands-on tools the user needs operating instructions for.

@@ -63,6 +63,18 @@ MCP servers `canva-cli` and `canva-custom-tools` added to `kilo.json`. User need
 | TSK-031 | Editing transaction: `format_text` each slide header (28px bold, spec color, spec alignment), commit | Symbols Agent (tool chain) | 4/4 ops succeeded, transaction committed | [x] |
 | TSK-032 | Verify via `get-design`/thumbnails, remind user of manual connector steps, update `logic.md`, run smoke tests, commit+push | Test + Semblance Agent | `updated_at` bumped (1783870762 > 1783870697); 5 thumbnails rendered; logic.md row 6 added | [x] |
 
+## Phase 7: Reusable Native Shape Components (Code Done, Manual Verification Pending)
+
+> SPEC-017 in `4_Formula/architecture_components_app_spec.md`. Objective 7 in `okrs.md`. Extends the SPEC-014 `lower-third-text` app with 4 native-shape buttons. Code shipped and typechecked; KR 7.3 (visual confirmation) requires the user to run the dev server and click each button in the editor — no CLI/API path exists for this step.
+
+| ID | Task | Agent | Coordination | Done |
+|----|------|-------|-------------|------|
+| TSK-040 | Research Apps SDK shape-object contract directly from `@canva/design`'s type declarations (not just docs) | Environment Agent | Confirmed `ShapeElementAtPoint` requires `type`, `viewBox`, `paths`, `top`/`left`/`width`/`height` | [x] |
+| TSK-041 | Write SPEC-017 (4 shape path definitions, reuse-not-duplicate rationale) | Formula Agent | User confirmed "do both" (deck + app code) via direct question | [x] |
+| TSK-042 | Generate demo deck (`request-outline-review` → `generate-design-structured`) — design `DAHPLyaJNJ8` | Symbols Agent (tool chain) | | [x] |
+| TSK-043 | Add 4 shape handlers + buttons to `lower-third-text/app.tsx`; typecheck clean | Symbols Agent | Confirmed pre-existing typecheck errors are unrelated via `git stash` diff | [x] |
+| TSK-044 | User manually verifies shape rendering (dev server + Developer Portal + in-editor click) | User (no agent/CLI path exists) | Steps documented in SPEC-017 | [ ] |
+
 ## Phase 8: Voiceover-to-Presentation API (Done)
 
 > SPEC-018 in `4_Formula/voiceover_presentation_api_spec.md`. Objective 8 in `okrs.md`. Key constraint: Canva's AI design generation is MCP-connector-exclusive (no public REST equivalent) — the "background" execution is a job queue serviced by an agent running the real MCP chain interactively, not an autonomous script. User confirmed this model ("I run it manually"). Delivered as `5_Symbols/presentation-api/`, verified live with design `DAHPMbFhUJE`.

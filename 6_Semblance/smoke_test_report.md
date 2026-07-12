@@ -4,8 +4,8 @@
 > Latest run overwrites this file; one report per test run.
 
 ## Run Info
-- **Date:** 2026-07-12 16:46
-- **Trigger:** SPEC-016 test-folder flow doc + Canva capability research
+- **Date:** 2026-07-12 19:03
+- **Trigger:** SPEC-017 closeout + course tools usage guide
 - **Mode:** Local filesystem
 - **Tester:** smoke_test.py (automated)
 - **Verdict:** ✅ ALL PASS

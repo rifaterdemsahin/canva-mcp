@@ -222,6 +222,17 @@
 - **Related Files:** `1_Real_Unknown/okrs.md` (Objective 8), `5_Symbols/presentation-api/`
 - **Last Updated:** 2026-07-12
 
+### SPEC-017: Reusable Native Shape Components for the Claude AI Architect Course
+
+- **Status:** Active — code shipped and typechecked; pending one-time manual verification (dev server + Developer Portal + in-editor click, no CLI/API path exists). Full spec: [`architecture_components_app_spec.md`](architecture_components_app_spec.md)
+- **Description:** Extends the SPEC-014 `lower-third-text` Canva App with 4 buttons that insert true native Canva shape elements (Shield/Hexagon/Cylinder/Octagon, hand-authored straight-line SVG paths in exact course hex colors) via the Apps SDK's `addElementAtPoint({ type: "shape" })` — closes the SPEC-016 AI-layout-fidelity gap for future course decks.
+- **Key Behaviors:**
+  - Confirmed against `@canva/design`'s actual type declarations (not just docs): `ShapeElementAtPoint` requires `type`, `viewBox`, `paths`, and `top`/`left`/`width`/`height`.
+  - Demo deck `DAHPLyaJNJ8` (5 pages) generated via the same MCP outline pattern as SPEC-016, ready to receive the shapes.
+  - **[BOUNDARY]** No CLI/API can trigger a Canva App's button from outside the editor — a human must run the dev server, set the Developer Portal Development URL, and click each button. Same class of limitation as SPEC-014.
+- **Related Files:** `1_Real_Unknown/okrs.md` (Objective 7), `5_Symbols/lower-third-text/src/intents/design_editor/app.tsx`, `2_Environment/canva_capability_research.md`
+- **Last Updated:** 2026-07-12
+
 ---
 
 ## Spec Template
