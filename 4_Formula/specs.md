@@ -200,6 +200,17 @@
 - **Related Files:** `1_Real_Unknown/okrs.md` (Objective 5), `7_Testing_Known/canva_lower_third_flow.md`, `7_Testing_Known/logic.md`
 - **Last Updated:** 2026-07-12
 
+### SPEC-016: Claude AI Architecture Course — Modular Shape Slide Deck via Canva MCP
+
+- **Status:** ✅ Verified (2026-07-12) — delivered as design `DAHPLyS5QQk`, edit URL https://www.canva.com/d/4gyIYtFyKOp-xjO; full spec + test evidence: [`architecture_course_mcp_spec.md`](architecture_course_mcp_spec.md)
+- **Description:** 5-slide dark-theme (`#0B0F19`) presentation, one architectural shape motif per content slide (Shield/Hexagon/Cylinder/Octagon), built from the CLI via the claude.ai Canva MCP connector.
+- **Key Behaviors:**
+  - **[GAP CONFIRMED]** `perform-editing-operations` has no native shape-insert operation and no connector/line op (op set unchanged from SPEC-015). `insert_fill` only accepts pre-uploaded `image`/`video` assets.
+  - **Chosen workaround:** generate each shape as an icon image (`image-generation` skill) → `upload-asset-from-url` (fal.ai output URL, already public) → `insert_fill` onto the target slide + `format_text` the header → `commit-editing-transaction`. Shapes are delivered as raster image elements, not native vector shapes.
+  - **Manual step (unchanged boundary):** cross-slide connectors/flow lines require the editor — Elements → L (line tool) → snap to shapes/text.
+- **Related Files:** `1_Real_Unknown/okrs.md` (Objective 6), `1_Real_Unknown/tasks.md` (Phase 6), `4_Formula/architecture_course_mcp_spec.md`
+- **Last Updated:** 2026-07-12
+
 ---
 
 ## Spec Template

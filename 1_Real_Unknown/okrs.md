@@ -41,6 +41,16 @@
 - **KR 5.2:** Lower-third text "tuncer karaarslan" is present in the design and positioned in the bottom band of the slide via MCP editing operations (`position_element` / `resize_element` / `format_text`) — verified by element coordinates in the editing transaction ✅ element at top 930 / left 384 / width 1152 on a 1920×1080 page, transaction committed
 - **KR 5.3:** Fade-in animation: applied programmatically if any MCP/API path exists; if none exists, the capability boundary is confirmed via Canva's official Help tool and documented with the exact manual steps (accepted limitation, tracked in `7_Testing_Known/logic.md`) ✅ Canva Help confirmed: animations are editor-only — select element → **Animate** → **Fade** → **On enter**
 
+## 🎯 Objective 6: Build a 5-slide "Claude AI Architecture" course deck with per-slide shape motifs ✅
+*The CLI session creates a dark-theme (`#0B0F19`) presentation, one architectural shape (Shield/Hexagon/Cylinder/Octagon) per content slide, entirely via the Canva MCP.*
+
+> **✅ Delivered 2026-07-12** as design `DAHPLyS5QQk` ("Presentation - Claude AI Architecture"), edit URL https://www.canva.com/d/4gyIYtFyKOp-xjO. Full plan, the discovered capability gap, and the user-confirmed approach are in **[SPEC-016 → `4_Formula/architecture_course_mcp_spec.md`](../4_Formula/architecture_course_mcp_spec.md)**. Logic chain row 6 in [`7_Testing_Known/logic.md`](../7_Testing_Known/logic.md).
+
+- **KR 6.1:** 5-slide outline approved via `request-outline-review` and generated via `generate-design-structured` ✅ design `DAHPLyS5QQk`, 5 pages, edit URL above (Canva pages have no settable "name" field via MCP — slide labels `00_Title_Slide`…`04_Tools_Router_Octagon` are documentation-only, tracked in the spec's slide map)
+- **KR 6.2:** Each of the 4 shape motifs (shield/hexagon/cylinder/octagon) present on its own slide in the specified color ✅ delivered via user-chosen "best-effort AI layout only" (shape + color baked into the outline description text, rendered natively by Canva's design AI) — **not** via generated icon image + `insert_fill`, since no native shape-insert op exists (capability gap confirmed in SPEC-016) and the user opted for native-but-non-deterministic rendering over deterministic raster images
+- **KR 6.3:** Each slide header formatted to spec (28px bold, specified color, specified alignment) via `format_text`, transaction committed ✅ all 4 `format_text` ops succeeded; "column" placement approximated via text alignment (start/center/end) rather than frame relocation, to avoid overlapping the AI-generated artwork
+- **KR 6.4:** Layout verified via `get-design` (`updated_at` 1783870762 > `created_at` 1783870697) with thumbnails + edit URL rendered for review ✅; manual connector steps (Elements → L → snap) communicated to the user as an accepted limitation, not a bug
+
 ---
 
 ## 🧪 Outcome Tracking & Validation

@@ -50,6 +50,19 @@ MCP servers `canva-cli` and `canva-custom-tools` added to `kilo.json`. User need
 | TSK-025 | Confirm fade-in boundary via Canva Help tool — official answer: editor-only, no API/SDK/MCP path | Test Agent | Test verifies design → Semblance records limitation | [x] |
 | TSK-026 | Update `logic.md`, `canva_lower_third_flow.md` with retry outcome | Test Agent | | [x] |
 
+## Phase 6: Claude AI Architecture Course Deck — Shape Slides (Done)
+
+> 5-slide dark-theme deck, one shape motif per content slide, via the claude.ai Canva MCP. SPEC-016 in `4_Formula/architecture_course_mcp_spec.md`. Objective 6 in `okrs.md`. Capability gap found: no native shape-insert op. User chose "best-effort AI layout only" — shape motifs described in the outline text and rendered by Canva's design AI as native elements (no determinism guarantee), rather than generated+inserted icon images. Delivered as design `DAHPLyS5QQk`.
+
+| ID | Task | Agent | Coordination | Done |
+|----|------|-------|-------------|------|
+| TSK-027 | Set Objective 6 in OKRs; scan MCP tool schemas for shape/connector support | Real + Environment Agent | Environment re-pulled tool schemas → confirmed no shape-insert/connector op → Formula writes SPEC-016 | [x] |
+| TSK-028 | Write SPEC-016 with slide map, capability gap, and chosen image-based workaround | Formula Agent | Gate before execution — pending user confirmation | [x] |
+| TSK-029 | Confirm shape-rendering approach with user | Real Agent | User chose "best-effort AI layout only" (native AI-generated shapes, no custom image gen) | [x] |
+| TSK-030 | `request-outline-review` → `generate-design-structured` for the 5 named slides on `#0B0F19` theme, shape motifs + colors in slide descriptions | Symbols Agent (tool chain) | Outline approved by user ("complete it") → design `DAHPLyS5QQk` created from candidate 1 (exact 5-page match) | [x] |
+| TSK-031 | Editing transaction: `format_text` each slide header (28px bold, spec color, spec alignment), commit | Symbols Agent (tool chain) | 4/4 ops succeeded, transaction committed | [x] |
+| TSK-032 | Verify via `get-design`/thumbnails, remind user of manual connector steps, update `logic.md`, run smoke tests, commit+push | Test + Semblance Agent | `updated_at` bumped (1783870762 > 1783870697); 5 thumbnails rendered; logic.md row 6 added | [x] |
+
 ## Phase 4: Testing & Deployment (Pending)
 
 | ID | Task | Agent | Coordination | Done |

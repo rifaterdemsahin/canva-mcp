@@ -98,3 +98,24 @@
 
 **Follow-up**
 - If Canva ships an animation operation in the MCP/Connect API, retire the manual step and close the loop in `logic.md` row 5.
+
+---
+
+## 🔄 Retrospective — Claude AI Architecture Course Deck (2026-07-12)
+
+**Milestone:** Objective 6 delivered — 5-slide deck `DAHPLyS5QQk` with per-slide shape motifs (shield/hexagon/cylinder/octagon), built entirely from the CLI via the Canva MCP (SPEC-016).
+
+**What went well**
+- Scanning the tool schemas for a shape-insert/connector op *before* writing the spec (not after hitting an error mid-execution) turned a would-be failed attempt into a clean upfront capability-gap disclosure, surfaced to the user as a real decision rather than a silent substitution or a stalled task.
+- Baking exact shape descriptions + hex colors into the `request-outline-review` slide text worked well enough that Canva's design AI rendered visually distinct, on-brand shapes (e.g. the shield came back cyan and legible) without any custom asset generation.
+- Generating 4 candidates and picking the one whose page count exactly matched the approved outline (5 vs. 6 thumbnails on the others) was a reliable, cheap way to avoid an off-spec design without inspecting every candidate in depth.
+
+**What was learned**
+- "Native shape injection" is not a thing this MCP surface supports, and won't be worked around by `insert_fill` (media-only) — this is now confirmed twice (SPEC-015, SPEC-016) and should be treated as a stable boundary, not re-investigated per task.
+- When a user's literal request collides with a real capability boundary, presenting 2–3 concrete options (not just "here's what I did instead") produces a faster, cleaner decision than either forcing a workaround or silently downgrading the ask.
+- Canva pages have no MCP-settable "name"/"label" field — only index + thumbnail. Any future spec that wants named/labeled slides should track that naming in project docs, not expect it to round-trip into the Canva UI.
+- AI-generated layouts commit to their own left-text/right-graphic grid; fighting that grid with `position_element` to satisfy a literal "which column" instruction risks overlapping the artwork and separating a header from its body copy. Text alignment is the safer lever once the AI has already picked a layout.
+
+**Follow-up**
+- Manual step still open for the user: Elements → L (line tool) → snap lines between shapes/text to draw the cross-slide AI data pipeline connectors.
+- If a future task needs deterministic shape fidelity (not just "on theme"), revisit the deferred alternative in SPEC-016: generate icon images + `upload-asset-from-url` + `insert_fill`.

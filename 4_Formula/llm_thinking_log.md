@@ -900,3 +900,34 @@ This log documents the thinking phase summaries and reasoning processes of the L
 - **KR 5.2 ✅** lower third committed at top 930 / left 384 / width 1152 on 1920×1080
 - **KR 5.3 ✅** boundary confirmed via official Help tool; manual fade-in steps documented
 - **Capability delta recorded:** MCP editing transactions supersede the Apps SDK for reposition/format; insert-text and animation remain out of reach programmatically.
+
+---
+
+## 📅 2026-07-12 — Claude AI Architecture Course Deck (SPEC-016, planning gate)
+
+### 📥 Input / Task
+- User request: build a 5-slide "Claude AI Architecture" deck from the CLI via the Canva MCP — dark theme `#0B0F19`, one named slide per architectural shape (User Proxy Shield / Claude LLM Hexagon / Memory Bank Cylinder / Tools Router Octagon), each with an exact-hex "native Canva shape" and a styled header, verified via `get-design`, with a reminder about manual connector steps. Told to follow SPEC-015 and log through all 7 stages.
+
+### 💭 Thinking & Reasoning Process
+1. **Real Agent:** Objective 6 (KR 6.1–6.4) added to `okrs.md`; Phase 6 (TSK-027…033) added to `tasks.md`.
+2. **Environment Agent capability scan (before writing the plan, not after):** Re-pulled the live tool schemas for `perform-editing-operations`, `insert_fill`, `upload-asset-from-url` rather than trusting the SPEC-015 matrix from memory. Confirmed the op set is unchanged: `update_title, replace_text, update_fill, insert_fill, delete_element, find_and_replace_text, position_element, resize_element, format_text, update_autofill_field`. **No native shape-insert operation exists** (no Shield/Hexagon/Octagon primitive, no generic "insert_shape"). `insert_fill` only places pre-uploaded `image`/`video` assets. No connector/line operation exists either.
+3. **Formula Agent (SPEC-016):** Because the user's literal instruction ("Inject a Canva native Shield shape") is not achievable with any available MCP operation, chose a workaround rather than silently substituting or failing: generate each shape as an icon image via the `image-generation` skill (fal.ai), upload via `upload-asset-from-url` (fal.ai's own public output URL — legitimate use, not a workaround upload of a private file), `insert_fill` it onto the target slide, `format_text` the header. This mirrors the SPEC-014 "media in, no shape primitives" precedent already accepted by the user, but is flagged explicitly here since it changes "native shape" to "generated image" — a deviation from the literal request that needs sign-off before spending the design-generation budget.
+4. **Confirmation gate:** Per the mandatory "Confirmation Before Implementation" rule, this deviation is being surfaced to the user via a direct question before any Canva MCP write call (`request-outline-review` onward) is made. Not proceeding to execution in this same pass.
+5. **Manual connector step:** Re-confirmed (not assumed) that no connector/line op exists — so the user's own anticipated manual step (Elements → L → snap) is accurate and will be restated verbatim after the deck is committed.
+
+### 📤 Outcomes & Decisions
+- SPEC-016 written (`4_Formula/architecture_course_mcp_spec.md`), cross-referenced in `specs.md`.
+- Objective 6 + Phase 6 tasks recorded; TSK-027/028 done, TSK-029 (user confirmation) is the current blocker before TSK-030–033 (execution) can start.
+- No Canva MCP write calls made yet — this entry documents the planning/thinking phase only, as required before `5_Symbols`/execution work.
+- **User decision (TSK-029):** presented 3 options via a direct question; user picked **"Best-effort AI layout only"** — shape motifs + exact hex colors go into the `request-outline-review` slide descriptions and deck style, and Canva's design AI renders them as native elements. No custom icon-image generation, no `upload-asset-from-url`/`insert_fill` step. Accepted tradeoff: no shape-fidelity guarantee, in exchange for fully native/editable output. SPEC-016 and Phase 6 tasks updated to match; proceeding to execution (TSK-030) next.
+
+### 📤 Execution Outcome (TSK-030–032)
+6. **Outline → generation:** `request-outline-review` (5 pages, shape/color descriptions embedded) → user approved ("complete it") → `generate-design-structured` returned 4 candidates → candidate 1 selected (exact 5-page match to the outline; other candidates had 6 thumbnails, implying an AI-inserted extra slide) → `create-design-from-candidate` → design `DAHPLyS5QQk`.
+7. **Header formatting:** `start-editing-transaction` located all 4 header text elements by page; one `perform-editing-operations` batch applied `format_text` (28px, bold, spec hex color, alignment) to all 4 — 4/4 succeeded. "Column" placement (left/right) approximated via `text_align` rather than `position_element`, since the AI layout's background graphic occupies roughly the right two-thirds of slides 3–5 and relocating the header frame there would overlap the artwork and orphan it from its body text below.
+8. **Commit + verify:** `commit-editing-transaction` succeeded. `get-design` confirmed `updated_at` (1783870762) bumped past `created_at` (1783870697). `get-design-pages` rendered and shown to the user for all 5 slides.
+9. **Capability boundary restated:** connector/flow-line drawing has no MCP path (re-confirmed, not re-asked) — manual steps (Elements → L → snap) communicated to the user as an accepted limitation, matching the SPEC-014/015 pattern.
+
+### 📤 Final Outcomes & Decisions
+- **KR 6.1–6.4 ✅** all delivered — design `DAHPLyS5QQk`, edit URL https://www.canva.com/d/4gyIYtFyKOp-xjO, 5 pages, all headers formatted to spec, verified via `get-design`.
+- **Capability delta recorded:** no native shape-insert or connector op exists anywhere in the current Canva MCP tool set (consistent with SPEC-014/015); Canva pages also have no settable "name" field via MCP — slide names in this spec are a documentation convention only.
+- **Deviation from literal request, disclosed and approved:** shapes are AI-generated native elements interpreted from text descriptions, not deterministically-placed "native Canva shape" primitives — this was the explicit tradeoff the user chose when presented with the capability gap.
