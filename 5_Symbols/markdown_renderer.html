@@ -338,6 +338,42 @@
       color: white;
       opacity: 0.9;
     }
+
+    /* Top project menu (same links as index.html header) */
+    .project-menu-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      flex: 1;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .project-menu-nav .menu-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .project-menu-nav .menu-link:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .project-menu-nav .menu-link.active {
+      color: white;
+      background: rgba(139, 92, 246, 0.25);
+    }
+
+    @media (max-width: 640px) {
+      .project-menu-nav { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -348,6 +384,7 @@
         <i class="fa-solid fa-arrow-left"></i>
         <span>Home</span>
       </a>
+      <nav class="project-menu-nav" id="projectMenuNav"></nav>
       <div style="display: flex; align-items: center; gap: 1rem;">
         <span class="file-path-badge" id="filePath">loading...</span>
         <a href="#" target="_blank" class="edit-github-btn" id="editGitHubBtn" style="display: none;">
@@ -514,15 +551,44 @@
           debugLog("Dynamic navigation config loaded successfully.", data);
           navigationData = data;
           initDebugMenu();
+          buildProjectMenu();
         })
         .catch(err => {
           console.warn("Failed to load navigation config, using local fallback.", err);
           initDebugMenu();
+          buildProjectMenu();
         });
 
       function initDebugMenu() {
         debugLog("Initializing Debug Menu.", navigationData);
         buildDebugMenu();
+      }
+
+      // Top project menu — same entries as index.html, adapted because this
+      // page lives in 5_Symbols/: .html pages get ../, .md files stay on the renderer.
+      function buildProjectMenu() {
+        const nav = document.getElementById("projectMenuNav");
+        if (!nav) return;
+        nav.innerHTML = "";
+        const currentFile = new URLSearchParams(window.location.search).get("file") || "";
+        navigationData.projectMenu.forEach(item => {
+          let finalUrl = item.url;
+          let isActive = false;
+          if (!finalUrl.startsWith("http")) {
+            const target = finalUrl.includes("?file=") ? finalUrl.split("?file=")[1] : finalUrl;
+            if (target.endsWith(".html")) {
+              finalUrl = `../${target}`;
+            } else {
+              finalUrl = `markdown_renderer.html?file=${target}`;
+              isActive = target === currentFile;
+            }
+          }
+          const link = document.createElement("a");
+          link.href = finalUrl;
+          link.className = `menu-link${isActive ? " active" : ""}`;
+          link.textContent = item.label;
+          nav.appendChild(link);
+        });
       }
 
       function buildDebugMenu(filterText = "") {
@@ -597,6 +663,14 @@
       let fetchPath = filePath;
       if (fetchPath.endsWith('/')) {
         fetchPath += 'README.md';
+      }
+
+      // HTML pages are real pages, not markdown — go there directly
+      // (fixes markdown_renderer.html?file=auth.html rendering raw HTML as text)
+      if (fetchPath.endsWith('.html')) {
+        debugLog(`"${fetchPath}" is an HTML page — redirecting instead of rendering.`);
+        location.replace(`../${fetchPath}`);
+        return;
       }
       debugLog(`Parsing query string. Target file: "${filePath}", Fetch path: "${fetchPath}"`);
 
