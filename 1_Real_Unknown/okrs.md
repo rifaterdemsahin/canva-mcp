@@ -32,12 +32,14 @@
 - **KR 4.1:** `create_video_document` MCP tool creates a Canva design with a video-capable preset type (e.g. Instagram Reel, TikTok, YouTube Thumbnail) — design ID and edit URL returned
 - **KR 4.2:** `add_image_elements` MCP tool adds one or more image elements to an existing Canva design, accepting a design ID and image URLs — elements verified present in the design
 
-## 🎯 Objective 5: Create a new presentation from the CLI with an animated lower third (Retry)
+## 🎯 Objective 5: Create a new presentation from the CLI with an animated lower third (Retry) ✅
 *The CLI session (claude.ai Canva MCP in Claude Code) creates a brand-new presentation and delivers a lower-third text with fade-in — retrying the flow that previously ended in a manual Apps SDK step.*
 
-- **KR 5.1:** A new presentation is created entirely from the CLI via the Canva MCP (`request-outline-review` → `generate-design-structured`) — design ID and edit URL returned
-- **KR 5.2:** Lower-third text "tuncer karaarslan" is present in the design and positioned in the bottom band of the slide via MCP editing operations (`position_element` / `resize_element` / `format_text`) — verified by element coordinates in the editing transaction
-- **KR 5.3:** Fade-in animation: applied programmatically if any MCP/API path exists; if none exists, the capability boundary is confirmed via Canva's official Help tool and documented with the exact manual steps (accepted limitation, tracked in `7_Testing_Known/logic.md`)
+> **✅ Delivered 2026-07-12 — user-confirmed.** How it worked and the test of the outputs are specified in **[SPEC-015 → `4_Formula/lower_third_mcp_spec.md`](../4_Formula/lower_third_mcp_spec.md)** (tool chain, lower-third formula, 7-point evidence table). Flow narrative: [`7_Testing_Known/canva_lower_third_flow.md`](../7_Testing_Known/canva_lower_third_flow.md); logic chain row 5 in [`7_Testing_Known/logic.md`](../7_Testing_Known/logic.md).
+
+- **KR 5.1:** A new presentation is created entirely from the CLI via the Canva MCP (`request-outline-review` → `generate-design-structured`) — design ID and edit URL returned ✅ design `DAHPLnGsNgc` ("Presentation - Tuncer Karaarslan"), edit URL https://www.canva.com/d/hf5wrKoK43CfXHi
+- **KR 5.2:** Lower-third text "tuncer karaarslan" is present in the design and positioned in the bottom band of the slide via MCP editing operations (`position_element` / `resize_element` / `format_text`) — verified by element coordinates in the editing transaction ✅ element at top 930 / left 384 / width 1152 on a 1920×1080 page, transaction committed
+- **KR 5.3:** Fade-in animation: applied programmatically if any MCP/API path exists; if none exists, the capability boundary is confirmed via Canva's official Help tool and documented with the exact manual steps (accepted limitation, tracked in `7_Testing_Known/logic.md`) ✅ Canva Help confirmed: animations are editor-only — select element → **Animate** → **Fade** → **On enter**
 
 ---
 

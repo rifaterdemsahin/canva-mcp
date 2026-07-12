@@ -31,3 +31,5 @@ Severity levels: `CRITICAL` | `ERROR` | `WARNING` | `INFO`
 | Azure Key Vault access denied | Secrets | See fix.log |
 [2026-07-12] [7_Testing_Known] [ERROR] — mcp_e2e_test: stage_assets tools/call failed with InternalError "Cannot read properties of undefined (reading 'length')" when called with wrong/missing argument names (no input validation in server handler).
 [2026-07-12] [6_Semblance] [WARNING] — Documents created via CLI/MCP (DAHPLbvLyIw, DAHPLSNTDOc) return HTTP 200 + design ID but are not visible on canva.com home. Read-back verification blocked: GET /rest/v1/designs → 403 missing_scope design:meta:read. Analysis: 6_Semblance/canva_document_visibility.md
+[2026-07-12] [5_Symbols] [LOW] — `git add 5_Symbols/lower-third-text` failed: "error: '5_Symbols/lower-third-text/' does not have a commit checked out" — @canva/cli scaffold created a nested .git repo inside the app folder, blocking the parent repo from tracking the source.
+[2026-07-12] [7_Testing_Known] [LOW] — Smoke test "Stage Docs In Menu" failed: vendored scaffold docs 5_Symbols/lower-third-text/{LICENSE.md,README.md} flagged as orphaned stage docs after committing the Canva App source.

@@ -190,7 +190,7 @@
 
 ### SPEC-015: Presentation + Lower Third via claude.ai Canva MCP (Retry of SPEC-014)
 
-- **Status:** Active
+- **Status:** ✅ Verified (2026-07-12) — delivered as design `DAHPLnGsNgc`; user confirmed visually; full spec document with test evidence: [`lower_third_mcp_spec.md`](lower_third_mcp_spec.md)
 - **Description:** Retry of the lower-third flow using the claude.ai Canva MCP connector available inside the Claude Code CLI session. This replaces the SPEC-014 Apps SDK phase: the presentation is *generated with the lower-third text already in the slide content*, then MCP editing operations reposition and format it into a lower third. No Apps SDK, no dev server, no Developer Portal step.
 - **Key Behaviors:**
   - **Phase 1 — Generate:** `request-outline-review` (1-slide outline containing the text "tuncer karaarslan") → `generate-design-structured` (design_type `presentation`). Returns a new design ID + edit URL. KR 5.1.

@@ -4,8 +4,8 @@
 > Latest run overwrites this file; one report per test run.
 
 ## Run Info
-- **Date:** 2026-07-12 15:01
-- **Trigger:** visibility resolved
+- **Date:** 2026-07-12 15:41
+- **Trigger:** Manual run
 - **Mode:** Local filesystem
 - **Tester:** smoke_test.py (automated)
 - **Verdict:** ✅ ALL PASS

@@ -80,3 +80,21 @@
 - **Lesson:** The `edit_url`/`view_url` in the API response are expiring JWT links (`/api/design/…`); capture the permanent design URL after first open, or add `design:meta:read` scope to list designs on demand.
 - **Lesson:** Grant read-back scopes (`design:meta:read`, `profile:read`) alongside write scopes from the start — write-only tokens make success look like failure.
 - **Applied:** `6_Semblance/canva_document_visibility.md` documents the full gap analysis; `npm run canva:list` added for programmatic verification once scopes are extended.
+
+---
+
+## 🔄 Retrospective — Lower Third Retry via claude.ai Canva MCP (2026-07-12)
+
+**Milestone:** Objective 5 delivered — new presentation `DAHPLnGsNgc` with a committed lower third, created 100% from the CLI (SPEC-015 retry of SPEC-014).
+
+**What went well**
+- Re-scanning the *current* session's tool surface before retrying paid off: the claude.ai Canva MCP editing transactions made the entire Apps SDK phase (app scaffold, dev server, Developer Portal, manual preview) unnecessary.
+- "Generate with the text already in the outline, then reposition" neatly sidestepped the missing insert-text operation — 5/5 editing operations succeeded on the first attempt.
+
+**What was learned**
+- Capability boundaries are per-surface AND per-session: REST API, Apps SDK, and MCP connector each have different op sets, and the winning path changed between sessions. Always re-derive the matrix before declaring something impossible.
+- Animations remain the one hard boundary across every programmatic surface — confirmed via Canva's official Help tool, not just schema absence. One manual step survives: Animate → Fade → On enter.
+- `@canva/cli` scaffolds contain a nested `.git` that silently blocks the parent repo (`does not have a commit checked out`); strip it before committing vendor scaffolds.
+
+**Follow-up**
+- If Canva ships an animation operation in the MCP/Connect API, retire the manual step and close the loop in `logic.md` row 5.

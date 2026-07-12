@@ -879,3 +879,24 @@ This log documents the thinking phase summaries and reasoning processes of the L
 - **Remaining manual step:** User must configure Development URL in Developer Portal, preview the app in the design, click "Add Lower Third", then manually apply Fade animation in the editor.
 
 ## 📅 2026-07-12 — Canva App Dev Server Running
+
+---
+
+## 📅 2026-07-12 — Lower Third RETRY via claude.ai Canva MCP (SPEC-015)
+
+### 📥 Input / Task
+- User request: "create a new presentation which cli is able to create one and add a lowerthird with fade in animation retry this is in the okr.md > update the real and go through all the agents to make this work. retry"
+- Real Agent added Objective 5 (KR 5.1–5.3) to `okrs.md` and Phase 5 tasks TSK-021…026.
+
+### 💭 Thinking & Reasoning Process
+1. **New capability scan (Environment):** This CLI session exposes the claude.ai Canva MCP connector tools. Schema scan of `perform-editing-operations` revealed the op set: update_title, replace_text, update_fill, insert_fill, delete_element, find_and_replace_text, position_element, resize_element, format_text, update_autofill_field. → Elements CAN be repositioned/resized/formatted externally; NO insert-text op; NO animation op.
+2. **Strategy (Formula, SPEC-015):** Since text cannot be inserted, generate the presentation with the lower-third text already in the outline, then reposition it into the bottom band via an editing transaction. This removes the entire Apps SDK phase of SPEC-014.
+3. **Execution:** `request-outline-review` (1 slide) → `generate-design-structured` → 4 candidates → `create-design-from-candidate` → `DAHPLnGsNgc` → `start-editing-transaction` → 5 ops (replace_text to exact lowercase "tuncer karaarslan", format 48px bold white centered, resize to 1152px width, position top 930/left 384, move "July 2026" caption to top 70) → `commit-editing-transaction` → verified via `get-design` (updated_at bumped).
+4. **Animation boundary (Test):** Canva Help MCP tool queried; official answer: animations are editor-only — no Connect API / Apps SDK / MCP path. Manual step documented: select element → Animate → Fade → On enter.
+5. **Repo hygiene (Semblance):** `git add 5_Symbols/lower-third-text` failed with "does not have a commit checked out" — the CLI scaffold contained a nested `.git`. Removed the nested repo so the app source is tracked by the parent repo.
+
+### 📤 Outcomes & Decisions
+- **KR 5.1 ✅** design `DAHPLnGsNgc` created 100% from the CLI (edit: https://www.canva.com/d/hf5wrKoK43CfXHi)
+- **KR 5.2 ✅** lower third committed at top 930 / left 384 / width 1152 on 1920×1080
+- **KR 5.3 ✅** boundary confirmed via official Help tool; manual fade-in steps documented
+- **Capability delta recorded:** MCP editing transactions supersede the Apps SDK for reposition/format; insert-text and animation remain out of reach programmatically.

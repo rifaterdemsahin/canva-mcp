@@ -128,6 +128,10 @@ def run_checks(root, base_url=None):
         if STAGE_GLOB.match(d) and os.path.isdir(d):
             for dirpath, dirnames, filenames in os.walk(d):
                 dirnames[:] = [x for x in dirnames if not x.startswith((".", "_obsolete")) and x not in ("node_modules", "dist")]
+                if "package.json" in filenames and dirpath != d:
+                    # vendored JS package scaffold (e.g. @canva/cli app) — its README/LICENSE are not stage docs
+                    dirnames[:] = []
+                    continue
                 stage_docs.update(
                     os.path.join(dirpath, f).replace(os.sep, "/") for f in filenames if f.endswith(".md")
                 )

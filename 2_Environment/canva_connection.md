@@ -79,6 +79,23 @@ For this project, option 2 was used on 2026-07-12 for both integrations — jour
 | **Apps Portal** | https://www.canva.com/developers/apps | Manage Canva Apps (Apps SDK) | `AAHAADEb9zw` (lower third) |
 | **Integrations** | https://www.canva.com/developers/integrations/connect-api/ | Manage Connect API integrations | `OC-AZ9VpNJiU0ps` (mcp) |
 
+## claude.ai Canva MCP — Editing Capability Matrix (2026-07-12)
+
+The claude.ai Canva connector is available inside Claude Code CLI sessions and supersedes the Apps SDK for element manipulation (SPEC-015):
+
+| Capability | MCP Support | Tool / Operation |
+|-----------|------------|------------------|
+| Generate presentation | ✅ | `request-outline-review` → `generate-design-structured` → `create-design-from-candidate` |
+| Reposition element | ✅ | `perform-editing-operations` → `position_element` (fixed pages only) |
+| Resize element | ✅ | `resize_element` |
+| Format text (size/weight/color/align) | ✅ | `format_text` |
+| Replace existing text | ✅ | `replace_text`, `find_and_replace_text` |
+| Insert media (image/video) | ✅ | `insert_fill` |
+| Insert NEW standalone text element | ❌ | no operation exists — include text at generation time instead |
+| Apply animations (fade-in etc.) | ❌ | editor-only, confirmed by official Canva Help tool |
+
+All edits are transactional: `start-editing-transaction` → operations → `commit-editing-transaction` (or cancel).
+
 ## Verification
 
 - `python3 5_Symbols/toolbox/mcp_e2e_test.py` — proves the custom server answers `initialize`/`tools/list`/`tools/call` over stdio.

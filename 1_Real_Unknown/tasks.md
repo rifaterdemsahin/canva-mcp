@@ -37,18 +37,18 @@ MCP servers `canva-cli` and `canva-custom-tools` added to `kilo.json`. User need
 | TSK-019 | Define local `.env` contract (`.env` gitignored, `.env.example` keys, vault + PKCE token sources) | Formula Agent | Formula specs the contract in `implementation.md` → Environment fills `.env` from vault + auth.html | [x] |
 | TSK-020 | Create a Canva document from the local CLI — `npm run canva:create` → design `DAHPLbvLyIw` in Pexabo workspace; `create_design` MCP tool added | Symbols Agent | Formula specs → Symbols implements `cli.ts` + `createDesign()` → Test verifies live (validation_report.md) | [x] |
 
-## Phase 5: Presentation + Animated Lower Third — MCP Retry (In Progress)
+## Phase 5: Presentation + Animated Lower Third — MCP Retry (Done)
 
 > Retry of the lower-third flow (SPEC-014). New capability discovered: the claude.ai Canva MCP is available inside the Claude Code CLI session with editing-transaction tools (`position_element`, `resize_element`, `format_text`) — element positioning no longer needs the Apps SDK. Objective 5 in `okrs.md`.
 
 | ID | Task | Agent | Coordination | Done |
 |----|------|-------|-------------|------|
 | TSK-021 | Set Objective 5 in OKRs: new presentation + lower third + fade-in from the CLI | Real Agent | | [x] |
-| TSK-022 | Record Canva MCP editing capability matrix (what `perform-editing-operations` can/can't do) | Environment Agent | Environment scans tool schemas → Formula updates SPEC-015 | [~] |
-| TSK-023 | Create new presentation via MCP (`request-outline-review` → `generate-design-structured`) with "tuncer karaarslan" in slide content | Formula Agent → execution | Formula gates the plan → MCP tool chain executes | [~] |
-| TSK-024 | Position the text as a lower third via editing transaction (`position_element`/`resize_element`/`format_text`) and commit | Symbols Agent (tool chain) | | [~] |
-| TSK-025 | Confirm fade-in boundary via Canva Help tool; document official manual steps if no API exists | Test Agent | Test verifies design → Semblance records limitation | [~] |
-| TSK-026 | Update `logic.md`, `canva_lower_third_flow.md` with retry outcome | Test Agent | | [~] |
+| TSK-022 | Record Canva MCP editing capability matrix (what `perform-editing-operations` can/can't do) | Environment Agent | Environment scans tool schemas → Formula updates SPEC-015 | [x] |
+| TSK-023 | Create new presentation via MCP (`request-outline-review` → `generate-design-structured`) with "tuncer karaarslan" in slide content — design `DAHPLnGsNgc` | Formula Agent → execution | Formula gates the plan → MCP tool chain executes | [x] |
+| TSK-024 | Position the text as a lower third via editing transaction (`position_element`/`resize_element`/`format_text`) and commit — 5/5 ops success, committed | Symbols Agent (tool chain) | | [x] |
+| TSK-025 | Confirm fade-in boundary via Canva Help tool — official answer: editor-only, no API/SDK/MCP path | Test Agent | Test verifies design → Semblance records limitation | [x] |
+| TSK-026 | Update `logic.md`, `canva_lower_third_flow.md` with retry outcome | Test Agent | | [x] |
 
 ## Phase 4: Testing & Deployment (Pending)
 

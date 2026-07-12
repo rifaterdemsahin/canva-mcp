@@ -157,6 +157,44 @@ No errors encountered. Clean flow from creation to documentation.
 
 ---
 
+## Retry — SPEC-015 via claude.ai Canva MCP (2026-07-12)
+
+The flow was retried in a Claude Code CLI session where the **claude.ai Canva MCP connector** is available. This collapsed the two-phase SPEC-014 approach (REST API + Apps SDK + manual portal steps) into a single fully programmatic tool chain:
+
+```
+request-outline-review (1 slide, text "tuncer karaarslan" in outline)
+    │
+    ▼
+generate-design-structured (presentation) ──► 4 candidates
+    │
+    ▼
+create-design-from-candidate ──► design DAHPLnGsNgc ("Presentation - Tuncer Karaarslan")
+    │
+    ▼
+start-editing-transaction ──► page 1920×1080, name element found at top 164
+    │
+    ▼
+perform-editing-operations (5/5 success):
+    • replace_text → "tuncer karaarslan" (exact lowercase per request)
+    • format_text  → 48px, bold, white, centered
+    • resize_element → width 1152 (60% of page)
+    • position_element → top 930, left 384 (lower-third band)
+    • position_element (July 2026 caption) → moved to top 70 to avoid collision
+    │
+    ▼
+commit-editing-transaction ──► saved (updated_at bumped, verified via get-design)
+```
+
+**Result:** Presentation creation + lower-third placement is now 100% programmatic from the CLI — no Canva App, no dev server, no Developer Portal step. User opened the design in Chrome and confirmed: "it worked" (2026-07-12). Full spec + evidence table: [`4_Formula/lower_third_mcp_spec.md`](../4_Formula/lower_third_mcp_spec.md).
+
+**Key trick:** `perform-editing-operations` cannot *insert* a standalone text element (only media via `insert_fill`), so the text is included in the generation outline and then repositioned into the lower third.
+
+**Animation boundary re-confirmed (official):** The Canva Help MCP tool states animations can only be applied manually in the editor — no Connect API, Apps SDK, or MCP path exists. Manual step: select the lower-third text → **Animate** → choose **Fade** → set **On enter**.
+
+**Design:** `DAHPLnGsNgc` — edit: https://www.canva.com/d/hf5wrKoK43CfXHi · view: https://www.canva.com/d/UAfk2VqRm7nF30H
+
+---
+
 ## Related
 
 - **Spec:** `4_Formula/specs.md` → SPEC-014
