@@ -144,3 +144,18 @@ Run the real agent and let me know the state
 | Agent | DeepSeek V4 — acting as Real Agent |
 | Action | Full 7-stage state scan |
 | Result | See 4_Formula/llm_thinking_log.md for reasoning, tasks.md for status |
+
+---
+
+## Presentation + Lower Third + Fade-In — MCP Retry (2026-07-12)
+
+```
+i want to create a new presentation which cli is able to create one and add a lowerthird with fade in animation retry this is in the okr.md > update the real and go through all the agents to make this work. retry
+```
+
+| Field | Value |
+|-------|-------|
+| Agent | Claude (Fable 5) — Real Agent coordinating all stages |
+| Purpose | Retry the lower-third + fade-in flow with a NEW presentation, this time via the claude.ai Canva MCP available in the CLI session (editing transactions replace the Apps SDK phase) |
+| OKR | Objective 5 (KR 5.1–5.3) added to okrs.md |
+| Tasks | TSK-021 … TSK-026 (Phase 5 in tasks.md) |
