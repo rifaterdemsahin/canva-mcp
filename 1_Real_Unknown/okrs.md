@@ -26,6 +26,12 @@
 - **KR 3.2:** `stage_assets` returns a JSON manifest that validates against Canva's `POST /v1/brand-assets` schema
 - **KR 3.3:** A staged asset manifest is uploaded to Canva through the authenticated MCP (end-to-end sync)
 
+## 🎯 Objective 4: Create a multimedia document using MCP tools
+*An MCP tool chain can produce a Canva document that contains both video and image elements, demonstrating rich-media design automation.*
+
+- **KR 4.1:** `create_video_document` MCP tool creates a Canva design with a video-capable preset type (e.g. Instagram Reel, TikTok, YouTube Thumbnail) — design ID and edit URL returned
+- **KR 4.2:** `add_image_elements` MCP tool adds one or more image elements to an existing Canva design, accepting a design ID and image URLs — elements verified present in the design
+
 ---
 
 ## 🧪 Outcome Tracking & Validation

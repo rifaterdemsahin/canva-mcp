@@ -4,8 +4,8 @@
 > Latest run overwrites this file; one report per test run.
 
 ## Run Info
-- **Date:** 2026-07-12 14:17
-- **Trigger:** local CLI create-design + env contract
+- **Date:** 2026-07-12 14:59
+- **Trigger:** canva doc visibility analysis
 - **Mode:** Local filesystem
 - **Tester:** smoke_test.py (automated)
 - **Verdict:** ✅ ALL PASS

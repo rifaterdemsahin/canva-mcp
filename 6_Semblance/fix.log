@@ -43,3 +43,4 @@ Lesson captured in lessons_learned.md
 |------------|-------|---------------|------------|
 | 2026-07-12 | SETUP | Initialization | APPLIED |
 [2026-07-12] [5_Symbols] [VERIFIED] — Added InvalidParams guards to generate_design_brief and stage_assets handlers in src/index.ts; e2e test corrected to schema argument names (assetGroup/urls, clientName/description). mcp_e2e_test.py now passes 4/4.
+[2026-07-12] [6_Semblance] [PENDING] — Visibility gap analysis published (canva_document_visibility.md): look under Projects→Designs with the PEXABO profile; add design:meta:read + profile:read scopes to OC-AZ9VpNJiU0ps and re-consent, then verify with `npm run canva:list`.

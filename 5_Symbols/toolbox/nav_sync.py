@@ -73,6 +73,7 @@ MENU = [
     ("6. Semblance", "6_Semblance/README.md"),
     ("   ├─ Error Log", "6_Semblance/error_log.md"),
     ("   ├─ Gap Analysis", "6_Semblance/gap_analysis.md"),
+    ("   ├─ Canva Doc Visibility", "6_Semblance/canva_document_visibility.md"),
     ("   ├─ Lessons Learned", "6_Semblance/lessons_learned.md"),
     ("   ├─ Workarounds", "6_Semblance/workarounds.md"),
     ("   ├─ Smoke Test Report", "6_Semblance/smoke_test_report.md"),

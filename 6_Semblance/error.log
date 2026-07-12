@@ -30,3 +30,4 @@ Severity levels: `CRITICAL` | `ERROR` | `WARNING` | `INFO`
 | Markdown render 404 | 6_Semblance | See fix.log |
 | Azure Key Vault access denied | Secrets | See fix.log |
 [2026-07-12] [7_Testing_Known] [ERROR] — mcp_e2e_test: stage_assets tools/call failed with InternalError "Cannot read properties of undefined (reading 'length')" when called with wrong/missing argument names (no input validation in server handler).
+[2026-07-12] [6_Semblance] [WARNING] — Documents created via CLI/MCP (DAHPLbvLyIw, DAHPLSNTDOc) return HTTP 200 + design ID but are not visible on canva.com home. Read-back verification blocked: GET /rest/v1/designs → 403 missing_scope design:meta:read. Analysis: 6_Semblance/canva_document_visibility.md

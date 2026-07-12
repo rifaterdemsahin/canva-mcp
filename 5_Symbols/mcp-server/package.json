@@ -11,6 +11,7 @@
     "mcp": "npx -y @canva/cli@latest mcp",
     "canva:whoami": "node --env-file=.env dist/src/cli.js whoami",
     "canva:create": "node --env-file=.env dist/src/cli.js create-design",
+    "canva:list": "node --env-file=.env dist/src/cli.js list-designs",
     "clean": "rm -rf dist"
   },
   "dependencies": {
