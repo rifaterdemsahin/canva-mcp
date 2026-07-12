@@ -208,7 +208,7 @@
   - **[GAP CONFIRMED]** `perform-editing-operations` has no native shape-insert operation and no connector/line op (op set unchanged from SPEC-015). `insert_fill` only accepts pre-uploaded `image`/`video` assets.
   - **Chosen workaround:** generate each shape as an icon image (`image-generation` skill) → `upload-asset-from-url` (fal.ai output URL, already public) → `insert_fill` onto the target slide + `format_text` the header → `commit-editing-transaction`. Shapes are delivered as raster image elements, not native vector shapes.
   - **Manual step (unchanged boundary):** cross-slide connectors/flow lines require the editor — Elements → L (line tool) → snap to shapes/text.
-- **Related Files:** `1_Real_Unknown/okrs.md` (Objective 6), `1_Real_Unknown/tasks.md` (Phase 6), `4_Formula/architecture_course_mcp_spec.md`
+- **Related Files:** `1_Real_Unknown/okrs.md` (Objective 6), `1_Real_Unknown/tasks.md` (Phase 6), `4_Formula/architecture_course_mcp_spec.md`, `7_Testing_Known/architecture_course_shape_deck_flow.md` (end-to-end flow doc), `2_Environment/canva_capability_research.md` (external research: real native-shape path exists via Apps SDK `addElementAtPoint`, not used here)
 - **Last Updated:** 2026-07-12
 
 ---

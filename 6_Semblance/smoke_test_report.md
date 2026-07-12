@@ -4,8 +4,8 @@
 > Latest run overwrites this file; one report per test run.
 
 ## Run Info
-- **Date:** 2026-07-12 16:41
-- **Trigger:** SPEC-016 Claude AI Architecture course deck delivered (Objective 6)
+- **Date:** 2026-07-12 16:46
+- **Trigger:** SPEC-016 test-folder flow doc + Canva capability research
 - **Mode:** Local filesystem
 - **Tester:** smoke_test.py (automated)
 - **Verdict:** ✅ ALL PASS
