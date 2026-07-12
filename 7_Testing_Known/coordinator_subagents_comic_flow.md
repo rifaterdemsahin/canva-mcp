@@ -64,6 +64,24 @@ get-design-pages + get-design ──► verified page count and pulled the
 
 No editing transaction was run for this deck — unlike SPEC-016/017, there were no specific header-formatting or shape-placement requirements in this request, so the AI-generated layout was accepted as-is.
 
+## How the robot illustrations were created — yes, Canva AI generated them
+
+This was verified empirically, not assumed. A read-only `start-editing-transaction` was opened on `DAHPMBtuFyw` (inspected, then `cancel-editing-transaction` — no changes made) to list every image `fill` element and its `asset_id`, then `get-assets` was called on a sample of those IDs to inspect their metadata.
+
+**Evidence the robot illustrations are freshly AI-generated, not stock photos:**
+
+| Signal | Robot illustration assets (e.g. `MAHPMBsUZ4I`) | Stock element (e.g. `MAFCI47ft0A`, a corner arrow icon) |
+|---|---|---|
+| `created_at` | `1783872403`–`1783872405` — identical to the moment `create-design-from-candidate` ran | `1653880737` — created in 2022, years before this session |
+| `name` | `AZ9XFKZN...-AZ9XFKZN....jpg` — an opaque generation-batch filename | `"Medium Weight Sleek Arrow"` — a human-curated library name |
+| `smart_tags` | `["robot", "tech", "machine", "illustration", "ai", "cyborg", "artificial", "automation", "android", "cyber", ...]` | `["web", "sleek", "direction", "pointer", "canvawebarrows", ...]` |
+| `owner` | This session's team — a private asset created for this job | A different owner/team — Canva's shared Elements library |
+| Content uniqueness | Every slide's robot image is a **distinct scene** matching that exact slide's description (Panel 1's "kickoff command" pose differs from Panel 2's "coding" pose, etc.) | The identical arrow icon is reused unchanged across pages 1, 5, 7, and 8 |
+
+None of the 4-5 robots-and-speech-bubbles illustrations shown across the deck could plausibly be a pre-existing stock photo — each one depicts the *exact* scene described in that slide's outline text (the orange Coordinator with raised arms addressing blue sub-agents, Sub-Agent A specifically coding, etc.), generated fresh at design-creation time under this session's own asset ownership.
+
+**Conclusion:** `generate-design-structured` calls Canva's own AI image generation (the same underlying capability marketed as **Magic Media**) internally whenever the outline's description text calls for artwork that doesn't already exist in Canva's stock library — no separate `image-generation` skill (fal.ai) or `upload-asset-from-url` call was made for this deck. Small supporting graphics (the corner arrow icon) are pulled from Canva's existing Elements library instead of being generated, when a suitable stock asset already exists. Canva does not publicly document exactly which model powers this generation ([Canva Magic Media help](https://www.canva.com/help/using-magic-media/)), but the output style, generation-batch asset naming, and `ai`/`illustration` smart-tags are consistent with Canva's Magic Media pipeline, not a third-party or externally-sourced image.
+
 ## Capability note (consistent with prior specs)
 
 This is the same `request-outline-review` → `generate-design-structured` → `create-design-from-candidate` pattern used for every AI-generated deck in this project (SPEC-015/016/017). No new Canva capability was required or discovered here — the interesting part of this task was **script-to-outline translation** (turning prose with embedded dialogue and scene directions into discrete, generation-ready slide descriptions), not a new MCP capability.
