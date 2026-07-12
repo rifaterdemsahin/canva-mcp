@@ -134,13 +134,27 @@
 
 ### SPEC-011: Canva App Credentials in Azure Key Vault
 - **Status:** Active
-- **Description:** Canva OAuth client credentials (Client ID `AAHAAN3AO5Y` + Client Secret) stored in the existing Azure Key Vault `dp-kv-deliverypilot` under secret names `canva-mcp-CANVA-CLIENT-ID` and `canva-mcp-CANVA-CLIENT-SECRET`. Never committed to git.
+- **Description:** Canva OAuth client credentials (Connect API Integration ID `OC-AZ9VpNJiU0ps` + Client Secret) stored in the existing Azure Key Vault `dp-kv-deliverypilot` under secret names `canva-mcp-CANVA-CLIENT-ID` and `canva-mcp-CANVA-CLIENT-SECRET`. Never committed to git. Also documented: Canva App ID `AAHAAN3AO5Y` for Canva App development (separate from Connect API).
 - **Key Behaviors:**
   - Secrets are set via `5_Symbols/toolbox/secrets.sh set` — never via manual `az keyvault secret set` without the wrapper script
-  - Client ID is known (`AAHAAN3AO5Y`); Client Secret must be obtained from the Canva Developer Portal at https://www.canva.com/developers/
+  - Client ID is `OC-AZ9VpNJiU0ps` (Connect API integration "mcp"); Client Secret retrieved from Canva Developer Portal → Integrations → Connect API → Authentication tab
   - After storing, the Canva CLI must authenticate locally via `npx @canva/cli@latest login` (OAuth token cached per machine)
   - Both the native CLI MCP (`canva-cli`) and custom MCP (`canva-custom-tools`) are configured in `kilo.json` for Kilo/DeepSeek agent access
-- **Related Files:** `4_Formula/canva_credentials.md`, `2_Environment/canva_connection.md`, `kilo.json`, `5_Symbols/toolbox/secrets.sh`
+  - Token exchange from auth callback uses Basic Auth (`client_id:client_secret`) via `auth.html` manual secret paste or server-side
+- **Related Files:** `4_Formula/canva_credentials.md`, `2_Environment/canva_connection.md`, `kilo.json`, `5_Symbols/toolbox/secrets.sh`, `auth.html`
+- **Last Updated:** 2026-07-12
+
+### SPEC-012: Canva OAuth PKCE Flow
+- **Status:** Active
+- **Description:** OAuth 2.0 authorization code flow with PKCE (Proof Key for Code Exchange) for the Canva Connect API integration (`OC-AZ9VpNJiU0ps`). The flow is captured across 7 screenshots in `3_Simulation/` showing the admin permission fix and the full authorization lifecycle.
+- **Key Behaviors:**
+  - **Flow:** `auth.html` → generate PKCE code_verifier + challenge → redirect to Canva authorize endpoint → user approves scopes → Canva redirects back to `auth.html?code=<JWT>` → exchange code for tokens using client_secret
+  - **Admin restriction:** Team admin must whitelist the integration in Settings → Permissions → Apps & Integrations before the "Allow" button becomes active
+  - **auth.html** handles: PKCE generation, redirect, callback code display, manual token exchange (user pastes client_secret from vault)
+  - **7 screenshots** document each step: restriction → admin fix → landing → consent → callback
+  - **Carousel** in `index.html` displays all 7 images sequentially via `carousel_config.json`
+  - Token exchange requires Basic Auth (`client_id:client_secret`) — auto-exchange fails without the secret, manual fallback provided
+- **Related Files:** `auth.html`, `3_Simulation/carousel_config.json`, `3_Simulation/canva_oauth_*.jpg`, `3_Simulation/image_prompts.md`, `4_Formula/canva_credentials.md`
 - **Last Updated:** 2026-07-12
 
 ---

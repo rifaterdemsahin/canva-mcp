@@ -32,17 +32,24 @@ Already runs and answers `tools/list` with 2 custom tools. ✅ Verified 2026-07-
 - [x] **TSK-016** — Native Canva CLI MCP `initialize` + `tools/list` (Test Agent)
 - [x] **TSK-017** — Claude Canva connector OAuth as `info@pexabo.com` (User action)
 - [ ] **TSK-009** — Wire `stage_assets` upload to Canva API (Symbols Agent)
-- [ ] **TSK-010** — Real Canva app credentials in Key Vault (Environment Agent)
+- [x] **TSK-010** — Real Canva app credentials in Key Vault (Environment Agent) ✅
 - [ ] **TSK-018** — Validate `stage_assets` against Canva schema (Test Agent)
 
 ## Simulation Assets
 
 ```
 3_Simulation/
-├── canva_mcp_architecture_flow.png  # Two-server architecture diagram
-├── canva_oauth_flow.png             # OAuth connection flow for info@pexabo.com
-├── canva_tool_list.png              # Side-by-side tool list (native + custom)
-└── image_prompts.md                 # All AI generation prompts
+├── canva_oauth_01_access_restricted.jpg     # Admin restriction blocks OAuth
+├── canva_oauth_02_admin_apps_integrations.jpg # Admin settings page
+├── canva_oauth_03_allow_canva_ai_connector.jpg # Whitelist the connector
+├── canva_oauth_04_consent_allow.jpg         # Allow button active after fix
+├── canva_oauth_05_auth_landing.jpg          # auth.html start page
+├── canva_oauth_06_consent_granted.jpg       # Scopes approved
+├── canva_oauth_07_auth_code_callback.jpg    # PKCE auth code received
+├── canva_mcp_architecture_flow.png          # Two-server architecture diagram (pending)
+├── canva_tool_list.png                      # Side-by-side tool list (pending)
+├── agentic_workflow.svg                     # Agent workflow diagram
+└── image_prompts.md                         # Screenshot & prompt documentation
 ```
 
 ## Design Guidelines
@@ -56,6 +63,6 @@ Already runs and answers `tools/list` with 2 custom tools. ✅ Verified 2026-07-
 
 | Design File | Spec Reference |
 |-------------|---------------|
+| `canva_oauth_01`–`07` (screenshots) | `SPEC-012` — Canva OAuth PKCE Flow |
 | `canva_mcp_architecture_flow.png` | `SPEC-008` — MCP server lifecycle |
-| `canva_oauth_flow.png` | `SPEC-007` — Canva OAuth connection |
 | `canva_tool_list.png` | `SPEC-009` — Custom tool spec |

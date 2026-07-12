@@ -1,16 +1,32 @@
 {
   "images": [
     {
-      "url": "3_Simulation/canva_mcp_architecture_flow.png",
-      "caption": "Canva MCP Two-Server Architecture"
+      "url": "3_Simulation/canva_oauth_01_access_restricted.jpg",
+      "caption": "Step 1: Access Restricted by Team Admin"
     },
     {
-      "url": "3_Simulation/canva_oauth_flow.png",
-      "caption": "Canva OAuth Connection Flow"
+      "url": "3_Simulation/canva_oauth_02_admin_apps_integrations.jpg",
+      "caption": "Step 2: Admin Apps & Integrations Settings"
     },
     {
-      "url": "3_Simulation/canva_tool_list.png",
-      "caption": "MCP Tool List — Native vs Custom"
+      "url": "3_Simulation/canva_oauth_03_allow_canva_ai_connector.jpg",
+      "caption": "Step 3: Allow Canva AI Connector"
+    },
+    {
+      "url": "3_Simulation/canva_oauth_04_consent_allow.jpg",
+      "caption": "Step 4: Consent — Allow Button Active"
+    },
+    {
+      "url": "3_Simulation/canva_oauth_05_auth_landing.jpg",
+      "caption": "Step 5: Auth Landing — Connect to Canva"
+    },
+    {
+      "url": "3_Simulation/canva_oauth_06_consent_granted.jpg",
+      "caption": "Step 6: Consent Granted — Scopes Approved"
+    },
+    {
+      "url": "3_Simulation/canva_oauth_07_auth_code_callback.jpg",
+      "caption": "Step 7: Auth Code Callback — PKCE Complete"
     }
   ]
 }

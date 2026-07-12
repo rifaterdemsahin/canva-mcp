@@ -641,30 +641,8 @@
         <span>Simulation Mockups</span>
       </h2>
       
-      <div class="carousel-container" id="carousel">
-        <!-- Slide 1 -->
-        <div class="carousel-slide active">
-          <div class="carousel-placeholder-image">
-            <i class="fa-regular fa-image"></i>
-          </div>
-          <h3 class="carousel-title">Stage 3: Mockup Index</h3>
-          <p class="carousel-desc">Visual representation of the user dashboard landing page.</p>
-        </div>
-        
-        <!-- Slide 2 -->
-        <div class="carousel-slide">
-          <div class="carousel-placeholder-image">
-            <i class="fa-solid fa-network-wired"></i>
-          </div>
-          <h3 class="carousel-title">Stage 3: Navigation Flow</h3>
-          <p class="carousel-desc">Interactive mobile menu drawer design simulation.</p>
-        </div>
-      </div>
-      
-      <div class="carousel-controls" id="carouselDots">
-        <span class="carousel-dot active" onclick="setSlide(0)"></span>
-        <span class="carousel-dot" onclick="setSlide(1)"></span>
-      </div>
+      <div class="carousel-container" id="carousel"></div>
+      <div class="carousel-controls" id="carouselDots"></div>
     </section>
   </main>
 
@@ -914,10 +892,11 @@
       });
     });
 
-    // 🎠 Image Carousel Logic
+    // 🎠 Image Carousel Logic — loads from carousel_config.json
     let activeSlideIndex = 0;
-    const slides = document.querySelectorAll(".carousel-slide");
-    const dots = document.querySelectorAll(".carousel-dot");
+    let slides = [];
+    let dots = [];
+    let autoTimer = null;
 
     function setSlide(index) {
       activeSlideIndex = index;
@@ -929,11 +908,45 @@
       });
     }
 
-    // Auto play every 5 seconds
-    setInterval(() => {
-      let nextIndex = (activeSlideIndex + 1) % slides.length;
-      setSlide(nextIndex);
-    }, 5000);
+    function buildCarousel(images) {
+      const container = document.getElementById("carousel");
+      const dotContainer = document.getElementById("carouselDots");
+      container.innerHTML = "";
+      dotContainer.innerHTML = "";
+
+      images.forEach((img, i) => {
+        const slide = document.createElement("div");
+        slide.className = "carousel-slide" + (i === 0 ? " active" : "");
+        slide.innerHTML = `
+          <img src="${img.url}" alt="${img.caption}" style="max-width:90%;max-height:75%;border-radius:8px;object-fit:contain;background:#000" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="carousel-placeholder-image" style="display:none"><i class="fa-regular fa-image"></i></div>
+          <h3 class="carousel-title">${img.caption}</h3>
+        `;
+        container.appendChild(slide);
+
+        const dot = document.createElement("span");
+        dot.className = "carousel-dot" + (i === 0 ? " active" : "");
+        dot.onclick = () => setSlide(i);
+        dotContainer.appendChild(dot);
+      });
+
+      slides = document.querySelectorAll(".carousel-slide");
+      dots = document.querySelectorAll(".carousel-dot");
+    }
+
+    fetch("carousel_config.json?" + Date.now())
+      .then(r => r.json())
+      .then(cfg => {
+        buildCarousel(cfg.images);
+        // Auto play every 5 seconds
+        autoTimer = setInterval(() => {
+          let nextIndex = (activeSlideIndex + 1) % slides.length;
+          setSlide(nextIndex);
+        }, 5000);
+      })
+      .catch(() => {
+        document.getElementById("carousel").innerHTML = '<div class="carousel-slide active"><div class="carousel-placeholder-image"><i class="fa-regular fa-image"></i></div><h3 class="carousel-title">No simulation images loaded</h3><p class="carousel-desc">Check carousel_config.json</p></div>';
+      });
   </script>
 </body>
 </html>
