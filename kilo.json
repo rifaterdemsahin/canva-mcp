@@ -27,6 +27,11 @@
     "canva-custom-tools": {
       "type": "local",
       "command": ["node", "5_Symbols/mcp-server/dist/src/index.js"],
+      "environment": {
+        "CANVA_ACCESS_TOKEN": "${CANVA_ACCESS_TOKEN}",
+        "CANVA_CLIENT_ID": "${CANVA_CLIENT_ID}",
+        "CANVA_CLIENT_SECRET": "${CANVA_CLIENT_SECRET}"
+      },
       "enabled": true
     }
   }

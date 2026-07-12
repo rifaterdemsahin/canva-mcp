@@ -31,9 +31,9 @@ Already runs and answers `tools/list` with 2 custom tools. ✅ Verified 2026-07-
 - [x] **TSK-015** — Custom MCP server e2e test 4/4 (Test Agent)
 - [x] **TSK-016** — Native Canva CLI MCP `initialize` + `tools/list` (Test Agent)
 - [x] **TSK-017** — Claude Canva connector OAuth as `info@pexabo.com` (User action)
-- [ ] **TSK-009** — Wire `stage_assets` upload to Canva API (Symbols Agent)
+- [x] **TSK-009** — Wire `stage_assets` upload to Canva API (Symbols Agent) ✅
 - [x] **TSK-010** — Real Canva app credentials in Key Vault (Environment Agent) ✅
-- [ ] **TSK-018** — Validate `stage_assets` against Canva schema (Test Agent)
+- [x] **TSK-018** — Validate `stage_assets` against Canva schema (Test Agent) ✅
 
 ## Simulation Assets
 

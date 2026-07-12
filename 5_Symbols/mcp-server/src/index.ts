@@ -8,6 +8,7 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { generateDesignBrief } from "../tools/design-brief.js";
 import { stageAssets } from "../tools/asset-stager.js";
+import { uploadAssetsToCanva } from "../tools/canva-api.js";
 
 const server = new Server(
   {
@@ -82,6 +83,36 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
         required: ["assetGroup", "urls"],
       },
     },
+    {
+      name: "upload_assets",
+      description:
+        "Upload staged assets to Canva via the Brand Assets API. Takes a manifest (from stage_assets) and uploads each asset. Requires CANVA_ACCESS_TOKEN in the environment.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          manifest: {
+            type: "object",
+            description: "The asset manifest object (from stage_assets output)",
+            properties: {
+              group: { type: "string" },
+              assets: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    url: { type: "string" },
+                    filename: { type: "string" },
+                    mimeType: { type: "string" },
+                  },
+                },
+              },
+            },
+            required: ["group", "assets"],
+          },
+        },
+        required: ["manifest"],
+      },
+    },
   ],
 }));
 
@@ -152,6 +183,44 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         throw new McpError(
           ErrorCode.InternalError,
           `Failed to stage assets: ${(error as Error).message}`
+        );
+      }
+    }
+
+    case "upload_assets": {
+      const { manifest } = request.params.arguments as {
+        manifest: {
+          group: string;
+          assets: Array<{ url: string; filename: string; mimeType: string }>;
+        };
+      };
+      if (!manifest || !manifest.assets || !manifest.group) {
+        throw new McpError(
+          ErrorCode.InvalidParams,
+          "upload_assets requires 'manifest' with 'group' (string) and 'assets' (array)"
+        );
+      }
+      const accessToken = process.env.CANVA_ACCESS_TOKEN;
+      if (!accessToken) {
+        throw new McpError(
+          ErrorCode.InternalError,
+          "CANVA_ACCESS_TOKEN not set. Run the OAuth PKCE flow via auth.html and add the token to .env"
+        );
+      }
+      try {
+        const result = await uploadAssetsToCanva(manifest, accessToken);
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      } catch (error) {
+        throw new McpError(
+          ErrorCode.InternalError,
+          `Upload failed: ${(error as Error).message}`
         );
       }
     }

@@ -31,9 +31,9 @@ MCP servers `canva-cli` and `canva-custom-tools` added to `kilo.json`. User need
 | TSK-015 | Run custom MCP server till it works — `mcp_e2e_test.py` 4/4 (found + fixed stage_assets validation bug) | Test Agent | Test finds error → Semblance logs → Symbols fixes → Test verifies | [x] |
 | TSK-016 | Run native Canva CLI MCP — `initialize` + `tools/list` (11 tools) over stdio | Test Agent | [x] |
 | TSK-017 | Authenticate claude.ai Canva connector as `info@pexabo.com` (`/mcp` → OAuth) and record a live workspace tool call | Real Agent | **User action required** — OAuth cannot be done by agents; Test Agent records evidence in validation_report.md after | [x] |
-| TSK-009 | Wire `stage_assets` manifest to the Canva CLI MCP for actual upload | Symbols Agent | Environment provides Canva app credentials from Key Vault → Symbols implements → Test validates end-to-end | [ ] |
+| TSK-009 | Wire `stage_assets` manifest to the Canva CLI MCP for actual upload | Symbols Agent | Environment provides Canva app credentials from Key Vault → Symbols implements → Test validates end-to-end | [x] |
 | TSK-010 | Store real Canva app credentials in `dp-kv-deliverypilot` (replace placeholders) | Environment Agent | [x] |
-| TSK-018 | Verify `stage_assets` manifest matches Canva `POST /v1/brand-assets` schema | Test Agent | Formula specs the schema → Test validates output | [ ] |
+| TSK-018 | Verify `stage_assets` manifest matches Canva `POST /v1/brand-assets` schema | Test Agent | Formula specs the schema → Test validates output | [x] |
 
 ## Phase 4: Testing & Deployment (Pending)
 

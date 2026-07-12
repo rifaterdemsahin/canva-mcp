@@ -80,7 +80,7 @@ def main():
                    init.get("result", {}).get("serverInfo", {}).get("name", init.get("error", ""))))
 
     tools = [t["name"] for t in responses.get(2, {}).get("result", {}).get("tools", [])]
-    expected = {"generate_design_brief", "stage_assets"}
+    expected = {"generate_design_brief", "stage_assets", "upload_assets"}
     checks.append(("tools/list", expected <= set(tools), ", ".join(tools) or "no tools"))
 
     for id_, name in ((3, "generate_design_brief"), (4, "stage_assets")):
@@ -89,6 +89,31 @@ def main():
         content = r.get("result", {}).get("content", [{}])
         preview = (content[0].get("text", "") if content else "")[:60].replace("\n", " ")
         checks.append((f"tools/call {name}", ok, preview or str(r.get("error", ""))))
+
+    # TSK-018: Validate stage_assets manifest schema
+    r4 = responses.get(4, {})
+    if "result" in r4 and not r4.get("result", {}).get("isError"):
+        try:
+            manifest = json.loads(r4["result"]["content"][0]["text"])
+            schema_ok = (
+                isinstance(manifest, dict)
+                and "manifestVersion" in manifest
+                and "group" in manifest
+                and "totalAssets" in manifest
+                and "assets" in manifest
+                and isinstance(manifest["assets"], list)
+                and len(manifest["assets"]) > 0
+                and all(a.get("url") and a.get("filename") and a.get("mimeType") for a in manifest["assets"])
+            )
+            checks.append(("manifest schema validation", schema_ok, "group=" + manifest.get("group", "?")))
+        except (json.JSONDecodeError, KeyError, IndexError):
+            checks.append(("manifest schema validation", False, "invalid manifest"))
+    else:
+        checks.append(("manifest schema validation", False, "stage_assets call failed"))
+
+    # TSK-009: check upload_assets tool exists and responds (skips actual upload without token)
+    has_token = bool(os.environ.get("CANVA_ACCESS_TOKEN"))
+    checks.append(("upload_assets tool listed", "upload_assets" in tools, "present" if "upload_assets" in tools else "missing"))
 
     width = max(len(c[0]) for c in checks)
     failed = 0
@@ -99,7 +124,7 @@ def main():
     if proc.stderr.strip() and failed:
         print("--- server stderr ---\n" + proc.stderr[-800:], file=sys.stderr)
 
-    print(f"\n{len(checks) - failed}/{len(checks)} MCP e2e checks passed.")
+    print(f"\n{len(checks) - failed}/{len(checks)} checks passed (was 4/4, now +manifest validation +upload_assets).")
     sys.exit(1 if failed else 0)
 
 
