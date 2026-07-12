@@ -10,6 +10,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 RENDER = "5_Symbols/markdown_renderer.html?file="
 PROJECT_MENU = [
     ("Home", "index.html"),
+    ("Canva Auth", "auth.html"),
     ("Implementation", RENDER + "4_Formula/implementation.md"),
     ("Canva Connection", RENDER + "2_Environment/canva_connection.md"),
     ("MCP Server", RENDER + "5_Symbols/mcp_server.md"),
@@ -44,6 +45,7 @@ MENU = [
     ("   ├─ Axiom (Logs)", "2_Environment/axiom.md"),
     ("   ├─ GitHub Agent", "2_Environment/github_agent.md"),
     ("   ├─ MCP Servers", "2_Environment/mcp.md"),
+    ("   ├─ Canva Auth (OAuth)", "auth.html"),
     ("   ├─ Canva Connection", "2_Environment/canva_connection.md"),
     ("   ├─ Superskills", "2_Environment/superskills.md"),
     ("   ├─ LLM Tools", "2_Environment/llm_tools.md"),
