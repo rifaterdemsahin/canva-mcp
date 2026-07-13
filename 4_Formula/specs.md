@@ -233,6 +233,21 @@
 - **Related Files:** `1_Real_Unknown/okrs.md` (Objective 7), `5_Symbols/lower-third-text/src/intents/design_editor/app.tsx`, `2_Environment/canva_capability_research.md`
 - **Last Updated:** 2026-07-12
 
+### SPEC-019: Icon-Grid Term/Glossary Page Generation via Canva MCP
+
+- **Status:** ✅ Verified (2026-07-13) — delivered as standalone design `DAHPQbzFdP8` ("Crisp White-Themed AI Glossary Poster"), edit URL https://www.canva.com/d/4eIJpk0QmO0T12d; user-confirmed working; full spec + test evidence: [`7_Testing_Known/glossary_grid_flow.md`](../7_Testing_Known/glossary_grid_flow.md)
+- **Description:** Reusable recipe for turning a flat list of N terms into a single "icon above label" grid page, verified for correctness, then merged as a new page into an existing multi-page Canva design (e.g. a video or presentation). Built for the `q1-multi-agent-research-...` video design's Glossary/Key Terms section (design `DAHOxcN-Gx4`) but is generic to any term list.
+- **Key Behaviors:**
+  - **[GAP CONFIRMED]** `generate-design` with `design_type: infographic` is unreliable for a literal enumerated list — it defaults to a generic "stats + quote" narrative template (fake percentages, an attributed quote, "X types of Y" filler) regardless of how explicitly the prompt forbids that. Two attempts with infographic, including one with heavy negative constraints, either produced the wrong template or failed generation outright.
+  - **Working template choice:** `design_type: poster` reliably produces a literal icon+label grid when the prompt states the exact verbatim term list and column/row count. Note "poster" is ambiguous with event-poster templates — one of four candidates still came back as an unrelated event/registration poster, so multiple candidates must still be generated and screened.
+  - **[MANDATORY] Verify before presenting:** always call `get-design-content` (richtexts) on a candidate — after `create-design-from-candidate` — *before* showing it to the user as an option. Generated candidates commonly contain duplicate labels (same term twice, a real term dropped) or garbled text. Screening 2-3 candidates this way found: 1 wrong-template poster, 1 poster with 3 duplicate labels, 1 clean poster with exactly 1 duplicate label — the last was used.
+  - **Cheap fix over regeneration:** a duplicate/garbled label doesn't require regenerating — `start-editing-transaction` → `perform-editing-operations` (`replace_text` on the specific `element_id` identified from the transaction's `richtexts` array) → `commit-editing-transaction` fixes it directly and preserves the already-correct icon/layout for that cell.
+  - **Canvas matching:** `resize-design` (`type: custom`, explicit `width`/`height`) matches the new page to the target design's existing page dimensions (e.g. 1920×1080 for a video design) before merging — `generate-design`'s design types don't include a "video" preset that matches arbitrary target canvases.
+  - **Insertion:** `merge-designs` (`type: modify_existing_design`, `insert_pages`, `after_page_number: <last page>`) appends the fixed/resized page into the target design without touching existing pages. Requires explicit user confirmation before calling (simple confirmation suffices for insert-only operations; delete operations require the literal phrase "I approve the deletion").
+  - **Always surface links:** every generated candidate, draft transaction, and committed design has its own shareable URL — give the user the link at each step (see the "Always Share Links" rule in this repo's `CLAUDE.md`), including uncommitted draft/transaction links.
+- **Related Files:** `7_Testing_Known/glossary_grid_flow.md`, `1_Real_Unknown/prompts.md`
+- **Last Updated:** 2026-07-13
+
 ---
 
 ## Spec Template

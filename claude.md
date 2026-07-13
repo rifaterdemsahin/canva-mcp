@@ -85,6 +85,7 @@ canva-mcp/
 ## 🤖 Claude-Specific Instructions
 
 ### Behavior Guidelines
+- **Always Share Links** — Whenever you create, edit, generate, or preview a Canva design (or any other external artifact with a URL), always give the user the direct link to view/open it in the same message — never just describe the result without a link. Include links for draft/uncommitted states too, not only final committed ones.
 - Always follow the 7-stage structure when creating or organizing content
 - **Continuous Evolution** — Every LLM response is an opportunity to update and iterate on the project. Place each output in its related stage folder — nothing is throwaway. The framework evolves with the outputs, making the project smarter over time.
 - **Plug & Play Resilience** — The framework removes dependency on any specific LLM. Specs, cross-references, and the thinking log ensure switching models (Claude → DeepSeek → GPT) never causes breaking changes.
