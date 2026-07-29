@@ -58,6 +58,21 @@ az keyvault secret set --vault-name dp-kv-deliverypilot --name "DATABASE-URL" --
 
 ---
 
+## 📋 Tables
+
+### `canva_course_artifacts`
+
+Structured inventory of the Canva course folder ([`4_Formula/canva_course_artifacts.md`](canva_course_artifacts.md)), pushed to Supabase so it's queryable instead of only living as a markdown table.
+
+- **Project used:** the existing `claude-architect` Supabase project — no `canva-mcp`-specific Supabase project exists yet in the vault, so the user chose to reuse `claude-architect-SUPABASE-URL` / `claude-architect-SUPABASE-SERVICE-KEY` (already in `dp-kv-deliverypilot`) rather than provisioning a new one.
+- **Table creation:** via the Supabase Management API SQL endpoint (`POST /v1/projects/{ref}/database/query`), authenticated with the generic `supabase-access-token` secret (a Management API personal access token, works across projects on the account).
+- **Row population:** via PostgREST (`POST {SUPABASE_URL}/rest/v1/canva_course_artifacts`) with `Prefer: resolution=merge-duplicates` upsert on `canva_design_id`, authenticated with `claude-architect-SUPABASE-SERVICE-KEY`.
+- **Schema:** `id`, `canva_design_id` (unique), `title`, `item_type` (`design`|`folder`), `folder_path`, `folder_id`, `page_count`, `view_url`, `edit_url`, `created_at_canva`, `updated_at_canva`, `inserted_at`. RLS is enabled with a public-read policy.
+- **Row count:** 73 (67 designs + 6 folders).
+- **View/edit:** [Supabase Table Editor](https://supabase.com/dashboard/project/rmekfsdhglyiralxvkwc/editor) → `canva_course_artifacts`.
+
+---
+
 ## 🛡️ Best Practices & Row Level Security (RLS)
 
 1. **Row Level Security (RLS):** All created tables must have RLS enabled (`ALTER TABLE table_name ENABLE ROW LEVEL SECURITY;`).
