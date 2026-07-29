@@ -4,11 +4,11 @@
 > Latest run overwrites this file; one report per test run.
 
 ## Run Info
-- **Date:** 2026-07-12 19:03
-- **Trigger:** SPEC-017 closeout + course tools usage guide
+- **Date:** 2026-07-29 06:11
+- **Trigger:** Manual run
 - **Mode:** Local filesystem
 - **Tester:** smoke_test.py (automated)
-- **Verdict:** ✅ ALL PASS
+- **Verdict:** ❌ 1 FAILURE(S)
 
 ## Results Summary
 | Test | Result | Detail |
@@ -19,14 +19,17 @@
 | Project Menu | ✅ Pass | — |
 | Debug Menu | ✅ Pass | — |
 | Nav 3-Way Sync | ✅ Pass | — |
-| Stage Docs In Menu | ✅ Pass | — |
+| Stage Docs In Menu | ❌ Fail | orphaned: ['7_Testing_Known/glossary_grid_flow.md'] |
 | Social Links | ✅ Pass | — |
 | README Pages URL | ✅ Pass | — |
 | Secrets Scan | ✅ Pass | — |
 
 ## Failures
 
-None — all smoke tests passed. ✨
+### #1 — Stage Docs In Menu
+- **Error:** orphaned: ['7_Testing_Known/glossary_grid_flow.md']
+- **GitHub Issue:** _create per the Smoke Tests & GitHub Issues rule_
+- **Status:** Open
 
 ## Rules Applied
 - Every failure gets a GitHub Issue (`[SMOKE-FAIL] <test> — <description>`)
