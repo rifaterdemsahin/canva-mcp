@@ -15,6 +15,7 @@ Inventory of all designs and sub-folders inside the Canva **course folder**, pul
 | 1A-Cohort 5 - animated for feedback | design | 12 | [View](https://www.canva.com/d/BGv82Se6SfbTygI) | [Edit](https://www.canva.com/d/_QTB6ra6ktCPAEN) |
 | 1B-research - claude certification cohort whiteboard | design | 1 | [View](https://www.canva.com/d/AkflJp6EAqBdKH2) | [Edit](https://www.canva.com/d/21b8bmtjQLnRoWu) |
 | research - claude certification cohort slides | design | 1 | [View](https://www.canva.com/d/c1_4hqf7DNB9Xby) | [Edit](https://www.canva.com/d/FO15lbyioO1LX4D) |
+| course slides (DAHQCqMC7Ck) | design | 5 | [View](https://www.canva.com/design/DAHQCqMC7Ck/view) | [Edit](https://www.canva.com/design/DAHQCqMC7Ck/2MvbdPMlSTcF9wtS6Y75zQ/edit?ui=eyJBIjp7IlAiOnsiQSI6IkZBSE1aSzl1LUpFIiwiQiI6dHJ1ZSwiQyI6IkRBSFFDcU1DN0NrIn19LCJHIjp7IlQiOnsiQSI6IkZBSE1aSzl1LUpFIiwiQiI6IkRBSFFDcU1DN0NrIn19fQ) |
 | **Animations Questions** (folder) | folder | — | [Open folder](https://www.canva.com/folder/FAHOxcyU7cM) | — |
 | **Modules Videos** (folder) | folder | — | [Open folder](https://www.canva.com/folder/FAHOxUndDac) | — |
 
@@ -124,15 +125,27 @@ Inventory of all designs and sub-folders inside the Canva **course folder**, pul
 
 ---
 
+## 📁 Course Presentation (DAHQCqMC7Ck)
+
+| Slide Index | Slide Name (Documentation-only) | Description / Role |
+|---|---|---|
+| 1 | `00_Title_Slide` | Presentation title page |
+| 2 | `01_Intro_Course_Overview` | Course modules introduction |
+| 3 | `02_Claude_AI_Architecture` | Central system architecture diagram |
+| 4 | `03_Multi_Agent_Design` | Multi-agent research flow |
+| 5 | `04_Deployment_CI_CD` | GitHub Pages & GitHub Actions setup |
+
+---
+
 ## Summary
 
 | Location | Designs | Sub-folders |
 |---|---|---|
-| Root | 3 | 2 |
+| Root | 4 | 2 |
 | Modules Videos | 4 | 0 |
 | Animations Questions | 2 | 4 |
 | 1-15 Multi-Agent Research | 16 | 0 |
 | 16-30 Code Generation | 15 | 0 |
 | 31-45 Customer Support | 14 | 0 |
 | 46-58 CI | 13 | 0 |
-| **Total designs** | **67** | **6 folders** |
+| **Total designs** | **68** | **6 folders** |

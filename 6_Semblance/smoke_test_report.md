@@ -4,11 +4,11 @@
 > Latest run overwrites this file; one report per test run.
 
 ## Run Info
-- **Date:** 2026-07-29 06:11
+- **Date:** 2026-07-29 10:17
 - **Trigger:** Manual run
 - **Mode:** Local filesystem
 - **Tester:** smoke_test.py (automated)
-- **Verdict:** ❌ 1 FAILURE(S)
+- **Verdict:** ✅ ALL PASS
 
 ## Results Summary
 | Test | Result | Detail |
@@ -19,17 +19,14 @@
 | Project Menu | ✅ Pass | — |
 | Debug Menu | ✅ Pass | — |
 | Nav 3-Way Sync | ✅ Pass | — |
-| Stage Docs In Menu | ❌ Fail | orphaned: ['7_Testing_Known/glossary_grid_flow.md'] |
+| Stage Docs In Menu | ✅ Pass | — |
 | Social Links | ✅ Pass | — |
 | README Pages URL | ✅ Pass | — |
 | Secrets Scan | ✅ Pass | — |
 
 ## Failures
 
-### #1 — Stage Docs In Menu
-- **Error:** orphaned: ['7_Testing_Known/glossary_grid_flow.md']
-- **GitHub Issue:** _create per the Smoke Tests & GitHub Issues rule_
-- **Status:** Open
+None — all smoke tests passed. ✨
 
 ## Rules Applied
 - Every failure gets a GitHub Issue (`[SMOKE-FAIL] <test> — <description>`)
