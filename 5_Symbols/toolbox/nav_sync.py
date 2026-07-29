@@ -61,6 +61,7 @@ MENU = [
     ("   ├─ Architecture Components App Spec", "4_Formula/architecture_components_app_spec.md"),
     ("   ├─ Course Tools Usage Guide", "4_Formula/course_tools_usage_guide.md"),
     ("   ├─ Canva Course Artifacts", "4_Formula/canva_course_artifacts.md"),
+    ("   ├─ Canva Pages Table Recipe", "4_Formula/canva_pages_table_recipe.md"),
     ("   ├─ Implementation", "4_Formula/implementation.md"),
     ("   ├─ Specs", "4_Formula/specs.md"),
     ("   ├─ Canva Credentials Guide", "4_Formula/canva_credentials.md"),
