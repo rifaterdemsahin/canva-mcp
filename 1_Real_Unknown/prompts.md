@@ -159,3 +159,17 @@ i want to create a new presentation which cli is able to create one and add a lo
 | Purpose | Retry the lower-third + fade-in flow with a NEW presentation, this time via the claude.ai Canva MCP available in the CLI session (editing transactions replace the Apps SDK phase) |
 | OKR | Objective 5 (KR 5.1–5.3) added to okrs.md |
 | Tasks | TSK-021 … TSK-026 (Phase 5 in tasks.md) |
+
+---
+
+## Numbers 1–100 Canva document (2026-09-07)
+
+```
+create one canva document have rounded number numbers with contrasting colors 1-100 , every ten change the color add them to one document and open that document
+```
+
+| Field | Value |
+|-------|-------|
+| Agent | Grok 4.6 — Simulation + Environment (Canva import) |
+| Purpose | One Canva document with rounded badges 1–100, color change every ten, then open it |
+| Result | PPTX grid imported via Canva.app; Connect API token expired (~40d), OAuth consent left open |

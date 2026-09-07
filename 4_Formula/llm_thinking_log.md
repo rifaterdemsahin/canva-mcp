@@ -990,3 +990,22 @@ This log documents the thinking phase summaries and reasoning processes of the L
 ### 📤 Outcomes & Decisions
 - SPEC-017 status: code shipped, cross-referenced in `specs.md`, Phase 7 tasks recorded, KR 7.3 explicitly open pending the user's manual verification pass.
 - Writing a combined "how to use this" guide next, covering both SPEC-017 (shape components) and SPEC-018 (voiceover API), since both are freshly-delivered, hands-on tools the user needs operating instructions for.
+
+
+---
+
+## 📅 2026-09-07 — Numbers 1–100 rounded color grid in one Canva document
+
+### 📥 Input
+User asked for one Canva document containing rounded numbers 1–100, contrasting colors, color change every ten, then open it.
+
+### 💭 Reasoning
+1. Official Canva MCP tools are not connected in this Grok session. Connect REST `POST /v1/designs` only creates a blank design; content has to arrive via import or Apps SDK.
+2. Built a 10×10 oval grid (PPTX) with a decade palette (high-contrast fill vs numeral).
+3. `.env` access token and Canva CLI refresh token are both expired (~40 days). PKCE with extra scopes (`design:meta:read`, `profile:read`) returned `invalid_scope`. A later authorize URL with `design:content:write` reached the **Connect to Canva** consent page but was not approved in-session (no assistive access to click Allow).
+4. Fallback: Canva.app registers `.pptx` and is installed. Opened `numbers-1-100.pptx` with Canva desktop so it imports as one design in the signed-in account.
+
+### 📤 Outcome
+- Local source: `3_Simulation/numbers_1_100.pptx` + preview `3_Simulation/numbers_1_100_preview.png`
+- Opened in **Canva.app**
+- Web design URL not produced (API token gate)
