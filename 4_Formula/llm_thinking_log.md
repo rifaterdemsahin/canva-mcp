@@ -1009,3 +1009,17 @@ User asked for one Canva document containing rounded numbers 1–100, contrastin
 - Local source: `3_Simulation/numbers_1_100.pptx` + preview `3_Simulation/numbers_1_100_preview.png`
 - Opened in **Canva.app**
 - Web design URL not produced (API token gate)
+
+
+---
+
+## 📅 2026-09-07 — Grouped 1–100 number badges
+
+### Input
+Redo the rounded 1–100 Canva document so each number is grouped with its filled circle.
+
+### Reasoning
+Previous import used a separate oval + text box per cell, so Canva treated them as two objects. Wrapped each pair in a PPTX `p:grpSp` named `Number N` (100 groups) then re-imported via Connect Design Import.
+
+### Outcome
+Design `DAHUgXv2dNs` titled "Numbers 1-100 grouped". Source: `3_Simulation/numbers_1_100_grouped.pptx`.
