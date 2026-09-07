@@ -96,6 +96,7 @@ MENU = [
     ("   ├─ Coordinator/Sub-Agents Comic Flow", "7_Testing_Known/coordinator_subagents_comic_flow.md"),
     ("   ├─ Design DAHPLiS4suo Steps", "7_Testing_Known/canva_design_DAHPLiS4suo_steps.md"),
     ("   ├─ Glossary Grid Flow", "7_Testing_Known/glossary_grid_flow.md"),
+    ("   ├─ Numbers 1-100 Grouped Flow", "7_Testing_Known/numbers_1_100_grouped_flow.md"),
     ("---", "divider"),
     ("agents.md", "agents.md"),
     ("claude.md", "claude.md"),

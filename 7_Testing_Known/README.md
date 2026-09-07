@@ -28,6 +28,7 @@ This folder is the **validation layer** of the project. Every hypothesis, OKR, a
 | `acceptance_criteria.md` | Final go/no-go criteria |
 | `smoke_tests.md` | Smoke test strategy — open pages, check errors, report to GitHub Issues, resolve, publish report to `6_Semblance/` |
 | `logic.md` | Premise→conclusion tracker — maps objectives to delivered tasks, reviews LLM decisions iteratively |
+| `numbers_1_100_grouped_flow.md` | App steps that created Canva design `DAHUghgZSHM` (atomic 1–100 badges) |
 
 ## Validation Mapping Format
 

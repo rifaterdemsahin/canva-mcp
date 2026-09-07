@@ -1053,3 +1053,16 @@ User: design `DAHUgXv2dNs` did not work — numbers and circles must be grouped 
 
 ### Outcome
 SPEC-020 + `import_numbers_1_100_grouped.py`. Imported design `DAHUghgZSHM` — https://www.canva.com/design/DAHUghgZSHM/edit. Opened in Google Chrome.
+
+---
+
+## 📅 2026-09-07 — Document app steps for DAHUghgZSHM
+
+### Input
+User: how did you do this — document/app the steps, commit, push, open https://www.canva.com/design/DAHUghgZSHM/_r7IGNCeEKxCS3hfmTpVEA/edit
+
+### Reasoning
+The design already exists. The gap is a Stage-7 flow that a human can re-run: gitignored `.env` → token refresh → 100 PNG badges → picture-only PPTX → Connect import → Chrome.
+
+### Outcome
+`7_Testing_Known/numbers_1_100_grouped_flow.md` + nav sync.

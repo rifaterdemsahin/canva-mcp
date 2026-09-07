@@ -219,3 +219,18 @@ push what you have done and always record the prompts and commands given to you 
 | Commands | `python3 5_Symbols/toolbox/import_numbers_1_100_grouped.py` (loads `5_Symbols/mcp-server/.env`, refreshes OAuth, `POST /v1/imports`); `open -a "Google Chrome" <edit url>`; `git commit` + `git push` |
 | Access recorded | Gitignored `5_Symbols/mcp-server/.env` keys: `CANVA_CLIENT_ID`, `CANVA_CLIENT_SECRET`, `CANVA_ACCESS_TOKEN`, `CANVA_REFRESH_TOKEN` (values never logged) |
 | Result | SPEC-020. Design `DAHUghgZSHM` — https://www.canva.com/design/DAHUghgZSHM/edit (atomic PNG badges so circle+numeral move as one) |
+
+---
+
+## Document the DAHUghgZSHM steps, commit, push, open (2026-09-07)
+
+```
+how did u do this document app the steps https://www.canva.com/design/DAHUghgZSHM/_r7IGNCeEKxCS3hfmTpVEA/edit> commit push and open that page
+```
+
+| Field | Value |
+|-------|-------|
+| Agent | Grok 4.6 — Formula + Test Agent |
+| Purpose | Write the exact app steps that created `DAHUghgZSHM`, commit, push, open the Canva page |
+| Commands | wrote `7_Testing_Known/numbers_1_100_grouped_flow.md`; `python3 5_Symbols/toolbox/nav_sync.py`; `open -a "Google Chrome" "https://www.canva.com/design/DAHUghgZSHM/_r7IGNCeEKxCS3hfmTpVEA/edit"`; `git commit` + `git push` |
+| Result | Flow doc + this prompt row; design opened in Chrome |
