@@ -59,6 +59,7 @@ MENU = [
     ("   ├─ Architecture Course MCP Spec", "4_Formula/architecture_course_mcp_spec.md"),
     ("   ├─ Voiceover Presentation API Spec", "4_Formula/voiceover_presentation_api_spec.md"),
     ("   ├─ Architecture Components App Spec", "4_Formula/architecture_components_app_spec.md"),
+    ("   ├─ Numbers 1-100 Grouped Spec", "4_Formula/numbers_1_100_grouped_spec.md"),
     ("   ├─ Course Tools Usage Guide", "4_Formula/course_tools_usage_guide.md"),
     ("   ├─ Canva Course Artifacts", "4_Formula/canva_course_artifacts.md"),
     ("   ├─ Canva Pages Table Recipe", "4_Formula/canva_pages_table_recipe.md"),

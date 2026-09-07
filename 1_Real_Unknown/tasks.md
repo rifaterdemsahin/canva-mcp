@@ -88,6 +88,17 @@ MCP servers `canva-cli` and `canva-custom-tools` added to `kilo.json`. User need
 | TSK-038 | Build `complete-job` CLI helper for writing back agent-run MCP results | Symbols Agent | Pure deterministic code — no MCP call, writes the job store directly | [x] |
 | TSK-039 | Live end-to-end test: real `POST`, agent-run MCP chain, `complete-job`, verify via `get-design` | Test Agent | Job `46593a64-89e1-456f-9052-664e7fc391c7` → design `DAHPMbFhUJE` (11 pages) → `get-design` confirmed live | [x] |
 
+## Phase 9: Numbers 1–100 grouped badges (SPEC-020)
+
+> Retry of design `DAHUgXv2dNs`. PPTX `p:grpSp` flattened. Atomic PNG badges imported via Connect `POST /v1/imports` using gitignored `5_Symbols/mcp-server/.env`.
+
+| ID | Task | Agent | Coordination | Done |
+|----|------|-------|-------------|------|
+| TSK-045 | Record user prompt + gitignored `.env` key names (no values) | Real Agent | `1_Real_Unknown/prompts.md` | [x] |
+| TSK-046 | Write SPEC-020 (flattening failure, atomic-badge retry, Apps SDK native-group boundary) | Formula Agent | `4_Formula/numbers_1_100_grouped_spec.md` + `specs.md` | [x] |
+| TSK-047 | Refresh Connect token from gitignored `.env`, import atomic PPTX, open in Chrome | Environment + Symbols | Design `DAHUghgZSHM` | [x] |
+| TSK-048 | Commit and push (never `.env`) | Symbols Agent | `/stage-commit` | [x] |
+
 ## Phase 4: Testing & Deployment (Pending)
 
 | ID | Task | Agent | Coordination | Done |

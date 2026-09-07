@@ -157,7 +157,7 @@ def run_checks(root, base_url=None):
     # 9. No committed secret-shaped strings in text files
     leaks = []
     for dirpath, dirnames, filenames in os.walk("."):
-        dirnames[:] = [x for x in dirnames if x not in (".git", "node_modules", "dist", "_obsolete") and not x.startswith(".kilo")]
+        dirnames[:] = [x for x in dirnames if x not in (".git", "node_modules", "dist", "_obsolete", ".venv") and not x.startswith(".kilo")]
         for f in filenames:
             if f.endswith((".md", ".html", ".json", ".yml", ".yaml", ".toml", ".js", ".py", ".example")):
                 p = os.path.join(dirpath, f)

@@ -203,3 +203,19 @@ group every number with its circle using a command similar to command G > they n
 | Agent | Symbols Agent (Canva Apps SDK) + Environment Agent |
 | Purpose | Native Canva groups (⌘G equivalent) so each number+circle moves as one |
 | Result | App button on design `DAHUgSXeqyY`; pair-existing on `DAHUgXv2dNs` |
+
+---
+
+## Numbers 1–100 must be grouped in Canva — retry (2026-09-07)
+
+```
+push what you have done and always record the prompts and commands given to you > Numbers 1-100 grouped > https://www.canva.com/design/DAHUgXv2dNs/V-tQZGRUYPbX7OhXGjzE_w/edit > this did not work > numbers and the circles need to be grouped so they can move together. Record the necesary access gitignored .env file and use it. and redo it. [Image: 1–100 grid, circle 1 selected independently] > numbers have to be grouped in canva. Commit and push and create specs for this task and retry again
+```
+
+| Field | Value |
+|-------|-------|
+| Agent | Grok 4.6 — Formula (SPEC-020) + Environment (gitignored `.env` refresh) + Symbols (atomic PPTX import) |
+| Purpose | Redo grouping so each number + filled circle move together; spec + commit + push |
+| Commands | `python3 5_Symbols/toolbox/import_numbers_1_100_grouped.py` (loads `5_Symbols/mcp-server/.env`, refreshes OAuth, `POST /v1/imports`); `open -a "Google Chrome" <edit url>`; `git commit` + `git push` |
+| Access recorded | Gitignored `5_Symbols/mcp-server/.env` keys: `CANVA_CLIENT_ID`, `CANVA_CLIENT_SECRET`, `CANVA_ACCESS_TOKEN`, `CANVA_REFRESH_TOKEN` (values never logged) |
+| Result | SPEC-020. Design `DAHUghgZSHM` — https://www.canva.com/design/DAHUghgZSHM/edit (atomic PNG badges so circle+numeral move as one) |

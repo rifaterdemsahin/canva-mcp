@@ -1037,3 +1037,19 @@ Connect REST and Canva MCP cannot group/ungroup (official CANNOT list). PPTX `p:
 
 ### Outcome
 Added two buttons to `5_Symbols/lower-third-text` design_editor app. Blank square design `DAHUgSXeqyY` opened with the app panel for native group insert.
+
+---
+
+## 📅 2026-09-07 — SPEC-020 retry: atomic badges (user: grouping did not work)
+
+### Input
+User: design `DAHUgXv2dNs` did not work — numbers and circles must be grouped so they move together. Record gitignored `.env` access, create specs, retry, commit and push. Screenshot shows circle 1 selected independently.
+
+### Reasoning
+1. Confirmed PPTX `p:grpSp` is flattened by Canva import — native ⌘G is Apps SDK-only.
+2. Connect REST cannot group existing elements.
+3. Retry: bake circle+numeral into **one PNG per number**, import 100 pictures so each badge is a single Canva object.
+4. Credentials: gitignored `5_Symbols/mcp-server/.env` (`CANVA_CLIENT_ID` / `SECRET` / `ACCESS_TOKEN` / `REFRESH_TOKEN`). Refresh persists rotated tokens; values never logged.
+
+### Outcome
+SPEC-020 + `import_numbers_1_100_grouped.py`. Imported design `DAHUghgZSHM` — https://www.canva.com/design/DAHUghgZSHM/edit. Opened in Google Chrome.

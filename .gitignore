@@ -3,6 +3,13 @@
 .env.local
 .env.*.local
 
+# Local Python venv for toolbox scripts
+.venv/
+5_Symbols/toolbox/.venv/
+
+# Generated SPEC-020 badge rasters (PPTX + preview are committed)
+3_Simulation/_badge_pngs/
+
 # Dependency directories
 node_modules/
 jspm_packages/

@@ -248,6 +248,18 @@
 - **Related Files:** `7_Testing_Known/glossary_grid_flow.md`, `1_Real_Unknown/prompts.md`
 - **Last Updated:** 2026-07-13
 
+### SPEC-020: Numbers 1–100 grouped in Canva (atomic badges)
+
+- **Status:** Active — retry of `DAHUgXv2dNs` after PPTX `p:grpSp` groups were flattened on import
+- **Description:** One Canva design with rounded numbers 1–100 (color change every ten) where each circle and numeral **move together**. Connect REST cannot ⌘G. PPTX shape groups flatten. Retry renders each badge as **one PNG** and imports 100 pictures so Canva has a single object per number. Native editable groups remain the Apps SDK buttons (`addElementAtPoint({ type: "group" })`).
+- **Key Behaviors:**
+  - Credentials only from gitignored `5_Symbols/mcp-server/.env` (`CANVA_CLIENT_ID`, `CANVA_CLIENT_SECRET`, `CANVA_ACCESS_TOKEN`, `CANVA_REFRESH_TOKEN`). Token refresh persists rotated tokens back to that file. Never commit `.env`.
+  - Runner: `python3 5_Symbols/toolbox/import_numbers_1_100_grouped.py`
+  - Output: `3_Simulation/numbers_1_100_atomic.pptx` + preview PNG; imported design URL printed and saved to `3_Simulation/numbers_1_100_atomic_import.json`
+  - Selecting a badge in Canva must drag circle + numeral as one
+- **Related Files:** `4_Formula/numbers_1_100_grouped_spec.md`, `5_Symbols/toolbox/import_numbers_1_100_grouped.py`, `5_Symbols/lower-third-text/src/intents/design_editor/app.tsx`
+- **Last Updated:** 2026-09-07
+
 ---
 
 ## Spec Template
