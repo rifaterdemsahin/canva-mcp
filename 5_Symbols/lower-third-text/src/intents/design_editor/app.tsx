@@ -3,6 +3,8 @@ import { Button, Rows, Text } from "@canva/app-ui-kit";
 import {
   addElementAtPoint,
   getCurrentPageContext,
+  openDesign,
+  type DesignEditing,
   type ShapeElementAtPoint,
 } from "@canva/design";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -11,6 +13,23 @@ import * as styles from "styles/components.css";
 
 const DARK_BG = "#0B0F19";
 const SHAPE_VIEW_BOX = { top: 0, left: 0, width: 200, height: 200 };
+
+/** Circle path in a 100×100 viewBox (arc commands only — no Q). */
+const CIRCLE_PATH =
+  "M 50 0 A 50 50 0 1 1 50 100 A 50 50 0 1 1 50 0 Z";
+
+const BADGE_PALETTE: Array<{ bg: string; fg: string }> = [
+  { bg: "#1D4ED8", fg: "#FFFFFF" },
+  { bg: "#DC2626", fg: "#FFFFFF" },
+  { bg: "#059669", fg: "#FFFFFF" },
+  { bg: "#F59E0B", fg: "#111827" },
+  { bg: "#7C3AED", fg: "#FFFFFF" },
+  { bg: "#0E7490", fg: "#FFFFFF" },
+  { bg: "#DB2777", fg: "#FFFFFF" },
+  { bg: "#4D7C0F", fg: "#FFFFFF" },
+  { bg: "#0F172A", fg: "#FBBF24" },
+  { bg: "#EA580C", fg: "#FFFFFF" },
+];
 
 type ShapeComponent = {
   paths: ShapeElementAtPoint["paths"];
@@ -126,9 +145,174 @@ export const App = () => {
     [isSupported],
   );
 
+  const insertGroupedNumberBadges = useCallback(async () => {
+    if (!isSupported(addElementAtPoint)) {
+      setStatus("Feature not supported on this page");
+      return;
+    }
+
+    try {
+      const context = await getCurrentPageContext();
+      const pageWidth = context.dimensions?.width ?? 1080;
+      const pageHeight = context.dimensions?.height ?? 1080;
+      const cols = 10;
+      const rows = 10;
+      const margin = 36;
+      const titleH = 56;
+      const gap = 10;
+      const size = Math.min(
+        (pageWidth - margin * 2 - gap * (cols - 1)) / cols,
+        (pageHeight - margin - titleH - gap * (rows - 1)) / rows,
+      );
+
+      await addElementAtPoint({
+        type: "text",
+        top: 12,
+        left: margin,
+        width: pageWidth - margin * 2,
+        children: ["1–100  ·  each number grouped with its circle (⌘G)"],
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#334155",
+        textAlign: "center",
+      });
+
+      for (let n = 1; n <= 100; n++) {
+        const idx = n - 1;
+        const col = idx % cols;
+        const row = Math.floor(idx / cols);
+        const left = margin + col * (size + gap);
+        const top = titleH + row * (size + gap);
+        const { bg, fg } =
+          BADGE_PALETTE[Math.floor(idx / 10)] ??
+          ({ bg: "#1D4ED8", fg: "#FFFFFF" } as const);
+        await addElementAtPoint({
+          type: "group",
+          top,
+          left,
+          children: [
+            {
+              type: "shape",
+              paths: [{ d: CIRCLE_PATH, fill: { color: bg } }],
+              viewBox: { top: 0, left: 0, width: 100, height: 100 },
+              width: size,
+              height: size,
+              top: 0,
+              left: 0,
+            },
+            {
+              type: "text",
+              children: [String(n)],
+              color: fg,
+              fontSize: n >= 100 ? 18 : 22,
+              fontWeight: "bold",
+              textAlign: "center",
+              width: size,
+              top: size * 0.32,
+              left: 0,
+            },
+          ],
+        });
+        if (n % 10 === 0) {
+          setStatus(`Inserted grouped badges ${n}/100…`);
+        }
+      }
+      setStatus("Done — 100 number+circle groups. Drag any badge; they move together.");
+    } catch (error) {
+      setStatus(`Error: ${(error as Error).message}`);
+    }
+  }, [isSupported]);
+
+  const groupExistingNumberCircles = useCallback(async () => {
+    try {
+      let grouped = 0;
+      await openDesign({ type: "current_page" }, async (session) => {
+        if (session.page.type !== "absolute" || session.page.locked) {
+          setStatus("This page type does not support grouping");
+          return;
+        }
+        const elements = session.page.elements.toArray();
+        const shapes = elements.filter(
+          (
+            el,
+          ): el is DesignEditing.ShapeElement | DesignEditing.RectElement =>
+            (el.type === "shape" || el.type === "rect") && !el.locked,
+        );
+        const texts = elements.filter(
+          (el): el is DesignEditing.TextElement =>
+            el.type === "text" && !el.locked,
+        );
+        const used = new Set<unknown>();
+        for (const shape of shapes) {
+          const cx = shape.left + shape.width / 2;
+          const cy = shape.top + shape.height / 2;
+          const text = texts.find((t) => {
+            if (used.has(t)) return false;
+            const tw = "width" in t && typeof t.width === "number" ? t.width : 40;
+            const th = "height" in t && typeof t.height === "number" ? t.height : 24;
+            const tx = t.left + tw / 2;
+            const ty = t.top + th / 2;
+            return (
+              Math.abs(tx - cx) < shape.width / 2 &&
+              Math.abs(ty - cy) < shape.height / 2
+            );
+          });
+          if (!text) continue;
+          used.add(text);
+          try {
+            await session.helpers.group({
+              elements: [shape, text],
+            });
+            grouped += 1;
+          } catch {
+            // pair already grouped or unsupported — continue
+          }
+        }
+        await session.sync();
+      });
+      setStatus(
+        grouped > 0
+          ? `Grouped ${grouped} number+circle pairs (⌘G). They now move together.`
+          : "No overlapping circle+number pairs found to group.",
+      );
+    } catch (error) {
+      setStatus(`Error: ${(error as Error).message}`);
+    }
+  }, []);
+
   return (
     <div className={styles.scrollContainer}>
       <Rows spacing="2u">
+        <Text>
+          <FormattedMessage
+            defaultMessage="Create native Canva groups (same as selecting the circle + number and pressing <strong>⌘G</strong>) so each badge moves as one unit."
+            description="Instructions for grouping number badges."
+            values={{
+              strong: (chunks) => <strong>{chunks}</strong>,
+            }}
+          />
+        </Text>
+        <Button
+          variant="primary"
+          onClick={insertGroupedNumberBadges}
+          disabled={!isSupported(addElementAtPoint)}
+          stretch
+        >
+          {intl.formatMessage({
+            defaultMessage: "Insert 1–100 grouped badges (⌘G)",
+            description: "Button to insert 100 grouped number circles",
+          })}
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={groupExistingNumberCircles}
+          stretch
+        >
+          {intl.formatMessage({
+            defaultMessage: "⌘G pair circles + numbers already on page",
+            description: "Button to group existing circle and number pairs",
+          })}
+        </Button>
         <Text>
           <FormattedMessage
             defaultMessage="

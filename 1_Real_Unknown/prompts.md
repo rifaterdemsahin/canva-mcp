@@ -188,3 +188,18 @@ it is great you have done it > now do it again but this time number and the fill
 | Agent | Grok 4.6 — Simulation + Environment (Canva import) |
 | Purpose | Recreate 1–100 rounded badges with each numeral grouped to its filled circle |
 | Result | Design `DAHUgXv2dNs` — https://www.canva.com/design/DAHUgXv2dNs/edit |
+
+
+---
+
+## Cmd+G group number with circle (2026-09-07)
+
+```
+group every number with its circle using a command similar to command G > they need to move together
+```
+
+| Field | Value |
+|-------|-------|
+| Agent | Symbols Agent (Canva Apps SDK) + Environment Agent |
+| Purpose | Native Canva groups (⌘G equivalent) so each number+circle moves as one |
+| Result | App button on design `DAHUgSXeqyY`; pair-existing on `DAHUgXv2dNs` |

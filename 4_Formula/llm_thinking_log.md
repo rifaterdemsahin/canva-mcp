@@ -1023,3 +1023,17 @@ Previous import used a separate oval + text box per cell, so Canva treated them 
 
 ### Outcome
 Design `DAHUgXv2dNs` titled "Numbers 1-100 grouped". Source: `3_Simulation/numbers_1_100_grouped.pptx`.
+
+
+---
+
+## 📅 2026-09-07 — Native ⌘G grouping for 1–100 badges
+
+### Input
+User: group every number with its circle like Command-G so they move together.
+
+### Reasoning
+Connect REST and Canva MCP cannot group/ungroup (official CANNOT list). PPTX `p:grpSp` import was flattened by Canva. The Apps SDK `addElementAtPoint({ type: "group" })` and `openDesign` → `helpers.group({ elements })` are the editor-equivalent of ⌘G.
+
+### Outcome
+Added two buttons to `5_Symbols/lower-third-text` design_editor app. Blank square design `DAHUgSXeqyY` opened with the app panel for native group insert.
